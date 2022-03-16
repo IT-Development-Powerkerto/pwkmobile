@@ -44,7 +44,7 @@ const onLogin = async () => {
             storeData('user', data)
             // setEmail("");
             // setPassword("");
-            navigation.replace('Home');
+            navigation.replace('MyTabs');
         } catch (error) {
             // setLoading(false);
             // showMessage({
@@ -105,7 +105,6 @@ const onLogin = async () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        
     },
     Cover: {
         flex: 1,
