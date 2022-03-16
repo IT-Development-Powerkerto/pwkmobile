@@ -23,6 +23,13 @@ import StakingList from "./Icon/StakingList.svg";
 import CheckBox from "./Icon/CheckBox.svg";
 import Union from "./Icon/Union.svg";
 import Person from "./Icon/Person.svg";
+import Home from "./Icon/Home.svg";
+import HomeColor from "./Icon/HomeColor.svg";
+import Lead from "./Icon/Lead.svg";
+import LeadColor from "./Icon/LeadColor.svg";
+import ProfileUser from "./Icon/ProfileUser.svg";
+import ProfileUserColor from "./Icon/ProfileUserColor.svg";
+
 
 export {
     Cover,
@@ -49,4 +56,11 @@ export {
     CheckBox,
     Union,
     Person,
+    Home,
+    HomeColor,
+    Lead,
+    LeadColor,
+    ProfileUser,
+    ProfileUserColor,
+
 }
