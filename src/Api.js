@@ -23,7 +23,6 @@ class Api {
         }) 
     }
     static getLeads(token){
-        console.log(token)
         let path = 'leads';
         return request(`${this.urlAPI()}${path}`,{
             method: 'GET',

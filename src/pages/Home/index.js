@@ -12,19 +12,23 @@ const [role, setRole] = useState('')
 const [image, setImage] = useState('')
 const [totalLead, setTotalLead] = useState('')
 const [totalClosing, setTotalClosing] = useState('')
+const [dailyLead, setDailyLead] = useState('')
+const [dailyClosing, setDailyClosing] = useState('')
 
 useEffect(() => {
     getData('user'). then(res=>{
-        console.log('res', res)
         const userID = async () => {
             const response = await Api.getUserPWK(res.id)
             const responseLead = await Api.getLeads(res.token)
-            setTotalLead(responseLead.data.total_lead)
-            setTotalClosing(responseLead.data.total_closing)
-            console.log('Response Lead', response)
             setName(response.data[0].name)
             setRole(response.data[0].role.name)
             setImage(response.data[0].image)
+
+            setTotalLead(responseLead.data.total_lead)
+            setTotalClosing(responseLead.data.total_closing)
+            setDailyLead(responseLead.data.daily_lead)
+            setDailyClosing(responseLead.data.daily_closing)
+            
             // console.log(responseLead.data)
         }
         userID()
@@ -56,18 +60,18 @@ return (
         </View>
         <View style={styles.mainCard}>
             <View style={styles.ThirdCard}>
-                <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>10</Text>
+                <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>{dailyLead}</Text>
                 <Text style={{ fontSize: 22, fontFamily: 'Poppins-Medium', color: '#fff', bottom: 7 }}>Daily Lead</Text>
             </View>   
             <View style={styles.FourtCard}>
-                <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>4</Text>
-                <Text style={{ fontSize: 22, fontFamily: 'Poppins-Medium', color: '#fff', bottom: 7 }}>Total Lead</Text>
+                <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>{dailyClosing}</Text>
+                <Text style={{ fontSize: 22, fontFamily: 'Poppins-Medium', color: '#fff', bottom: 7 }}>Daily Closing</Text>
             </View> 
         </View>
         <View style={{ paddingHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, alignItems: 'center' }}>
             <View>
                 <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: '#1F2432' }}>Daily Lead</Text>
-                <Text style={{ fontSize: 12, fontFamily: 'Poppins-SemiBold', color: '#A3A3A3' }}>10 Leads</Text>
+                <Text style={{ fontSize: 12, fontFamily: 'Poppins-SemiBold', color: '#A3A3A3' }}>{`${dailyLead} Leads`}</Text>
             </View>
             <TouchableOpacity>
                 <Text style={{ color: '#166ED8', fontFamily: 'Poppins-SemiBold', }}>+ Manual Lead</Text>
