@@ -10,20 +10,26 @@ const Home = ({navigation}) => {
 const [name, setName] = useState('')
 const [role, setRole] = useState('')
 const [image, setImage] = useState('')
+const [totalLead, setTotalLead] = useState('')
 
- useEffect(() => {
-     getData('user'). then(res=>{
-         const userID = async () => {
-             const response = await Api.getUserPWK(res.id)
-             setName(response.data[0].name)
-             setRole(response.data[0].role.name)
-             setImage(response.data[0].image)
-         }
-         userID()
-         
-     })
- }, [])
- return (
+useEffect(() => {
+    getData('user'). then(res=>{
+        console.log('res', res)
+        const userID = async () => {
+            const response = await Api.getUserPWK(res.id)
+            const responseLead = await Api.getLeads(res.token)
+            setTotalLead(responseLead.data.total_lead)
+            console.log('Response Lead', response)
+            setName(response.data[0].name)
+            setRole(response.data[0].role.name)
+            setImage(response.data[0].image)
+            // console.log(responseLead.data)
+        }
+        userID()
+        
+    });
+}, [])
+return (
     <View style={styles.container}>
         <StatusBar barStyle = "default" hidden = {false} backgroundColor = "#009EF7" translucent = {true}/>
         <View style={styles.Header}>
@@ -38,7 +44,7 @@ const [image, setImage] = useState('')
         <Gap height={10} />
         <View style={styles.mainCard}>
             <View style={styles.FirstCard}>
-                <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>521</Text>
+                <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>{totalLead}</Text>
                 <Text style={{ fontSize: 22, fontFamily: 'Poppins-Medium', color: '#fff', bottom: 7 }}>Total Lead</Text>
             </View>   
             <View style={styles.SecondCard}>
@@ -112,11 +118,11 @@ const styles = StyleSheet.create({
         height: 100, 
         paddingHorizontal: 20, 
         flexWrap: 'wrap', 
-        alignContent: 'space-between', 
-        marginTop: 10 
+        alignContent: 'space-around', 
+        marginTop: 10, 
     },
     FirstCard: {
-        width: 170, 
+        width: '50%', 
         height: '100%',
         borderRadius: 8, 
         flexDirection: 'column',
@@ -132,9 +138,10 @@ const styles = StyleSheet.create({
         elevation: 5,
         justifyContent: 'center',
         paddingLeft: 10,
+        marginRight: 5
     },
     SecondCard: {
-        width: 170, 
+        width: '50%', 
         height: '100%',
         borderRadius: 8, 
         flexDirection: 'column',
@@ -150,9 +157,10 @@ const styles = StyleSheet.create({
         elevation: 5,
         justifyContent: 'center',
         paddingLeft: 10,
+        marginLeft: 5
     },
     ThirdCard: {
-        width: 170, 
+        width: '50%', 
         height: '100%',
         borderRadius: 8, 
         flexDirection: 'column',
@@ -168,9 +176,10 @@ const styles = StyleSheet.create({
         elevation: 5,
         justifyContent: 'center',
         paddingLeft: 10,
+        marginRight: 5
     },
     FourtCard: {
-        width: 170, 
+        width: '50%', 
         height: '100%',
         borderRadius: 8, 
         flexDirection: 'column',
@@ -186,6 +195,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         justifyContent: 'center',
         paddingLeft: 10,
+        marginLeft: 5
     },
     CardLead: {
         height: 100, 
