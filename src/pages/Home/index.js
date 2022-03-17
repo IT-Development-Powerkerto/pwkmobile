@@ -3,7 +3,7 @@ import {View, Image, StyleSheet, Text, TouchableOpacity, ScrollView} from "react
 import { StatusBar } from 'react-native';
 import Api from "../../Api";
 import { Profile } from "../../assets";
-import { Gap, InfoCard } from "../../components";
+import { Gap, InfoCard, ListLead } from "../../components";
 import { colors, getData } from "../../utils";
 
 const Home = ({navigation}) => {
@@ -16,11 +16,11 @@ const [dailyLead, setDailyLead] = useState('')
 const [dailyClosing, setDailyClosing] = useState('')
 const [lead, setLead] = useState([
     {
-        customer_name: '',
-        customer_whatsapp: '',
-        status: '',
-        created_at: '',
-        updated_at: ''
+        customer_name: 'Customer',
+        customer_whatsapp: '62891245678',
+        status: 'Closing',
+        created_at: '2022-01-01 10:10:10',
+        updated_at: '2022-01-02 11:11:11'
     }
 ])
 
@@ -95,10 +95,11 @@ return (
             {lead.map(data=>{
                 return (
                 <View style={styles.CardLead}>
-                    <View style={styles.FirstCardLead}>
+                    <ListLead customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} status={data.status} created_at={data.created_at} />
+                    {/* <View style={styles.FirstCardLead}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 15}}>
                             <Text style={{ fontSize: 11, fontFamily: 'Poppins-SemiBold', color: '#A3A3A3' }}>{data.created_at}</Text>
-                            <Text style={{ fontSize: 11, fontFamily: 'Poppins-SemiBold', color: '#F70000' }}>{(new Date(data.created_at))}</Text>
+                            <Text style={{ fontSize: 11, fontFamily: 'Poppins-SemiBold', color: '#F70000' }}>00:20</Text>
                         </View>
                         <Gap height={10} />
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', paddingHorizontal: 15}}>
@@ -126,7 +127,7 @@ return (
                             }
 
                         </View>
-                    </View>
+                    </View> */}
                 </View>
                 )
             })}
@@ -244,25 +245,25 @@ const styles = StyleSheet.create({
     CardLead: {
         height: 100, 
         paddingHorizontal: 20, 
-        marginTop: 10 
+        marginVertical: 5,
     },
-    FirstCardLead: {
-        width: '100%', 
-        height: '100%',
-        borderRadius: 8, 
-        flexDirection: 'column',
-        backgroundColor: '#FFF',
-        shadowColor: '#000',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        justifyContent: 'center',
-    }
+    // FirstCardLead: {
+    //     width: '100%', 
+    //     height: '100%',
+    //     borderRadius: 8, 
+    //     flexDirection: 'column',
+    //     backgroundColor: '#FFF',
+    //     shadowColor: '#000',
+    //     shadowColor: "#000",
+    //     shadowOffset: {
+    //         width: 0,
+    //         height: 2,
+    //     },
+    //     shadowOpacity: 0.25,
+    //     shadowRadius: 3.84,
+    //     elevation: 5,
+    //     justifyContent: 'center',
+    // }
 
   });
 
