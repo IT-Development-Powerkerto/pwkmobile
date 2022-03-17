@@ -11,6 +11,7 @@ const [name, setName] = useState('')
 const [role, setRole] = useState('')
 const [image, setImage] = useState('')
 const [totalLead, setTotalLead] = useState('')
+const [totalClosing, setTotalClosing] = useState('')
 
 useEffect(() => {
     getData('user'). then(res=>{
@@ -19,6 +20,7 @@ useEffect(() => {
             const response = await Api.getUserPWK(res.id)
             const responseLead = await Api.getLeads(res.token)
             setTotalLead(responseLead.data.total_lead)
+            setTotalClosing(responseLead.data.total_closing)
             console.log('Response Lead', response)
             setName(response.data[0].name)
             setRole(response.data[0].role.name)
@@ -48,7 +50,7 @@ return (
                 <Text style={{ fontSize: 22, fontFamily: 'Poppins-Medium', color: '#fff', bottom: 7 }}>Total Lead</Text>
             </View>   
             <View style={styles.SecondCard}>
-                <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>521</Text>
+                <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>{totalClosing}</Text>
                 <Text style={{ fontSize: 22, fontFamily: 'Poppins-Medium', color: '#fff', bottom: 7 }}>Total Closing</Text>
             </View> 
         </View>
