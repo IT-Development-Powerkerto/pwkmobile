@@ -3,7 +3,7 @@ import {View, Image, StyleSheet, Text, TouchableOpacity, ScrollView} from "react
 import { StatusBar } from 'react-native';
 import Api from "../../Api";
 import { Profile } from "../../assets";
-import { Gap, InfoCard, ListLead } from "../../components";
+import { Gap, HeaderHome, InfoCard, ListLead } from "../../components";
 import { colors, getData } from "../../utils";
 
 const Home = ({navigation}) => {
@@ -49,16 +49,7 @@ useEffect(() => {
 return (
     <View style={styles.container}>
         <StatusBar barStyle = "default" hidden = {false} backgroundColor = "#009EF7" translucent = {true}/>
-        
-            <View style={styles.Header}>
-                <View>
-                    <Text style={{ color: 'white', fontFamily: 'Poppins-Bold', fontSize: 24 }}>{`Hello, ${name}`} </Text>
-                    <Text style={{ color: 'white', fontFamily: 'Poppins-Regular', fontSize: 14 }}>{role}</Text>
-                </View>
-                <View>
-                    <Image source={{ uri:`http://mobile.pwkbackoffice.com/${image}` }} style={{ width: 54, height: 54, borderRadius: 27, }}/>
-                </View>
-            </View>
+            <HeaderHome name={name} role={role} image={image} />
             <Gap height={10} />
             <View style={styles.mainCard}>
                 <View style={styles.FirstCard}>
@@ -96,38 +87,6 @@ return (
                 return (
                 <View style={styles.CardLead}>
                     <ListLead customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} status={data.status} created_at={data.created_at} />
-                    {/* <View style={styles.FirstCardLead}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 15}}>
-                            <Text style={{ fontSize: 11, fontFamily: 'Poppins-SemiBold', color: '#A3A3A3' }}>{data.created_at}</Text>
-                            <Text style={{ fontSize: 11, fontFamily: 'Poppins-SemiBold', color: '#F70000' }}>00:20</Text>
-                        </View>
-                        <Gap height={10} />
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', paddingHorizontal: 15}}>
-                            <Text style={{ fontSize: 11, fontFamily: 'Poppins-Bold', color: '#000', flexBasis: '40%' }}>{data.customer_name}</Text>
-                            <Text style={{ fontSize: 11, fontFamily: 'Poppins-Bold', color: '#009EF7', flexBasis: '35%'}} >{data.customer_whatsapp}</Text>
-                            {data.status == "Waiting" && 
-                            <View style={{  borderRadius: 50, backgroundColor: colors._redOp, alignItems: 'center', justifyContent: 'center', flexBasis: '25%' }}>
-                                <Text style={{ color: colors._red, fontFamily: 'Poppins-SemiBold', fontSize: 11 }}>{data.status}</Text>
-                            </View>
-                            }
-                            {data.status == "Processing" && 
-                            <View style={{  borderRadius: 50, backgroundColor: colors._blueOp, alignItems: 'center', justifyContent: 'center', flexBasis: '25%' }}>
-                                <Text style={{ color: colors._blue, fontFamily: 'Poppins-SemiBold', fontSize: 11 }}>{data.status}</Text>
-                            </View>
-                            }
-                            {data.status == "Closing" && 
-                            <View style={{  borderRadius: 50, backgroundColor: colors._greenOp, alignItems: 'center', justifyContent: 'center', flexBasis: '25%' }}>
-                                <Text style={{ color: colors._green, opacity: 1, fontFamily: 'Poppins-SemiBold', fontSize: 11 }}>{data.status}</Text>
-                            </View>
-                            }
-                            {data.status == "Spam" && 
-                            <View style={{  borderRadius: 50, backgroundColor: colors._grayOp, alignItems: 'center', justifyContent: 'center', flexBasis: '25%' }}>
-                                <Text style={{ color: colors._gray, fontFamily: 'Poppins-SemiBold', fontSize: 11 }}>{data.status}</Text>
-                            </View>
-                            }
-
-                        </View>
-                    </View> */}
                 </View>
                 )
             })}
@@ -140,24 +99,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff'
-    }, 
-    Header: {
-        height: 150,
-        backgroundColor: '#009EF7',
-        borderBottomStartRadius: 20,
-        borderBottomEndRadius: 20,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.34,
-        shadowRadius: 12,
-        elevation: 10,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 25,
-        flexDirection: 'row',
     }, 
     mainCard: {
         height: 100, 
@@ -247,23 +188,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20, 
         marginVertical: 5,
     },
-    // FirstCardLead: {
-    //     width: '100%', 
-    //     height: '100%',
-    //     borderRadius: 8, 
-    //     flexDirection: 'column',
-    //     backgroundColor: '#FFF',
-    //     shadowColor: '#000',
-    //     shadowColor: "#000",
-    //     shadowOffset: {
-    //         width: 0,
-    //         height: 2,
-    //     },
-    //     shadowOpacity: 0.25,
-    //     shadowRadius: 3.84,
-    //     elevation: 5,
-    //     justifyContent: 'center',
-    // }
 
   });
 
