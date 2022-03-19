@@ -2,11 +2,20 @@ import { StyleSheet, Text, View, StatusBar, TouchableOpacity } from 'react-nativ
 import React, {useState} from 'react'
 import SelectDropdown from 'react-native-select-dropdown'
 import { Gap, HeaderPage, ListLead } from '../../components'
-import { Lead, Print } from '../../assets'
+import { DropDown, Lead, Print } from '../../assets'
 import { colors, fonts } from '../../utils'
+import DropDownPicker from 'react-native-dropdown-picker'
 
 const LeadTunneling = () => {
-    const countries = ["Egypt", "Canada", "Australia", "Ireland"]
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState('today');
+    const [items, setItems] = useState([
+        {label: 'Today', value: 'today'},
+        {label: 'Yesterday', value: 'yesterday'},
+        {label: 'Last Week', value: 'last_week'},
+        {label: 'Last Month', value: 'last_month'},
+        {label: 'All', value: 'all'}
+    ]);
     const [lead, setLead] = useState([
         {
             customer_name: 'Customer',
@@ -22,32 +31,27 @@ const LeadTunneling = () => {
             <HeaderPage icon="Lead" title="LEAD TUNNELING" />
             <Gap height={60} />
             <View style={styles.filter}>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flexDirection: 'row'}}>
 
-                    <View>
+                    <View style={{flex: 1}}>
                         <Text style={{fontFamily: fonts.primary[600], fontSize: 14, color: colors._textBlack}}>Lead Tunneling</Text>
                         <Text style={{fontFamily: fonts.primary[600], fontSize: 10, color: colors._textGray}} >10 Leads</Text>
-
                     </View>
-                    <SelectDropdown
-                        data={countries}
-                        onSelect={(selectedItem, index) => {
-                            console.log(selectedItem, index)
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                            // text represented after item is selected
-                            // if data array is an array of objects then return selectedItem.property to render after item is selected
-                            return selectedItem
-                        }}
-                        rowTextForSelection={(item, index) => {
-                            // text represented for each item in dropdown
-                            // if data array is an array of objects then return item.property to represent item in dropdown
-                            return item
-                        }}
-                        defaultButtonText={"Today"}
-                        buttonTextStyle={styles.dropdownText}
-                        buttonStyle={styles.dropdownBtnStyle}
-                    />
+                    <View style={{flex: 1,}}>
+                        <DropDownPicker 
+                            open={open}
+                            value={value}
+                            items={items}
+                            setOpen={setOpen}
+                            setValue={setValue}
+                            setItems={setItems}
+                            showArrowIcon={true}
+                            style={styles.dropdownBtnStyle}
+                            containerStyle={styles.dropdownContainerStyle}
+                            textStyle={styles.dropdownText}
+                            showTickIcon={true}
+                        />
+                    </View>
                 </View>
                 <View style={{alignItems: 'flex-end'}}>
                     <TouchableOpacity>
@@ -91,12 +95,16 @@ const styles = StyleSheet.create({
         fontSize: 10
     },
     dropdownBtnStyle: {
-        width: "50%",
+        // width: "100%",
         height: 30,
         backgroundColor: "#FFF",
         borderRadius: 8,
         borderWidth: 1,
         borderColor: "#444",
+    },
+    dropdownContainerStyle: {
+        width: "100%",
+        // height: 30,
     },
     export: {
         backgroundColor: '#F5F8FA',

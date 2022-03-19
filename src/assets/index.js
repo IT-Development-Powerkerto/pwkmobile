@@ -8,6 +8,7 @@ import Password from "./Icon/Password.svg";
 import Eye from "./Icon/Eye.svg";
 import People from "./Icon/People.svg";
 import Calender from "./Icon/Calender.svg";
+import DropDown from "./Icon/Dropdown.svg"
 import Gender from "./Icon/Gender.svg";
 import Geo from "./Icon/Geo.svg";
 import Bell from "./Icon/Bell.svg";
@@ -43,6 +44,7 @@ export {
     Eye,
     People,
     Calender,
+    DropDown,
     Gender,
     Geo,
     Bell,
