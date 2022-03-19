@@ -28,6 +28,7 @@ import HomeColor from "./Icon/HomeColor.svg";
 import Lead from "./Icon/Lead.svg";
 import LeadColor from "./Icon/LeadColor.svg";
 import LeadWhite from "./Icon/LeadWhite.svg"
+import Print from "./Icon/Print.svg"
 import ProfileUser from "./Icon/ProfileUser.svg";
 import ProfileUserColor from "./Icon/ProfileUserColor.svg";
 
@@ -62,6 +63,7 @@ export {
     Lead,
     LeadColor,
     LeadWhite,
+    Print,
     ProfileUser,
     ProfileUserColor,
 

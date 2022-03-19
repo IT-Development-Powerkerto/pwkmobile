@@ -85,9 +85,9 @@ return (
 
             {lead.map(data=>{
                 return (
-                <View style={styles.CardLead}>
-                    <ListLead customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} status={data.status} created_at={data.created_at} />
-                </View>
+                // <View style={styles.CardLead}>
+                    <ListLead key={data.id} customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} status={data.status} created_at={data.created_at} />
+                // </View>
                 )
             })}
             </ScrollView>

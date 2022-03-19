@@ -6,7 +6,9 @@ const mainColor = {
     _blue: '#009EF7',
     _blueOp: 'rgba(0, 158, 247, 0.2)',
     _gray: '#A3A3A3',
-    _grayOp: 'rgba(163, 163, 163, 0.2)'
+    _grayOp: 'rgba(163, 163, 163, 0.2)',
+    _textBlack: '#343434',
+    _textGray: '#A3A3A3'
 }
 
 export const colors = {
@@ -18,4 +20,6 @@ export const colors = {
     _blueOp: mainColor._blueOp,
     _gray: mainColor._gray,
     _grayOp: mainColor._grayOp,
+    _textBlack: mainColor._textBlack,
+    _textGray: mainColor._textGray
 }
