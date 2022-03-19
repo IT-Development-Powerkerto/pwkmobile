@@ -28,7 +28,7 @@ export default HeaderPage
 
 const styles = StyleSheet.create({
 	Header: {
-    height: 90,
+    height: 60,
     backgroundColor: '#009EF7',
     borderBottomStartRadius: 20,
     borderBottomEndRadius: 20,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 		alignContent: 'center',
 		textAlign: 'center',
     justifyContent: 'center',
-		// marginTop: 20,
+		marginTop: 21,
     paddingHorizontal: 25,
     flexDirection: 'row',
   },

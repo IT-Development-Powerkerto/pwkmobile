@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login, Forget, Home } from '../pages';
+import { Login, Forget, Home, LeadTunneling } from '../pages';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigator } from '../components';
 
@@ -12,16 +12,18 @@ const MyTabs = () => {
   return (
     <Tab.Navigator tabBar={props => <BottomNavigator {...props} />}>
       <Tab.Screen name="Home" component={Home} options = {{ headerShown: false }} />
+      <Tab.Screen name="Leads" component={LeadTunneling} options = {{ headerShown: false}} />
     </Tab.Navigator>
   );
 }
 
 const Router = () => {
     return(
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="MyTabs">
             <Stack.Screen name="Login" component={Login} options = {{ headerShown: false }} />
             <Stack.Screen name="Forget" component={Forget} options = {{ headerShown: false }} />
             <Stack.Screen name="MyTabs" component={MyTabs} options = {{ headerShown: false }} />
+            {/* <Stack.Screen name="LeadTunneling" component={LeadTunneling} options = {{ headerShown: false}} /> */}
         </Stack.Navigator>
     );
 }

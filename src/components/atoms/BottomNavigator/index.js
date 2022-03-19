@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Appearance, View } from 'react-native';
+import { Appearance, View, Text } from 'react-native';
 import { colors } from '../../../utils';
 import { IconMenu } from '../../atoms';
 

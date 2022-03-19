@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 import { Home, HomeColor, LeadColor, Lead, ProfileUserColor, ProfileUser } from '../../../assets';
 
 const IconMenu = ({ title, active, onPress, onLongPress }) => {
@@ -7,7 +7,7 @@ const IconMenu = ({ title, active, onPress, onLongPress }) => {
         if (title === 'Home') {
             return active ? <HomeColor /> : <Home />
         }
-        if (title === 'Lead') {
+        if (title === 'Leads') {
             return active ? <LeadColor /> : <Lead />
         }
         if (title === 'Profile') {
@@ -18,6 +18,7 @@ const IconMenu = ({ title, active, onPress, onLongPress }) => {
     return (
         <TouchableOpacity style={styles.container} onPress={onPress} onLongPress={onLongPress}>
             <Icon />
+            <Text>{title}</Text>
         </TouchableOpacity>
     );
 };
