@@ -4,10 +4,10 @@ import { Edit, Key } from '../../../assets'
 import { fonts } from '../../../utils'
 import Gap from '../Gap'
 
-const Button = ({ text, height, width, color, icon, colorText, fontSize, shadow }) => {
+const Button = ({ text, height, width, color, icon, colorText, fontSize, shadow, onPress }) => {
     return (
         <View>
-            <TouchableOpacity style={[styles.button(height, width, color), shadow ? styles.shadowProp : '']} >
+            <TouchableOpacity style={[styles.button(height, width, color), shadow ? styles.shadowProp : '']} onPress={onPress} >
                 {icon === 'Key' && <Key />}
                 {icon === 'Edit' && <Edit />}
                 <Gap width={10} />
