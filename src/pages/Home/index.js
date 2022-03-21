@@ -134,6 +134,8 @@ const Home = ({ navigation }) => {
                                 containerStyle={styles.dropdownContainerStyle}
                                 textStyle={styles.dropdownText}
                                 showTickIcon={true}
+                                zIndex={2}
+                                // dropDownDirection="TOP"
                             />
                             <Gap height={10} />
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: '#fff' }}>Campaign</Text>
@@ -146,9 +148,11 @@ const Home = ({ navigation }) => {
                                 setItems={setItems}
                                 showArrowIcon={true}
                                 style={styles.dropdownBtnStyle}
+                                // style={[styles.dropdownBtnStyle, {        marginTop: opens ? 175 : 20}]}
                                 containerStyle={styles.dropdownContainerStyle}
                                 textStyle={styles.dropdownText}
                                 showTickIcon={true}
+                                zIndex={1}
                             />
                             <Gap height={10} />
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: '#fff' }}>Customer Name</Text>
