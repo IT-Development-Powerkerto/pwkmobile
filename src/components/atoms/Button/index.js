@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { Edit, Key } from '../../../assets'
+import { Edit, EditBlue, Key } from '../../../assets'
 import { fonts } from '../../../utils'
 import Gap from '../Gap'
 
@@ -10,6 +10,7 @@ const Button = ({ text, height, width, color, icon, colorText, fontSize, shadow,
             <TouchableOpacity style={[styles.button(height, width, color), shadow ? styles.shadowProp : '']} onPress={onPress} >
                 {icon === 'Key' && <Key />}
                 {icon === 'Edit' && <Edit />}
+                {icon === 'EditBlue' && <EditBlue />}
                 <Gap width={10} />
                 <Text style={styles.text(colorText, fontSize)} >{text}</Text>
             </TouchableOpacity>
