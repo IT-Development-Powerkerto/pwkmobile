@@ -4,10 +4,10 @@ import { Edit, Key } from '../../../assets'
 import { fonts } from '../../../utils'
 import Gap from '../Gap'
 
-const Button = ({ text, height, width, color, icon, colorText, fontSize }) => {
+const Button = ({ text, height, width, color, icon, colorText, fontSize, shadow }) => {
     return (
         <View>
-            <TouchableOpacity style={styles.button(height, width, color)} >
+            <TouchableOpacity style={[styles.button(height, width, color), shadow ? styles.shadowProp : '']} >
                 {icon === 'Key' && <Key />}
                 {icon === 'Edit' && <Edit />}
                 <Gap width={10} />
@@ -20,7 +20,7 @@ const Button = ({ text, height, width, color, icon, colorText, fontSize }) => {
 export default Button
 
 const styles = StyleSheet.create({
-    button: (height, width, color) => ({
+    button: (height, width, color, shadow) => ({
         backgroundColor: color,
         height: height,
         width: width,
@@ -29,21 +29,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         borderRadius: 10,
-        // if(shadow == true) {
-        //     shadowColor: "#000",
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 3,
-        // },
-        // shadowOpacity: 0.27,
-        // shadowRadius: 4.65,
-        // elevation: 6,
-            
-        // }
     }),
-text: (colorText, fontSize) => ({
-    color: colorText ?? 'white',
-    fontFamily: fonts.primary[600],
-    fontSize: fontSize,
-})
+    text: (colorText, fontSize) => ({
+        color: colorText ?? 'white',
+        fontFamily: fonts.primary[600],
+        fontSize: fontSize,
+    }),
+    shadowProp: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: 6,
+    }
 })
