@@ -5,5 +5,6 @@ import Gap from "./Gap";
 import BottomNavigator from "./BottomNavigator";
 import IconMenu from "./IconMenu";
 import ListLead from "./ListLead";
+import Button from "./Button";
 
-export {HeaderHome, Input, Gap, BottomNavigator, IconMenu, ListLead, HeaderPage}
+export {HeaderHome, Input, Gap, BottomNavigator, IconMenu, ListLead, HeaderPage, Button}

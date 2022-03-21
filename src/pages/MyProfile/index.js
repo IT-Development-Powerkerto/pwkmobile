@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Gap, HeaderPage } from '../../components'
+import { Button, Gap, HeaderPage } from '../../components'
 import { colors, fonts } from '../../utils'
 import { Intersect } from '../../assets'
 
@@ -20,9 +20,10 @@ const MyProfile = () => {
                 <TouchableOpacity style={styles.button} >
                     <Text>Change Pass</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} >
+                {/* <TouchableOpacity style={styles.button} >
                     <Text>Change Pass</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <Button text="Test" height={80} width={200} color={colors._blue}/>
             </View>
         </View>
     )
