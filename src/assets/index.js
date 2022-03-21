@@ -35,6 +35,10 @@ import Print from "./Icon/Print.svg"
 import ProfileUser from "./Icon/ProfileUser.svg";
 import ProfileUserColor from "./Icon/ProfileUserColor.svg";
 import ProfileWhite from "./Icon/ProfileWhite.svg"
+import Back from './Icon/Back.svg';
+import IconEdit from './Icon/IconEdit.svg';
+import IconDelete from './Icon/IconDelete.svg';
+import IconGo from './Icon/IconGo.svg';
 
 
 export {
@@ -75,4 +79,8 @@ export {
     ProfileUserColor,
     ProfileWhite,
     Key,
+    Back,
+    IconEdit,
+    IconDelete,
+    IconGo,
 }

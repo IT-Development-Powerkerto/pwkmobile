@@ -11,6 +11,7 @@ const mainColor = {
     _textBlack: '#343434',
     _textGray: '#A3A3A3',
     _black: '#000000AA',
+    _white: '#FFFFFF',
 }
 
 export const colors = {
@@ -26,4 +27,5 @@ export const colors = {
     _textBlack: mainColor._textBlack,
     _textGray: mainColor._textGray,
     _black: mainColor._black,
+    _white: mainColor._white,
 }
