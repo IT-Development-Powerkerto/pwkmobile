@@ -113,7 +113,6 @@ const styles = StyleSheet.create({
         borderRadius: 8, 
         flexDirection: 'column',
         backgroundColor: '#009EF7',
-        shadowColor: '#000',
         shadowColor: "#000",
         shadowOffset: {
             width: 0,

@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { LeadWhite } from '../../../assets';
+import { LeadWhite, ProfileWhite } from '../../../assets';
 
 const HeaderPage = ({title, icon}) => {
 	const Icon = () => {
 		if (icon == "Lead"){
 			return <LeadWhite />
-		}
+		}else if (icon == "Profile"){
+      return <ProfileWhite />
+    }
 	}
   return (
     // <View style={styles.container} >

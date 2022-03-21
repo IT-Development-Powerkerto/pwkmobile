@@ -1,6 +1,7 @@
 import Cover from "./img/Cover.png";
 import Powerkerto from "./img/Powerkerto.png";
 import Profile from "./img/Profile.png";
+import Intersect from "./img/Intersect.png"
 
 
 import Email from "./Icon/Email.svg";
@@ -32,12 +33,14 @@ import LeadWhite from "./Icon/LeadWhite.svg"
 import Print from "./Icon/Print.svg"
 import ProfileUser from "./Icon/ProfileUser.svg";
 import ProfileUserColor from "./Icon/ProfileUserColor.svg";
+import ProfileWhite from "./Icon/ProfileWhite.svg"
 
 
 export {
     Cover,
     Powerkerto,
     Profile,
+    Intersect,
 
     Email,
     Password,
@@ -68,5 +71,5 @@ export {
     Print,
     ProfileUser,
     ProfileUserColor,
-
+    ProfileWhite,
 }
