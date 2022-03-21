@@ -1,13 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { colors, fonts } from '../../../utils'
+import Button from '../Button'
 import Gap from '../Gap'
-import { colors } from '../../../utils'
 
 const ListLead = ({customer_name, customer_whatsapp, status, created_at}) => {
+    const [modalVisible, setmodalVisible] = useState(false)
     return (
         <View style={styles.CardLead}>
 
-            <View style={styles.FirstCardLead}>
+            <TouchableOpacity style={styles.FirstCardLead} onPress={() => setmodalVisible(true)}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 15}}>
                     <Text style={{ fontSize: 11, fontFamily: 'Poppins-SemiBold', color: '#A3A3A3' }}>{created_at}</Text>
                     <Text style={{ fontSize: 11, fontFamily: 'Poppins-SemiBold', color: '#F70000' }}>00:20</Text>
@@ -38,7 +40,72 @@ const ListLead = ({customer_name, customer_whatsapp, status, created_at}) => {
                     }
 
                 </View>
-            </View>
+            </TouchableOpacity>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setmodalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.mainModal}>
+                    <View style={styles.subModal}>
+                        <Text style={{ fontSize: 16, fontFamily: fonts.primary[600], color: colors._blue, marginLeft: 24, marginTop: 24 }}>Detail Lead</Text>
+                        <Gap height={20} />
+                        <View style={styles.modalContent}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={styles.text}>{`Ord-2243`}</Text>
+                                <Text style={styles.text}>{created_at}</Text>
+                            </View>
+                            <Gap height={10} />
+                            <Text style={styles.text}>ADV NAME</Text>
+                            <Gap height={10} />
+                            <Text style={styles.text}>CS NAME</Text>
+                            <Gap height={20} />
+                            <View style={{ borderBottomColor: '#fff', borderBottomWidth: 1 }}></View>
+                            <Gap height={20} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Product</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>Product Name</Text>
+                            </View>
+                            <Gap height={5} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Customer</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>{customer_name}</Text>
+                            </View>
+                            <Gap height={5} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Whatsapp</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>{customer_whatsapp}</Text>
+                            </View>
+                            <Gap height={5} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Status</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>{status}</Text>
+                            </View>
+                            <Gap height={40} />
+                            <View style={{ justifyContent: 'center' }}>
+
+                                <Button text="Edit Lead" color={'#fff'} height={46} fontSize={14} colorText={colors._blue} icon={'EditBlue'} onPress={() => setmodalVisible(!modalVisible)}/>
+                            </View>
+                            <Button text="Cancel" height={46} fontSize={14}  onPress={() => setmodalVisible(!modalVisible)}/>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }
@@ -67,5 +134,29 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         justifyContent: 'center',
+    },
+    mainModal: {
+        justifyContent: "flex-end",
+        flex: 1,
+        backgroundColor: colors._black,
+    },
+    subModal: {
+        backgroundColor: '#FFF',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    modalContent: {
+        backgroundColor: colors._blue,
+        padding: 30,
+    },
+    text: {
+        fontSize: 13, 
+        fontFamily: fonts.primary[500], 
+        color: '#fff',
+    },
+    keyItem: {
+        width: '30%',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 })
