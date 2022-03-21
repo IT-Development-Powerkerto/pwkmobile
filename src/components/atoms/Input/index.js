@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {View, TextInput, StyleSheet} from "react-native";
 import { Email, Password, People } from "../../../assets";
+import { colors, fonts } from "../../../utils";
 import InputEye from './InputEye';
 
-const Input = ({placeholder, type, value, onChangeText}) => {
+const Input = ({placeholder, type, value, onChangeText, noPad}) => {
     
     const[borderColor, setBorderColor] = useState('#A1AEB7') 
 
@@ -21,7 +22,7 @@ const Input = ({placeholder, type, value, onChangeText}) => {
 
     return (
         <View>
-            <TextInput style={styles.input(borderColor)} placeholder={placeholder} onFocus={onFocus} onBlur={onBlur} value={value} onChangeText={onChangeText}/>
+            <TextInput style={styles.input(borderColor, noPad)} placeholderTextColor={colors._gray} placeholder={placeholder} onFocus={onFocus} onBlur={onBlur} value={value} onChangeText={onChangeText}/>
             <View style={styles.icon}>
                 {placeholder==='Username' && <People/>}
                 {placeholder==='Password' && <Password/>}
@@ -34,15 +35,16 @@ const Input = ({placeholder, type, value, onChangeText}) => {
 };
 
 const styles = StyleSheet.create({
-    input: borderColor => ( {
+    input: (borderColor, noPad) => ( {
         borderWidth: 1,
         borderRadius: 12,
         borderColor: borderColor,
-        fontWeight: "400",
+        fontFamily: fonts.primary[400],
         fontSize: 16,
-        paddingLeft: 50,
+        paddingLeft: noPad? 10 : 50,
         position: "relative",
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        color: colors._gray,
     }),
     icon: {
         position: "absolute",

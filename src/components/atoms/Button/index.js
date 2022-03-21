@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { colors } from '../../../utils'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { fonts } from '../../../utils'
 
 const Button = ({text, height, width, color}) => {
     return (
         <View>
             <TouchableOpacity style={styles.button(height, width, color)} >
-                    <Text>{text}</Text>
+                    <Text style={styles.teks}>{text}</Text>
             </TouchableOpacity>
         </View>
     )
@@ -22,6 +22,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        // flex: 1
-    })
+    }),
+    teks:{
+        fontSize: 14,
+        color: '#fff',
+        fontFamily: fonts.primary[500],
+    }
 })
