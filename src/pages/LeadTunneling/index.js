@@ -18,6 +18,7 @@ const LeadTunneling = () => {
     ]);
     const [lead, setLead] = useState([
         {
+            id: '1',
             customer_name: 'Customer',
             customer_whatsapp: '62891245678',
             status: 'Closing',

@@ -12,13 +12,11 @@ const HeaderPage = ({title, icon}) => {
 	}
   return (
     // <View style={styles.container} >
-      <View style={styles.Header} >
+      <View style={[styles.Header,  styles.shadowProp]} >
 				<Icon />
-				{Icon}
         <Text
           style={{color: 'white', fontFamily: 'Poppins-SemiBold', fontSize: 18, marginLeft: 20, marginTop: 5}}>
           {title}
-					{/* {icon.} */}
         </Text>
 
       </View>
@@ -50,4 +48,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     flexDirection: 'row',
   },
+  shadowProp: {
+    shadowColor: "#000",
+    shadowOffset:{
+        width: 0,
+        height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
+  }
 });

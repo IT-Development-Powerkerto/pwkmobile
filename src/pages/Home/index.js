@@ -157,9 +157,9 @@ const Home = ({ navigation }) => {
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: '#fff' }}>Customer Phone</Text>
                             <Input noPad />
                             <Gap height={30} />
-                            <Button text="Add Lead" color={colors._blue2} height={46} />
+                            <Button text="Add Lead" color={colors._blue2} height={46} fontSize={14} />
                             <Gap height={10} />
-                            <Button text="Cancel"  />
+                            <Button text="Cancel" height={46} fontSize={14}/>
                         </View>
                     </View>
                 </View>
