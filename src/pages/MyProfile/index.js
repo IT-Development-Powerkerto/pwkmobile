@@ -2,12 +2,12 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Button, Gap, HeaderPage } from '../../components'
 import { colors, fonts } from '../../utils'
-import { Intersect } from '../../assets'
+import { Intersect, Lead, LeadWhite, Key, Profile } from '../../assets'
 
 const MyProfile = () => {
     return (
         <View style={styles.container}>
-            <HeaderPage title="My Profile" icon="Profile" />
+            <HeaderPage title="My Profile" icon="Profile"/>
             <View style={[styles.cardProfile, styles.shadowProp]}>
                 <Image source={Intersect} style={styles.image} />
                 <View>
@@ -16,14 +16,17 @@ const MyProfile = () => {
                     <Text style={{ fontFamily: fonts.primary[500], fontSize: 12 }} >6281393445965</Text>
                 </View>
             </View>
-            <View style={{ marginHorizontal: 24, flexDirection: 'row', justifyContent: 'space-around', backgroundColor: 'yellow' }}>
-                <TouchableOpacity style={styles.button} >
-                    <Text>Change Pass</Text>
-                </TouchableOpacity>
+            <View style={{ marginHorizontal: 24, flexDirection: 'row', justifyContent: 'space-around'}}>
                 {/* <TouchableOpacity style={styles.button} >
                     <Text>Change Pass</Text>
                 </TouchableOpacity> */}
-                <Button text="Test" height={80} width={200} color={colors._blue}/>
+                {/* <TouchableOpacity style={styles.button} >
+                    <Text>Change Pass</Text>
+                </TouchableOpacity> */}
+                <Button icon="Key" text="Change Pass" height={40} width={146} color={colors._blue}/>
+                <Button icon="Edit" text="Edit Profile" height={40} width={146} color={colors._blue}/>
+                {/* <Button icon="Edit" text="Edit Profile" height={40} width={146} color={colors._blue}/> */}
+                {/* <Button icon="" text="Test" height={40} width={146} color={colors._blue}/> */}
             </View>
         </View>
     )
@@ -37,30 +40,15 @@ const styles = StyleSheet.create({
         flex: 1
     },
     cardProfile: {
-        backgroundColor: 'red',
+        backgroundColor: 'white',
         // borderWidth: 1,
         height: 115,
         marginHorizontal: 24,
         marginVertical: 20,
         borderRadius: 15,
         padding: 35/2,
-        flexDirection: 'row'
-        // shadowColor: "#000",
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 10,
-        // },
-        // shadowOpacity: 0.25,
-        // shadowRadius: 3.84,
-
-        // elevation: 5,
+        flexDirection: 'row',
         
-    },
-    shadowProp: {
-        shadowColor: '#171717',
-        shadowOffset: {width: -2, height: 4},
-        shadowOpacity: 1,
-        shadowRadius: 3,
     },
     image: {
         backgroundColor: 'white',
@@ -69,13 +57,14 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginRight: 35/2
     },
-    button: {
-        backgroundColor: colors._blue ,
-        height: 40,
-        width: '45%',
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        // flex: 1
-    }
+    shadowProp: {
+        shadowColor: "#000",
+        shadowOffset:{
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: 6,
+    },
 })

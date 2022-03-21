@@ -3,7 +3,7 @@ import Powerkerto from "./img/Powerkerto.png";
 import Profile from "./img/Profile.png";
 import Intersect from "./img/Intersect.png"
 
-
+import Edit from "./Icon/Edit.svg"
 import Email from "./Icon/Email.svg";
 import Password from "./Icon/Password.svg";
 import Eye from "./Icon/Eye.svg";
@@ -27,6 +27,7 @@ import Union from "./Icon/Union.svg";
 import Person from "./Icon/Person.svg";
 import Home from "./Icon/Home.svg";
 import HomeColor from "./Icon/HomeColor.svg";
+import Key from "./Icon/Key.svg";
 import Lead from "./Icon/Lead.svg";
 import LeadColor from "./Icon/LeadColor.svg";
 import LeadWhite from "./Icon/LeadWhite.svg"
@@ -42,6 +43,7 @@ export {
     Profile,
     Intersect,
 
+    Edit,
     Email,
     Password,
     Eye,
@@ -72,4 +74,5 @@ export {
     ProfileUser,
     ProfileUserColor,
     ProfileWhite,
+    Key,
 }
