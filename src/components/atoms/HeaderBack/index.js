@@ -1,14 +1,14 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Back } from '../../../assets';
 import { colors, fonts } from '../../../utils';
 
 const HeaderBack = ({teks}) => {
     return (
         <View style={styles.container}>
-            <View style={{ alignItems: 'flex-start', justifyContent: 'center', width: 24, height: 24}}>
+            <TouchableOpacity style={{ alignItems: 'flex-start', justifyContent: 'center', width: 24, height: 24}}>
                 <Back />
-            </View>
+            </TouchableOpacity>
             <Text style={styles.teks}> {teks}</Text>
             <View style={{ width: 24, height: 24}}/>
         </View>

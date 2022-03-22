@@ -11,5 +11,6 @@ import ListPromotion from "./ListPromotion";
 import ListReimbursement from "./ListReimbursement";
 import ListBudgeting from "./ListBudgeting";
 import ListEvaluation from "./ListEvaluation";
+import ButtonIcon from "./ButtonIcon";
 
-export { HeaderHome, Input, Gap, BottomNavigator, IconMenu, ListLead, HeaderPage, Button, HeaderBack, ListPromotion, ListReimbursement, ListBudgeting, ListEvaluation };
+export { HeaderHome, Input, Gap, BottomNavigator, IconMenu, ListLead, HeaderPage, Button, HeaderBack, ListPromotion, ListReimbursement, ListBudgeting, ListEvaluation, ButtonIcon };

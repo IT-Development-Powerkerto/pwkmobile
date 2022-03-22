@@ -39,7 +39,9 @@ import Back from './Icon/Back.svg';
 import IconEdit from './Icon/IconEdit.svg';
 import IconDelete from './Icon/IconDelete.svg';
 import IconGo from './Icon/IconGo.svg';
-
+import IconChooseImage from './Icon/IconChooseImage.svg';
+import IconClock from './Icon/IconClock.svg';
+import IconDate from './Icon/IconDate.svg';
 
 export {
     Cover,
@@ -84,4 +86,7 @@ export {
     IconEdit,
     IconDelete,
     IconGo,
+    IconChooseImage,
+    IconClock,
+    IconDate,
 }

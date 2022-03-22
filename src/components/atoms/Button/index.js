@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Edit, EditBlue, Key } from '../../../assets'
-import { fonts } from '../../../utils'
+import { fonts, colors } from '../../../utils'
 import Gap from '../Gap'
 
 const Button = ({ text, height, width, color, icon, colorText, fontSize, shadow, onPress }) => {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     }),
     text: (colorText, fontSize) => ({
-        color: colorText ?? 'white',
+        color: colorText === 'white' ? colors._white : colors._textGray,
         fontFamily: fonts.primary[600],
         fontSize: fontSize,
     }),

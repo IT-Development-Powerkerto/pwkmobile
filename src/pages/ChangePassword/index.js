@@ -10,15 +10,16 @@ const ChangePassword = () => {
             <HeaderBack teks="Change Password" />
             <View style={{ paddingHorizontal: 24, flex: 1 }}>
                 <Gap height={20} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Operator</Text>
+                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Current Password</Text>
                 <Input noPad />
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Operator</Text>
+                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>New Password</Text>
                 <Input noPad />
                 <View style={{ flex: 1 }} />
-                <Button text="Add Lead" color={colors._blue2} height={46} fontSize={14} />
+                <Button text="Add Lead" color={colors._blue2} colorText='white' height={46} fontSize={14} />
                 <Gap height={10} />
                 <Button text="Cancel" height={46} fontSize={14} />
+                <Gap height={10} />
             </View>
         </View>
     )

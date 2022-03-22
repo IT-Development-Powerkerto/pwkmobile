@@ -99,7 +99,7 @@ const ListLead = ({customer_name, customer_whatsapp, status, created_at}) => {
                             <Gap height={40} />
                             <View style={{ justifyContent: 'center' }}>
 
-                                <Button text="Edit Lead" color={'#fff'} height={46} fontSize={14} colorText={colors._blue} icon={'EditBlue'} onPress={() => setmodalVisible(!modalVisible)}/>
+                                <Button text="Edit Lead" color={'#fff'} height={46} fontSize={14} colorText='white' icon={'EditBlue'} onPress={() => setmodalVisible(!modalVisible)}/>
                             </View>
                             <Button text="Cancel" height={46} fontSize={14}  onPress={() => setmodalVisible(!modalVisible)}/>
                         </View>
