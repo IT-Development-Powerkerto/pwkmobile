@@ -1,9 +1,12 @@
-import React from 'react'
-import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
+import { Image, Modal, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ImageAttach } from '../../assets'
 import { Gap, HeaderBack, ListBudgeting } from '../../components'
 import { colors, fonts } from '../../utils'
 
 const Budgeting = () => {
+    const [modalVisible, setmodalVisible] = useState(false)
+
     return (
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
@@ -20,11 +23,40 @@ const Budgeting = () => {
             </View>
             <Gap height={20} />
             <View style={styles.listContent}>
-                <ListBudgeting/>
-                <ListBudgeting/>
-                <ListBudgeting/>
-                <ListBudgeting/>
+                <ListBudgeting onPress={() => setmodalVisible(!modalVisible)} />
+                <ListBudgeting />
+                <ListBudgeting />
+                <ListBudgeting />
             </View>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setmodalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.mainModal}>
+                    <View style={styles.subModal}>
+                        <Text style={{ fontSize: 16, fontFamily: fonts.primary[600], color: colors._blue, marginLeft: 24, marginTop: 24 }}>Detail Budgeting Realization</Text>
+                        <Gap height={20} />
+                        <View style={styles.modalContent}>
+                            <Text style={styles.teks4}>2022-03-01 10:07:56</Text>
+                            <Gap height={20} />
+                            <Text style={styles.teks4}>Item : Pulsa</Text>
+                            <Gap height={5} />
+                            <Text style={styles.teks4}>Division : Customer Service </Text>
+                            <Gap height={5} />
+                            <Text style={styles.teks4}>Nominal : Rp 100.000 </Text>
+                            <Gap height={5} />
+                            <Text style={styles.teks4}>Description : pulsa untuk paket internet </Text>
+                            <Gap height={5} />
+                            <Text style={styles.teks4}>Attachment : </Text>
+                            <Image source={ImageAttach} style={{ alignSelf: 'center', width: 120, height: 120 }} />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }
@@ -49,8 +81,26 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontFamily: fonts.primary[600],
     },
+    teks4: {
+        color: colors._white,
+        fontSize: 14,
+    },
     listContent: {
         paddingHorizontal: 24,
-    }
+    },
+    mainModal: {
+        justifyContent: "flex-end",
+        flex: 1,
+        backgroundColor: colors._black,
+    },
+    subModal: {
+        backgroundColor: '#FFF',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    modalContent: {
+        backgroundColor: colors._blue,
+        padding: 30,
+    },
 })
 export default Budgeting;

@@ -46,6 +46,7 @@ import IconPromotion from './Icon/IconPromotion.svg';
 import IconReimbursement from './Icon/IconReimbusement.svg';
 import IconBudgeting from './Icon/IconBudgeting.svg';
 import IconEvaluation from './Icon/IconEvaluation.svg';
+import ImageAttach from './Icon/ImageAttach.png';
 
 export {
     Cover,
@@ -96,5 +97,6 @@ export {
     IconBudgeting,
     IconEvaluation,
     IconPromotion,
-    IconReimbursement
+    IconReimbursement,
+    ImageAttach,
 }

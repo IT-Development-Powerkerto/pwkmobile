@@ -1,17 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
 
-const ListEvaluation = () => {
+const ListEvaluation = ({ onPress }) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Text style={styles.teks}>Product</Text>
                 <Text style={styles.teks}>Date Time</Text>
             </View>
             <Text style={styles.teks2}>Resistance</Text>
             <Text style={styles.teks3}>Solution</Text>
-        </View>
+        </TouchableOpacity>
     )
 }
 const styles = StyleSheet.create({

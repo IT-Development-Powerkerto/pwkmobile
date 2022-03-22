@@ -1,20 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { colors, fonts } from '../../../utils'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { IconGo } from '../../../assets'
+import { colors, fonts } from '../../../utils'
 import Gap from '../Gap'
 
-const ListBudgeting = () => {
+const ListBudgeting = ({onPress}) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={{ flex: 1 }}>
                 <Text style={styles.teks}>03/03/2022 08:34</Text>
                 <Text style={styles.teks2}>Pulsa</Text>
             </View>
             <Text style={styles.teks3}>Rp 100.000</Text>
-            <Gap width={20}/>
-            <IconGo/>
-        </View>
+            <Gap width={20} />
+            <IconGo />
+        </TouchableOpacity>
     )
 }
 const styles = StyleSheet.create({

@@ -1,9 +1,11 @@
-import React from 'react'
-import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { Gap, HeaderBack, ListEvaluation, ListReimbursement } from '../../components'
+import React, { useState } from 'react'
+import { Modal, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Gap, HeaderBack, ListEvaluation } from '../../components'
 import { colors, fonts } from '../../utils'
 
 const Evaluation = () => {
+    const [modalVisible, setmodalVisible] = useState(false)
+
     return (
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
@@ -20,12 +22,37 @@ const Evaluation = () => {
             </View>
             <Gap height={20} />
             <View style={styles.listContent}>
-                <ListEvaluation/>
-                <ListEvaluation/>
-                <ListEvaluation/>
-                <ListEvaluation/>
-                <ListEvaluation/>
+                <ListEvaluation onPress={() => setmodalVisible(!modalVisible)} />
+                <ListEvaluation />
+                <ListEvaluation />
+                <ListEvaluation />
+                <ListEvaluation />
             </View>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setmodalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.mainModal}>
+                    <View style={styles.subModal}>
+                        <Text style={{ fontSize: 16, fontFamily: fonts.primary[600], color: colors._blue, marginLeft: 24, marginTop: 24 }}>Detail Budgeting Realization</Text>
+                        <Gap height={20} />
+                        <View style={styles.modalContent}>
+                            <Text style={styles.teks4}>2022-03-01 10:07:56</Text>
+                            <Gap height={20} />
+                            <Text style={styles.teks4}>Product : Pulsa</Text>
+                            <Gap height={5} />
+                            <Text style={styles.teks4}>Resistance : : Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor</Text>
+                            <Gap height={5} />
+                            <Text style={styles.teks4}>Solution : : Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis</Text>
+                            <Gap height={5} />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }
@@ -50,8 +77,26 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontFamily: fonts.primary[600],
     },
+    teks4: {
+        color: colors._white,
+        fontSize: 14,
+    },
     listContent: {
         paddingHorizontal: 24,
-    }
+    },
+    mainModal: {
+        justifyContent: "flex-end",
+        flex: 1,
+        backgroundColor: colors._black,
+    },
+    subModal: {
+        backgroundColor: '#FFF',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    modalContent: {
+        backgroundColor: colors._blue,
+        padding: 30,
+    },
 })
 export default Evaluation;
