@@ -42,6 +42,10 @@ import IconGo from './Icon/IconGo.svg';
 import IconChooseImage from './Icon/IconChooseImage.svg';
 import IconClock from './Icon/IconClock.svg';
 import IconDate from './Icon/IconDate.svg';
+import IconPromotion from './Icon/IconPromotion.svg';
+import IconReimbursement from './Icon/IconReimbusement.svg';
+import IconBudgeting from './Icon/IconBudgeting.svg';
+import IconEvaluation from './Icon/IconEvaluation.svg';
 
 export {
     Cover,
@@ -89,4 +93,8 @@ export {
     IconChooseImage,
     IconClock,
     IconDate,
+    IconBudgeting,
+    IconEvaluation,
+    IconPromotion,
+    IconReimbursement
 }
