@@ -12,7 +12,9 @@ import EditProfile from "./EditProfile";
 import AddReimbursement from "./AddReimbursement";
 import AddBudgetingRealization from "./AddBudgetingRealization";
 import AddRoutineEvaliation from "./AddRoutineEvaliation";
+import CreatePromotion from "./CreatePromotion";
+import EditPromotion from "./EditPromotion";
 
 export {
-    Login, Forget, Home, LeadTunneling, MyProfile, Promotion, Reimbursement, Budgeting, Evaluation, ChangePassword, EditProfile, AddReimbursement, AddBudgetingRealization, AddRoutineEvaliation
+    Login, Forget, Home, LeadTunneling, MyProfile, Promotion, Reimbursement, Budgeting, Evaluation, ChangePassword, EditProfile, AddReimbursement, AddBudgetingRealization, AddRoutineEvaliation, CreatePromotion, EditPromotion
 }

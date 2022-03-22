@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { BottomNavigator } from '../components';
-import { AddBudgetingRealization, AddReimbursement, AddRoutineEvaliation, Budgeting, ChangePassword, EditProfile, Evaluation, Forget, Home, LeadTunneling, Login, MyProfile, Promotion, Reimbursement } from '../pages';
+import { AddBudgetingRealization, AddReimbursement, AddRoutineEvaliation, Budgeting, ChangePassword, CreatePromotion, EditProfile, EditPromotion, Evaluation, Forget, Home, LeadTunneling, Login, MyProfile, Promotion, Reimbursement } from '../pages';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +20,7 @@ const MyTabs = () => {
 
 const Router = () => {
     return(
-        <Stack.Navigator initialRouteName='AddRoutineEvaliation' >
+        <Stack.Navigator initialRouteName='EditPromotion' >
             <Stack.Screen name="Login" component={Login} options = {{ headerShown: false }} />
             <Stack.Screen name="Forget" component={Forget} options = {{ headerShown: false }} />
             <Stack.Screen name="MyTabs" component={MyTabs} options = {{ headerShown: false }} />
@@ -33,6 +33,8 @@ const Router = () => {
             <Stack.Screen name="AddReimbursement" component={AddReimbursement} options = {{ headerShown: false }} />
             <Stack.Screen name="AddBudgetingRealization" component={AddBudgetingRealization} options = {{ headerShown: false }} />
             <Stack.Screen name="AddRoutineEvaliation" component={AddRoutineEvaliation} options = {{ headerShown: false }} />
+            <Stack.Screen name="CreatePromotion" component={CreatePromotion} options = {{ headerShown: false }} />
+            <Stack.Screen name="EditPromotion" component={EditPromotion} options = {{ headerShown: false }} />
             {/* <Stack.Screen name="LeadTunneling" component={LeadTunneling} options = {{ headerShown: false}} /> */}
         </Stack.Navigator>
     );
