@@ -20,7 +20,7 @@ const MyTabs = () => {
 
 const Router = () => {
     return(
-        <Stack.Navigator initialRouteName='Evaluation' >
+        <Stack.Navigator initialRouteName='Login' >
             <Stack.Screen name="Login" component={Login} options = {{ headerShown: false }} />
             <Stack.Screen name="Forget" component={Forget} options = {{ headerShown: false }} />
             <Stack.Screen name="MyTabs" component={MyTabs} options = {{ headerShown: false }} />
