@@ -31,14 +31,14 @@ const Home = () => {
     const [lead, setLead] = useState([
         {
             id: 35327,
-            advertiser: "Rifan Tri Yulianto",
-            operator: "Hutari Trinurcahyani",
-            customer_name: "Hamdan",
-            customer_whatsapp: "6281911558848",
-            product: "Gizidat",
-            status: "Processing",
-            created_at: "2022-05-09 13:48:05",
-            updated_at: "2022-05-09 14:05:47"
+            advertiser: "",
+            operator: "",
+            customer_name: "",
+            customer_whatsapp: "",
+            product: "",
+            status: "",
+            created_at: "",
+            updated_at: ""
         },
     ])
 

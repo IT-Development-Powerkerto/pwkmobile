@@ -1,20 +1,19 @@
-import { StyleSheet, Text, View, StatusBar, TouchableOpacity } from 'react-native'
-import React, {useState} from 'react'
-import SelectDropdown from 'react-native-select-dropdown'
-import { Gap, HeaderPage, ListLead } from '../../components'
-import { DropDown, Lead, Print } from '../../assets'
-import { colors, fonts } from '../../utils'
+import React, { useState } from 'react'
+import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker'
+import { Print } from '../../assets'
+import { Gap, HeaderPage, ListLead } from '../../components'
+import { colors, fonts } from '../../utils'
 
 const LeadTunneling = () => {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('today');
     const [items, setItems] = useState([
-        {label: 'Today', value: 'today'},
-        {label: 'Yesterday', value: 'yesterday'},
-        {label: 'Last Week', value: 'last_week'},
-        {label: 'Last Month', value: 'last_month'},
-        {label: 'All', value: 'all'}
+        { label: 'Today', value: 'today' },
+        { label: 'Yesterday', value: 'yesterday' },
+        { label: 'Last Week', value: 'last_week' },
+        { label: 'Last Month', value: 'last_month' },
+        { label: 'All', value: 'all' }
     ]);
     const [lead, setLead] = useState([
         {
@@ -30,16 +29,15 @@ const LeadTunneling = () => {
         <View style={styles.container} >
             <StatusBar backgroundColor={colors._blue} />
             <HeaderPage icon="Lead" title="LEAD TUNNELING" />
-            <Gap height={60} />
+            <Gap height={20} />
             <View style={styles.filter}>
-                <View style={{flexDirection: 'row'}}>
-
-                    <View style={{flex: 1}}>
-                        <Text style={{fontFamily: fonts.primary[600], fontSize: 14, color: colors._textBlack}}>Lead Tunneling</Text>
-                        <Text style={{fontFamily: fonts.primary[600], fontSize: 10, color: colors._textGray}} >10 Leads</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flex: 1 }}>
+                        <Text style={{ fontFamily: fonts.primary[600], fontSize: 14, color: colors._textBlack }}>Lead Tunneling</Text>
+                        <Text style={{ fontFamily: fonts.primary[600], fontSize: 10, color: colors._textGray }} >10 Leads</Text>
                     </View>
-                    <View style={{flex: 1,}}>
-                        <DropDownPicker 
+                    <View style={{ flex: 1, }}>
+                        <DropDownPicker
                             open={open}
                             value={value}
                             items={items}
@@ -54,24 +52,20 @@ const LeadTunneling = () => {
                         />
                     </View>
                 </View>
-                <View style={{alignItems: 'flex-end'}}>
+                <View style={{ alignItems: 'flex-end' }}>
                     <TouchableOpacity>
-
-                    <View style={styles.export}>
-                        <Print />
-                        <Text style={{fontFamily: fonts.primary[500], fontSize: 11, marginLeft: 5}}>Export</Text>
-                    </View>
+                        <View style={styles.export}>
+                            <Print />
+                            <Text style={{ fontFamily: fonts.primary[500], fontSize: 11, marginLeft: 5 }}>Export</Text>
+                        </View>
                     </TouchableOpacity>
-
                 </View>
             </View>
             <Gap height={19} />
             {lead.map(data => {
                 return (
-                
-                    <ListLead key={data.id} customer_name={data.customer_name} created_at={data.created_at} customer_whatsapp={data.customer_whatsapp} status={data.status}/>
+                    <ListLead key={data.id} customer_name={data.customer_name} created_at={data.created_at} customer_whatsapp={data.customer_whatsapp} status={data.status} />
                 );
-
             })}
         </View>
     )
@@ -83,7 +77,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff'
-    }, 
+    },
     filter: {
         // backgroundColor: 'red',
         marginHorizontal: 24,
@@ -110,7 +104,7 @@ const styles = StyleSheet.create({
     export: {
         backgroundColor: '#F5F8FA',
         height: 30,
-        width: 113, 
+        width: 113,
         flexDirection: 'row',
         alignContent: 'center',
         alignItems: 'center',

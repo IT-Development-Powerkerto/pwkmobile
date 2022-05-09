@@ -2,10 +2,14 @@ import React, { useState } from 'react'
 import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Intersect } from '../../assets'
 import { Button, Gap, HeaderPage, ListButtonMenu } from '../../components'
-import { colors, fonts } from '../../utils'
+import { colors, fonts, removeUserDetail } from '../../utils'
 
-const MyProfile = () => {
-    const [modalVisible, setmodalVisible] = useState(false)
+const MyProfile = ({ navigation }) => {
+    const [modalVisible, setmodalVisible] = useState(false);
+    const goLogout = () => {
+        removeUserDetail('user');
+        navigation.replace('Login');
+    }
     return (
         <>
             <View style={styles.container}>
@@ -32,10 +36,10 @@ const MyProfile = () => {
                 </View>
                 <Gap height={30} />
                 <View style={styles.menuBtn}>
-                    <ListButtonMenu type='promotion' teks='Promotion'/>
-                    <ListButtonMenu type='reimbursement' teks='Reimbursement'/>
-                    <ListButtonMenu type='budgeting' teks='Budgeting Realization'/>
-                    <ListButtonMenu type='evaluation' teks='Routine Evaluation'/>
+                    <ListButtonMenu type='promotion' teks='Promotion' />
+                    <ListButtonMenu type='reimbursement' teks='Reimbursement' />
+                    <ListButtonMenu type='budgeting' teks='Budgeting Realization' />
+                    <ListButtonMenu type='evaluation' teks='Routine Evaluation' />
                 </View>
                 <View style={{ flex: 1 }} />
                 <View style={{ marginHorizontal: 24, marginBottom: 30 }}>
@@ -57,7 +61,7 @@ const MyProfile = () => {
                         <Text style={styles.textStyle2}>Are you sure to exit the App?</Text>
                         <Gap height={20} />
                         <View style={styles.btnBottom}>
-                            <TouchableOpacity style={styles.btnYes}>
+                            <TouchableOpacity style={styles.btnYes} onPress={goLogout}>
                                 <Text style={styles.textStyle3}>Yes</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.btnCancel} onPress={() => setmodalVisible(!modalVisible)}>

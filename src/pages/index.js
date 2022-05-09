@@ -14,7 +14,8 @@ import AddBudgetingRealization from "./AddBudgetingRealization";
 import AddRoutineEvaliation from "./AddRoutineEvaliation";
 import CreatePromotion from "./CreatePromotion";
 import EditPromotion from "./EditPromotion";
+import Splash from "./Splash";
 
 export {
-    Login, Forget, Home, LeadTunneling, MyProfile, Promotion, Reimbursement, Budgeting, Evaluation, ChangePassword, EditProfile, AddReimbursement, AddBudgetingRealization, AddRoutineEvaliation, CreatePromotion, EditPromotion
+    Login, Forget, Home, LeadTunneling, MyProfile, Promotion, Reimbursement, Budgeting, Evaluation, ChangePassword, EditProfile, AddReimbursement, AddBudgetingRealization, AddRoutineEvaliation, CreatePromotion, EditPromotion, Splash
 }
