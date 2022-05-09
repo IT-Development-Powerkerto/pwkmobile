@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Modal, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import DropDownPicker from 'react-native-dropdown-picker';
 import Api from "../../Api";
 import { Button, Gap, HeaderHome, Input, ListLead } from "../../components";
 import { colors, fonts, getData } from "../../utils";
-import DropDownPicker from 'react-native-dropdown-picker'
 
-
-const Home = ({ navigation }) => {
-    const [name, setName] = useState('')
-    const [role, setRole] = useState('')
-    const [image, setImage] = useState('')
-    const [totalLead, setTotalLead] = useState('')
-    const [totalClosing, setTotalClosing] = useState('')
-    const [dailyLead, setDailyLead] = useState('')
-    const [dailyClosing, setDailyClosing] = useState('')
+const Home = () => {
+    const [userData, setUserData] = useState([])
+    const [userLead, setUserLead] = useState([])
     const [modalVisible, setmodalVisible] = useState(false)
+    const [modalVisibles, setmodalVisibles] = useState(false)
     const [open, setOpen] = useState(false);
     const [opens, setOpens] = useState(false);
     const [value, setValue] = useState('');
@@ -35,75 +30,77 @@ const Home = ({ navigation }) => {
     ]);
     const [lead, setLead] = useState([
         {
-            customer_name: 'Customer',
-            customer_whatsapp: '62891245678',
-            status: 'Closing',
-            created_at: '2022-01-01 10:10:10',
-            updated_at: '2022-01-02 11:11:11'
-        }
+            id: 35327,
+            advertiser: "Rifan Tri Yulianto",
+            operator: "Hutari Trinurcahyani",
+            customer_name: "Hamdan",
+            customer_whatsapp: "6281911558848",
+            product: "Gizidat",
+            status: "Processing",
+            created_at: "2022-05-09 13:48:05",
+            updated_at: "2022-05-09 14:05:47"
+        },
     ])
 
-    useEffect(() => {
+    const getUser = async () => {
         getData('user').then(res => {
             const userID = async () => {
-                const response = await Api.getUserPWK(res.id)
-                const responseLead = await Api.getLeads(res.token)
-                setName(response.data[0].name)
-                setRole(response.data[0].role.name)
-                setImage(response.data[0].image)
-                setTotalLead(responseLead.data.total_lead)
-                setTotalClosing(responseLead.data.total_closing)
-                setDailyLead(responseLead.data.daily_lead)
-                setDailyClosing(responseLead.data.daily_closing)
-                setLead(responseLead.data.leads)
+                const response = await Api.getUser(res.id, res.token);
+                setUserData(response.data)
+                const responses = await Api.getLeadDaily(res.token);
+                setUserLead(responses.data)
+                setLead(responses.data.leads)
             }
             userID()
         });
+    }
+    useEffect(() => {
+        getUser()
     }, [])
     return (
         <View style={styles.container}>
-            <StatusBar barStyle="default" hidden={false} backgroundColor="#009EF7" translucent={true} />
-            <HeaderHome name={name} role={role} image={image} />
-            <Gap height={10} />
+            <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
+            <HeaderHome name={userData.name} role={userData.role} image={userData.image} />
+            <Gap height={20} />
             <View style={styles.mainCard}>
                 <View style={styles.FirstCard}>
-                    <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>{totalLead}</Text>
-                    <Text style={{ fontSize: 22, fontFamily: 'Poppins-Medium', color: '#fff', bottom: 7 }}>Total Lead</Text>
+                    <Text style={{ fontSize: 28, fontFamily: fonts.primary[700], color: colors._white }}>{userLead.total_lead}</Text>
+                    <Text style={{ fontSize: 16, fontFamily: fonts.primary[500], color: colors._white }}>Total Lead</Text>
                 </View>
                 <View style={styles.SecondCard}>
-                    <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>{totalClosing}</Text>
-                    <Text style={{ fontSize: 22, fontFamily: 'Poppins-Medium', color: '#fff', bottom: 7 }}>Total Closing</Text>
+                    <Text style={{ fontSize: 28, fontFamily: fonts.primary[700], color: colors._white }}>{userLead.total_closing}</Text>
+                    <Text style={{ fontSize: 16, fontFamily: fonts.primary[500], color: colors._white }}>Total Closing</Text>
                 </View>
             </View>
+            <Gap height={10} />
             <View style={styles.mainCard}>
                 <View style={styles.ThirdCard}>
-                    <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>{dailyLead}</Text>
-                    <Text style={{ fontSize: 22, fontFamily: 'Poppins-Medium', color: '#fff', bottom: 7 }}>Daily Lead</Text>
+                    <Text style={{ fontSize: 28, fontFamily: fonts.primary[700], color: colors._white }}>{userLead.daily_lead}</Text>
+                    <Text style={{ fontSize: 16, fontFamily: fonts.primary[500], color: colors._white }}>Daily Lead</Text>
                 </View>
                 <View style={styles.FourtCard}>
-                    <Text style={{ fontSize: 28, fontFamily: 'Poppins-Bold', color: '#fff', top: 7 }}>{dailyClosing}</Text>
-
-                    <Text style={{ fontSize: 22, fontFamily: 'Poppins-Medium', color: '#fff', bottom: 7 }}>Daily Closing</Text>
+                    <Text style={{ fontSize: 28, fontFamily: fonts.primary[700], color: colors._white }}>{userLead.daily_closing}</Text>
+                    <Text style={{ fontSize: 16, fontFamily: fonts.primary[500], color: colors._white }}>Daily Closing</Text>
                 </View>
             </View>
-            <View style={{ paddingHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, alignItems: 'center' }}>
+            <Gap height={20} />
+            <View style={{ paddingHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <View>
-                    <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: '#1F2432' }}>Daily Lead</Text>
-                    <Text style={{ fontSize: 12, fontFamily: 'Poppins-SemiBold', color: '#A3A3A3' }}>{`${dailyLead} Leads`}</Text>
+                    <Text style={{ fontSize: 18, fontFamily: fonts.primary[600], color: colors._textBlack }}>Daily Lead</Text>
+                    <Text style={{ fontSize: 12, fontFamily: fonts.primary[600], color: colors._textGray }}>{`4 Leads`}</Text>
                 </View>
                 <TouchableOpacity onPress={() => setmodalVisible(!modalVisible)}>
-                    <Text style={{ color: '#166ED8', fontFamily: 'Poppins-SemiBold', }}>+ Manual Lead</Text>
+                    <Text style={{ color: colors._blue3, fontFamily: fonts.primary[600], }}>+ Manual Lead</Text>
                 </TouchableOpacity>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
-
-                {lead.map(data => {
-                    return (
-                        // <View style={styles.CardLead}>
-                        <ListLead key={data.id} customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} status={data.status} created_at={data.created_at} />
-                        // </View>
-                    )
-                })}
+                <View style={{ marginHorizontal: 24 }}>
+                    {lead.map(data => {
+                        return (
+                            <ListLead key={data.id} advertiser={data.advertiser} operator={data.operator} customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} product={data.product} status={data.status} created_at={data.created_at} onPress={() => setmodalVisibles(!modalVisibles)} />
+                        )
+                    })}
+                </View>
             </ScrollView>
             <Modal
                 animationType="slide"
@@ -118,10 +115,10 @@ const Home = ({ navigation }) => {
                         <Text style={{ fontSize: 16, fontFamily: fonts.primary[600], color: colors._blue, marginLeft: 24, marginTop: 24 }}>Manual Lead</Text>
                         <Gap height={20} />
                         <View style={styles.modalContent}>
-                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: '#fff' }}>Operator</Text>
-                            <Input noPad placeholder="Khairul Anwar Fadloli" />
+                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Operator</Text>
+                            <Input editable={false} noPad placeholder={userData.name} />
                             <Gap height={10} />
-                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: '#fff' }}>Campaign</Text>
+                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Campaign</Text>
                             <DropDownPicker
                                 open={opens}
                                 value={values}
@@ -135,10 +132,9 @@ const Home = ({ navigation }) => {
                                 textStyle={styles.dropdownText}
                                 showTickIcon={true}
                                 zIndex={2}
-                                // dropDownDirection="TOP"
                             />
                             <Gap height={10} />
-                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: '#fff' }}>Campaign</Text>
+                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Campaign</Text>
                             <DropDownPicker
                                 open={open}
                                 value={value}
@@ -148,22 +144,84 @@ const Home = ({ navigation }) => {
                                 setItems={setItems}
                                 showArrowIcon={true}
                                 style={styles.dropdownBtnStyle}
-                                // style={[styles.dropdownBtnStyle, {        marginTop: opens ? 175 : 20}]}
                                 containerStyle={styles.dropdownContainerStyle}
                                 textStyle={styles.dropdownText}
                                 showTickIcon={true}
                                 zIndex={1}
                             />
                             <Gap height={10} />
-                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: '#fff' }}>Customer Name</Text>
+                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Customer Name</Text>
                             <Input noPad />
                             <Gap height={10} />
-                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: '#fff' }}>Customer Phone</Text>
+                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Customer Phone</Text>
                             <Input noPad />
                             <Gap height={30} />
-                            <Button text="Add Lead" color={colors._blue2} height={46} fontSize={14} onPress={() => alert('lah cobaaa')} />
+                            <Button text="Add Lead" color={colors._blue3} colorText={colors._white} height={46} fontSize={14} onPress={() => alert('lah cobaaa')} />
                             <Gap height={10} />
-                            <Button text="Cancel" height={46} fontSize={14} onPress={() => setmodalVisible(false)}/>
+                            <Button text="Cancel" colorText={colors._white} height={46} fontSize={14} onPress={() => setmodalVisible(false)} />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisibles}
+                onRequestClose={() => {
+                    setmodalVisibles(!modalVisibles);
+                }}
+            >
+                <View style={styles.mainModal}>
+                    <View style={styles.subModal}>
+                        <Text style={{ fontSize: 16, fontFamily: fonts.primary[600], color: colors._blue, marginLeft: 24, marginTop: 24 }}>Detail Lead</Text>
+                        <Gap height={20} />
+                        <View style={styles.modalContent}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={styles.text}>{`Ord-2243`}</Text>
+                                <Text style={styles.text}>haha</Text>
+                            </View>
+                            <Gap height={10} />
+                            <Text style={styles.text}>ADV NAME</Text>
+                            <Gap height={10} />
+                            <Text style={styles.text}>CS NAME</Text>
+                            <Gap height={20} />
+                            <View style={{ borderBottomColor: colors._white, borderBottomWidth: 1 }}></View>
+                            <Gap height={20} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Product</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>Product Name</Text>
+                            </View>
+                            <Gap height={5} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Customer</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>haha</Text>
+                            </View>
+                            <Gap height={5} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Whatsapp</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>haha</Text>
+                            </View>
+                            <Gap height={5} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Status</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>haha</Text>
+                            </View>
+                            <Gap height={40} />
+                            <Button text="Edit Lead" color={colors._white} height={46} fontSize={14} colorText={colors._blue3} icon={'EditBlue'} onPress={() => setmodalVisible(!modalVisible)} />
+                            <Gap height={10} />
+                            <Button text="Cancel" height={46} fontSize={14} onPress={() => setmodalVisibles(!modalVisibles)} />
                         </View>
                     </View>
                 </View>
@@ -175,89 +233,45 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: colors._white
     },
     mainCard: {
-        height: 100,
-        paddingHorizontal: 20,
-        flexWrap: 'wrap',
-        alignContent: 'space-around',
-        marginTop: 10,
+        flexDirection: "row",
+        justifyContent: 'space-between',
+        alignItems: "center",
+        paddingHorizontal: 24
     },
     FirstCard: {
-        width: '50%',
-        height: '100%',
+        width: '48%',
+        height: 100,
         borderRadius: 8,
-        flexDirection: 'column',
-        backgroundColor: '#009EF7',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        backgroundColor: colors._blue,
         justifyContent: 'center',
-        paddingLeft: 10,
-        marginRight: 5
+        padding: 10,
     },
     SecondCard: {
-        width: '50%',
-        height: '100%',
+        width: '48%',
+        height: 100,
         borderRadius: 8,
-        flexDirection: 'column',
-        backgroundColor: '#F79400',
-        shadowColor: '#000',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        backgroundColor: colors._youngOrange,
         justifyContent: 'center',
-        paddingLeft: 10,
-        marginLeft: 5
+        padding: 10,
     },
     ThirdCard: {
-        width: '50%',
-        height: '100%',
+        width: '48%',
+        height: 100,
         borderRadius: 8,
-        flexDirection: 'column',
-        backgroundColor: '#0080F7',
-        shadowColor: '#000',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        backgroundColor: colors._blue3,
         justifyContent: 'center',
-        paddingLeft: 10,
-        marginRight: 5
+        padding: 10,
     },
     FourtCard: {
-        width: '50%',
-        height: '100%',
+        width: '48%',
+        height: 100,
         borderRadius: 8,
-        flexDirection: 'column',
-        backgroundColor: '#F77700',
-        shadowColor: '#000',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        backgroundColor: colors._oldOrange,
         justifyContent: 'center',
-        paddingLeft: 10,
-        marginLeft: 5
+        padding: 10,
     },
     CardLead: {
         height: 100,
@@ -267,16 +281,26 @@ const styles = StyleSheet.create({
     mainModal: {
         justifyContent: "flex-end",
         flex: 1,
-        backgroundColor: colors._black,
+        backgroundColor: colors._blackOp,
     },
     subModal: {
-        backgroundColor: '#FFF',
+        backgroundColor: colors._white,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
     modalContent: {
         backgroundColor: colors._blue,
         padding: 30,
+    },
+    text: {
+        fontSize: 13,
+        fontFamily: fonts.primary[500],
+        color: '#fff',
+    },
+    keyItem: {
+        width: '30%',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     dropdownText: {
         fontFamily: fonts.primary[600],
@@ -285,9 +309,9 @@ const styles = StyleSheet.create({
         fontFamily: fonts.primary[400],
     },
     dropdownBtnStyle: {
-        backgroundColor: "#FFF",
+        backgroundColor: colors._white,
         borderRadius: 12,
-        borderColor: '#fff',
+        borderColor: colors._white,
     },
 });
 

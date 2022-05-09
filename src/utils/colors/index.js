@@ -1,6 +1,7 @@
 const mainColor = {
     _red: '#F70000',
     _redOp: 'rgba(247, 0, 0, 0.2)',
+    _red2: '#ed0c44',
     _green: '#23F700',
     _greenOp: 'rgba(35, 247, 0, 0.2)',
     _blue: '#009EF7',
@@ -12,12 +13,16 @@ const mainColor = {
     _grayOp: 'rgba(163, 163, 163, 0.2)',
     _textBlack: '#343434',
     _textGray: '#A3A3A3',
-    _black: '#000000AA',
+    _black: '#000000',
+    _blackOp: '#000000AA',
     _white: '#FFFFFF',
+    _youngOrange: '#F79400',
+    _oldOrange: '#F77700'
 }
 
 export const colors = {
     _red: mainColor._red,
+    _red2: mainColor._red2,
     _redOp: mainColor._redOp,
     _green: mainColor._green,
     _greenOp: mainColor._greenOp,
@@ -31,5 +36,8 @@ export const colors = {
     _textBlack: mainColor._textBlack,
     _textGray: mainColor._textGray,
     _black: mainColor._black,
+    _blackOp: mainColor._blackOp,
     _white: mainColor._white,
+    _oldOrange: mainColor._oldOrange,
+    _youngOrange: mainColor._youngOrange
 }

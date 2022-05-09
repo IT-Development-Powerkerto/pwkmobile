@@ -1,13 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Edit, EditBlue, Key } from '../../../assets'
-import { fonts, colors } from '../../../utils'
+import { fonts } from '../../../utils'
 import Gap from '../Gap'
 
-const Button = ({ text, height, width, color, icon, colorText, fontSize, shadow, onPress }) => {
+const Button = ({ text, height, width, color, icon, colorText, fontSize, onPress }) => {
     return (
         <View>
-            <TouchableOpacity style={[styles.button(height, width, color), shadow ? styles.shadowProp : '']} onPress={onPress} >
+            <TouchableOpacity style={styles.button(height, width, color)} onPress={onPress} >
                 {icon === 'Key' && <Key />}
                 {icon === 'Edit' && <Edit />}
                 {icon === 'EditBlue' && <EditBlue />}
@@ -21,7 +21,7 @@ const Button = ({ text, height, width, color, icon, colorText, fontSize, shadow,
 export default Button
 
 const styles = StyleSheet.create({
-    button: (height, width, color, shadow) => ({
+    button: (height, width, color) => ({
         backgroundColor: color,
         height: height,
         width: width,
@@ -32,18 +32,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     }),
     text: (colorText, fontSize) => ({
-        color: colorText === 'white' ? colors._white : colors._textGray,
+        color: colorText,
         fontFamily: fonts.primary[600],
         fontSize: fontSize,
     }),
-    shadowProp: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.27,
-        shadowRadius: 4.65,
-        elevation: 6,
-    }
 })

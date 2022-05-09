@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Image, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { showMessage } from "react-native-flash-message";
 import Api from "../../Api";
 import { Cover, Powerkerto } from "../../assets";
 import { Gap, Input } from "../../components";
@@ -16,45 +17,42 @@ const Login = ({ navigation }) => {
         if (password === '') {
             error.push('Password required')
         }
-        if (password.length < 8) {
-            error.push('Password less than 8 characters')
-        }
+        // if (password.length < 8) {
+        //     error.push('Password less than 8 characters')
+        // }
         if (error.length > 0) {
-            setLoading(false);
-            // showMessage({
-            //     icon: 'warning',
-            //     message: error[0],
-            //     type: "default",
-            //     backgroundColor: colors._red,
-            //     color: colors.white,
-            //     animated: true,
-            //     duration: 1000,
-            // });
+            showMessage({
+                icon: 'warning',
+                message: error[0],
+                type: "default",
+                backgroundColor: colors._red2,
+                color: colors._white,
+                animated: true,
+                duration: 1000,
+            });
         }
         else {
             try {
-                const response = await Api.login(username, password);
-                console.log(response.data.user)
+                const response = await Api.login(username, password)
                 const data = {
                     id: response.data.user.id,
                     token: response.data.success.token,
+                    role_id: response.data.user.role_id,
                 }
                 storeData('user', data)
-                setEmail("");
+                setUsername("");
                 setPassword("");
                 navigation.replace('MyTabs');
             } catch (error) {
-                setLoading(false);
-                // showMessage({
-                //     icon: 'warning',
-                //     message: error.toString(),
-                //     type: "default",
-                //     backgroundColor: colors._red,
-                //     color: colors.white,
-                //     animated: true,
-                //     duration: 1000,
-                // });
-                console.log(error)
+                showMessage({
+                    icon: 'warning',
+                    message: error.toString(),
+                    type: "default",
+                    backgroundColor: colors._red,
+                    color: colors._white,
+                    animated: true,
+                    duration: 1000,
+                });
             }
         }
     }
@@ -62,24 +60,27 @@ const Login = ({ navigation }) => {
     return (
         <ImageBackground source={Cover} resizeMode="cover" style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue3} translucent={false} />
-            <Image source={Powerkerto} style={{ alignSelf: "center", marginTop: '20%' }} />
-            <View style={{ flex: 1, marginTop: 50 }}>
-                <View>
-                    <Text style={{ color: colors._white, fontFamily: fonts.primary[700], fontSize: 24 }}>Sign In</Text>
-                    <Text style={{ color: colors._white, fontFamily: fonts.primary[400], fontSize: 12 }}>Enter your username and password</Text>
-                </View>
-                <Gap height={20} />
-                <Input placeholder='Username' value={username} onChangeText={(value) => setUsername(value)} />
-                <Gap height={20} />
-                <Input placeholder='Password' type='eye' value={password} onChangeText={(value) => setPassword(value)} />
-                <Gap height={40} />
-                <TouchableOpacity style={styles.login} onPress={onLogin} >
-                    <Text style={styles.Textlogin}>Login</Text>
-                </TouchableOpacity>
-                <Gap height={10} />
-                <TouchableOpacity onPress={() => navigation.navigate('Forget')}>
-                    <Text style={styles.linkForget}>Forget Password?</Text>
-                </TouchableOpacity>
+            <View style={{ flex: 1 }}>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <View style={{ flex: 2 }}>
+                        <Image source={Powerkerto} style={{ alignSelf: "center", marginTop: '20%' }} />
+                        <Gap height={40} />
+                        <Text style={{ color: colors._white, fontFamily: fonts.primary[700], fontSize: 24 }}>Sign In</Text>
+                        <Text style={{ color: colors._white, fontFamily: fonts.primary[400], fontSize: 12 }}>Enter your username and password</Text>
+                        <Gap height={20} />
+                        <Input placeholder='Username' value={username} onChangeText={(value) => setUsername(value)} />
+                        <Gap height={20} />
+                        <Input placeholder='Password' type='eye' value={password} onChangeText={(value) => setPassword(value)} />
+                        <Gap height={40} />
+                        <TouchableOpacity style={styles.login} onPress={onLogin} >
+                            <Text style={styles.Textlogin}>Login</Text>
+                        </TouchableOpacity>
+                        <Gap height={10} />
+                        <TouchableOpacity onPress={() => navigation.navigate('Forget')}>
+                            <Text style={styles.linkForget}>Forget Password?</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
             </View>
             <Text style={styles.TextDarkWarning}>Powered By Powerkerto</Text>
         </ImageBackground>
@@ -118,7 +119,8 @@ const styles = StyleSheet.create({
         color: colors._white,
         fontFamily: fonts.primary[400],
         fontSize: 12,
-        textAlign: "center"
+        textAlign: "center",
+        justifyContent: "flex-end"
     }
 });
 

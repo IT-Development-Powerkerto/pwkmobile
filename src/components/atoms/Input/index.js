@@ -4,7 +4,7 @@ import { Email, Password, People } from "../../../assets";
 import { colors, fonts } from "../../../utils";
 import InputEye from './InputEye';
 
-const Input = ({ placeholder, type, value, onChangeText, noPad }) => {
+const Input = ({ placeholder, type, value, onChangeText, editable, noPad }) => {
     const [borderColor, setBorderColor] = useState(colors._gray2)
     const onBlur = () => {
         setBorderColor(colors._gray2)
@@ -17,7 +17,7 @@ const Input = ({ placeholder, type, value, onChangeText, noPad }) => {
     }
     return (
         <View>
-            <TextInput style={styles.input(borderColor, noPad)} placeholderTextColor={colors._gray} placeholder={placeholder} onFocus={onFocus} onBlur={onBlur} value={value} onChangeText={onChangeText} />
+            <TextInput style={styles.input(borderColor, noPad)} placeholderTextColor={colors._gray} placeholder={placeholder} editable={editable} onFocus={onFocus} onBlur={onBlur} value={value} onChangeText={onChangeText} />
             <View style={styles.icon}>
                 {placeholder === 'Username' && <People />}
                 {placeholder === 'Password' && <Password />}
