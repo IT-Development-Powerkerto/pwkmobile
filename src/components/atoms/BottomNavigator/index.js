@@ -50,9 +50,7 @@ const styles = {
         justifyContent: 'space-between',
         paddingVertical: 5,
         paddingHorizontal: 56,
-        backgroundColor: '#fff',
-        borderTopWidth: 1,
-        borderColor: 'rgba(158, 150, 150, .5)'
+        backgroundColor: colors._white,
     },
 };
 

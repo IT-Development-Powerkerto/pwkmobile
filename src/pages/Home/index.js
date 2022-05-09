@@ -84,7 +84,7 @@ const Home = () => {
                 </View>
             </View>
             <Gap height={20} />
-            <View style={{ paddingHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View style={{ paddingHorizontal: 24, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <View>
                     <Text style={{ fontSize: 18, fontFamily: fonts.primary[600], color: colors._textBlack }}>Daily Lead</Text>
                     <Text style={{ fontSize: 12, fontFamily: fonts.primary[600], color: colors._textGray }}>{`4 Leads`}</Text>
@@ -93,6 +93,7 @@ const Home = () => {
                     <Text style={{ color: colors._blue3, fontFamily: fonts.primary[600], }}>+ Manual Lead</Text>
                 </TouchableOpacity>
             </View>
+            <Gap height={10} />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ marginHorizontal: 24 }}>
                     {lead.map(data => {
