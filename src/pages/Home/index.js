@@ -8,6 +8,7 @@ import { colors, fonts, getData } from "../../utils";
 const Home = () => {
     const [userData, setUserData] = useState([])
     const [userLead, setUserLead] = useState([])
+    const [userLeadModal, setUserLeadModal] = useState([])
     const [modalVisible, setmodalVisible] = useState(false)
     const [modalVisibles, setmodalVisibles] = useState(false)
     const [open, setOpen] = useState(false);
@@ -41,7 +42,10 @@ const Home = () => {
             updated_at: ""
         },
     ])
-
+    const gotoModalDetailLead = (params) => {
+        setUserLeadModal(params)
+        setmodalVisibles(!modalVisibles)
+    }
     const getUser = async () => {
         getData('user').then(res => {
             const userID = async () => {
@@ -97,8 +101,18 @@ const Home = () => {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ marginHorizontal: 24 }}>
                     {lead.map(data => {
+                        const params = {
+                            id: data.id,
+                            advertiser: data.advertiser,
+                            operator: data.operator,
+                            customer_name: data.customer_name,
+                            customer_whatsapp: data.customer_whatsapp,
+                            product: data.product,
+                            status: data.status,
+                            created_at: data.created_at,
+                        }
                         return (
-                            <ListLead key={data.id} advertiser={data.advertiser} operator={data.operator} customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} product={data.product} status={data.status} created_at={data.created_at} onPress={() => setmodalVisibles(!modalVisibles)} />
+                            <ListLead key={data.id} advertiser={data.advertiser} operator={data.operator} customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} product={data.product} status={data.status} created_at={data.created_at} onPress={()=> gotoModalDetailLead(params)} />
                         )
                     })}
                 </View>
@@ -178,13 +192,13 @@ const Home = () => {
                         <Gap height={20} />
                         <View style={styles.modalContent}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.text}>{`Ord-2243`}</Text>
-                                <Text style={styles.text}>haha</Text>
+                                <Text style={styles.text}>{`ORD - ${userLeadModal.id}`}</Text>
+                                <Text style={styles.text}>{userLeadModal.created_at}</Text>
                             </View>
                             <Gap height={10} />
-                            <Text style={styles.text}>ADV NAME</Text>
+                            <Text style={styles.text}>{userLeadModal.advertiser}</Text>
                             <Gap height={10} />
-                            <Text style={styles.text}>CS NAME</Text>
+                            <Text style={styles.text}>{userLeadModal.operator}</Text>
                             <Gap height={20} />
                             <View style={{ borderBottomColor: colors._white, borderBottomWidth: 1 }}></View>
                             <Gap height={20} />
@@ -193,7 +207,7 @@ const Home = () => {
                                     <Text style={styles.text}>Product</Text>
                                     <Text style={styles.text}>: </Text>
                                 </View>
-                                <Text style={styles.text}>Product Name</Text>
+                                <Text style={styles.text}>{userLeadModal.product}</Text>
                             </View>
                             <Gap height={5} />
                             <View style={{ flexDirection: 'row' }}>
@@ -201,7 +215,7 @@ const Home = () => {
                                     <Text style={styles.text}>Customer</Text>
                                     <Text style={styles.text}>: </Text>
                                 </View>
-                                <Text style={styles.text}>haha</Text>
+                                <Text style={styles.text}>{userLeadModal.customer_name}</Text>
                             </View>
                             <Gap height={5} />
                             <View style={{ flexDirection: 'row' }}>
@@ -209,7 +223,7 @@ const Home = () => {
                                     <Text style={styles.text}>Whatsapp</Text>
                                     <Text style={styles.text}>: </Text>
                                 </View>
-                                <Text style={styles.text}>haha</Text>
+                                <Text style={styles.text}>{userLeadModal.customer_whatsapp}</Text>
                             </View>
                             <Gap height={5} />
                             <View style={{ flexDirection: 'row' }}>
@@ -217,7 +231,7 @@ const Home = () => {
                                     <Text style={styles.text}>Status</Text>
                                     <Text style={styles.text}>: </Text>
                                 </View>
-                                <Text style={styles.text}>haha</Text>
+                                <Text style={styles.text}>{userLeadModal.status}</Text>
                             </View>
                             <Gap height={40} />
                             <Button text="Edit Lead" color={colors._white} height={46} fontSize={14} colorText={colors._blue3} icon={'EditBlue'} onPress={() => setmodalVisible(!modalVisible)} />

@@ -14,7 +14,7 @@ const MyProfile = ({ navigation }) => {
         <>
             <View style={styles.container}>
                 <HeaderPage title="My Profile" icon="Profile" />
-                <View style={[styles.cardProfile, styles.shadowProp]}>
+                <View style={styles.cardProfile}>
                     <Image source={Intersect} style={styles.image} />
                     <View>
                         <Text style={{ fontFamily: fonts.primary[600], fontSize: 16, color: colors._textBlack }} >Khairul Anwar Fadloli</Text>
@@ -23,16 +23,8 @@ const MyProfile = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={{ marginHorizontal: 24, flexDirection: 'row', justifyContent: 'space-around' }}>
-                    {/* <TouchableOpacity style={styles.button} >
-                    <Text>Change Pass</Text>
-                </TouchableOpacity> */}
-                    {/* <TouchableOpacity style={styles.button} >
-                    <Text>Change Pass</Text>
-                </TouchableOpacity> */}
                     <Button icon="Key" text="Change Pass" colorText='white' height={40} width={146} color={colors._blue} />
                     <Button icon="Edit" text="Edit Profile" colorText='white' height={40} width={146} color={colors._blue} />
-                    {/* <Button icon="Edit" text="Edit Profile" height={40} width={146} color={colors._blue}/> */}
-                    {/* <Button icon="" text="Test" height={40} width={146} color={colors._blue}/> */}
                 </View>
                 <Gap height={30} />
                 <View style={styles.menuBtn}>
@@ -59,7 +51,7 @@ const MyProfile = ({ navigation }) => {
                         <Text style={styles.modalText}>Attention!</Text>
                         <Gap height={10} />
                         <Text style={styles.textStyle2}>Are you sure to exit the App?</Text>
-                        <Gap height={20} />
+                        <Gap height={10} />
                         <View style={styles.btnBottom}>
                             <TouchableOpacity style={styles.btnYes} onPress={goLogout}>
                                 <Text style={styles.textStyle3}>Yes</Text>
@@ -84,7 +76,6 @@ const styles = StyleSheet.create({
     },
     cardProfile: {
         backgroundColor: 'white',
-        // borderWidth: 1,
         height: 115,
         marginHorizontal: 24,
         marginVertical: 20,
@@ -99,16 +90,6 @@ const styles = StyleSheet.create({
         width: 80,
         borderRadius: 10,
         marginRight: 35 / 2
-    },
-    shadowProp: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.27,
-        shadowRadius: 4.65,
-        elevation: 6,
     },
     menuBtn: {
         padding: 20,
@@ -128,7 +109,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         width: "100%",
         height: "100%",
-        backgroundColor: colors._black,
+        backgroundColor: colors._blackOp,
     },
     modalView: {
         backgroundColor: colors._white,
@@ -138,7 +119,7 @@ const styles = StyleSheet.create({
     modalText: {
         fontSize: 18,
         color: colors._red,
-        fontFamily: fonts.primary[400],
+        fontFamily: fonts.primary[500],
         textAlign: 'center',
     },
     textStyle2: {
@@ -171,7 +152,7 @@ const styles = StyleSheet.create({
     },
     textStyle4: {
         fontSize: 14,
-        color: colors.white,
+        color: colors._white,
         fontFamily: fonts.primary[400],
         textAlign: 'center',
     },
