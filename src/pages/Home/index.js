@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import DatePicker from 'react-native-date-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Api from "../../Api";
 import { Button, Gap, HeaderHome, Input, ListLead } from "../../components";
@@ -13,6 +14,9 @@ const Home = () => {
     const [leadLength, setLeadLength] = useState()
     const [modalVisible, setmodalVisible] = useState(false)
     const [modalVisibles, setmodalVisibles] = useState(false)
+    const [date, setDate] = useState(new Date())
+    const [openDate, setOpenDate] = useState(false)
+    const [textDate, setTextDate] = useState('Choose date');
     const [open, setOpen] = useState(false);
     const [opens, setOpens] = useState(false);
     const [value, setValue] = useState('');
@@ -156,7 +160,7 @@ const Home = () => {
                                 zIndex={2}
                             />
                             <Gap height={10} />
-                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Campaign</Text>
+                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Product</Text>
                             <DropDownPicker
                                 open={open}
                                 value={value}
@@ -177,6 +181,24 @@ const Home = () => {
                             <Gap height={10} />
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Customer Phone</Text>
                             <Input noPad />
+                            <Gap height={10} />
+                            <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Date</Text>
+                            <Button text={textDate} color={colors._white} colorText={colors._gray} height={50} fontSize={14} onPress={() => setOpenDate(!openDate)} type='date' />
+                            <DatePicker
+                                modal
+                                open={openDate}
+                                date={date}
+                                textColor={colors._white}
+                                mode="date"
+                                onConfirm={(date) => {
+                                    setOpenDate(false)
+                                    setDate(date)
+                                    setTextDate(date.toISOString().slice(0, 10))
+                                }}
+                                onCancel={() => {
+                                    setOpen(false)
+                                }}
+                            />
                             <Gap height={30} />
                             <Button text="Add Lead" color={colors._blue3} colorText={colors._white} height={46} fontSize={14} onPress={() => alert('lah cobaaa')} />
                             <Gap height={10} />
@@ -317,7 +339,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 13,
         fontFamily: fonts.primary[500],
-        color: '#fff',
+        color: colors._white,
     },
     keyItem: {
         width: '30%',
@@ -325,8 +347,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     dropdownText: {
-        fontFamily: fonts.primary[600],
-        fontSize: 16,
+        fontSize: 14,
         color: colors._gray,
         fontFamily: fonts.primary[400],
     },

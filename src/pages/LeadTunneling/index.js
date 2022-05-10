@@ -73,7 +73,6 @@ const LeadTunneling = () => {
                         setDate(date)
                         setTextDate(date.toISOString().slice(0, 10))
                         getLeadFiltered(date.toISOString().slice(0, 10))
-                        setOpen(!open)
                     }}
                     onCancel={() => {
                         setOpen(false)
