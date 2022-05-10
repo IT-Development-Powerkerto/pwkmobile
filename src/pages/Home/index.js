@@ -10,6 +10,7 @@ const Home = () => {
     const [userLead, setUserLead] = useState([])
     const [userLeadModal, setUserLeadModal] = useState([])
     const [role, setRole] = useState()
+    const [leadLength, setLeadLength] = useState()
     const [modalVisible, setmodalVisible] = useState(false)
     const [modalVisibles, setmodalVisibles] = useState(false)
     const [open, setOpen] = useState(false);
@@ -56,6 +57,7 @@ const Home = () => {
                 const responses = await Api.getLeadDaily(res.token);
                 setUserLead(responses.data)
                 setLead(responses.data.leads)
+                setLeadLength(responses.data.leads.length)
             }
             userID()
         });
@@ -93,7 +95,7 @@ const Home = () => {
             <View style={{ paddingHorizontal: 24, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <View>
                     <Text style={{ fontSize: 18, fontFamily: fonts.primary[600], color: colors._textBlack }}>Daily Lead</Text>
-                    <Text style={{ fontSize: 12, fontFamily: fonts.primary[600], color: colors._textGray }}>{`4 Leads`}</Text>
+                    <Text style={{ fontSize: 12, fontFamily: fonts.primary[600], color: colors._textGray }}>{`${leadLength} Leads`}</Text>
                 </View>
                 {
                     role === "5" &&

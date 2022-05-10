@@ -31,6 +31,14 @@ class Api {
             },
         })
     }
-
+    static getLeadFiltered(token, params){
+        let path = `leads?date_filter=${params}`;
+        return request(`${this.urlAPI()}${path}`,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
 }
 export default Api;
