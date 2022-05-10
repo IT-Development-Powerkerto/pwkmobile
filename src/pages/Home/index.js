@@ -6,7 +6,7 @@ import Api from "../../Api";
 import { Button, Gap, HeaderHome, Input, ListLead } from "../../components";
 import { colors, fonts, getData } from "../../utils";
 
-const Home = () => {
+const Home = ({ navigation }) => {
     const [userData, setUserData] = useState([])
     const [userLead, setUserLead] = useState([])
     const [userLeadModal, setUserLeadModal] = useState([])
@@ -17,23 +17,17 @@ const Home = () => {
     const [date, setDate] = useState(new Date())
     const [openDate, setOpenDate] = useState(false)
     const [textDate, setTextDate] = useState('Choose date');
-    const [open, setOpen] = useState(false);
+    const [campaign_id, set_campaign_id] = useState('');
+    const [customer_name, set_customer_name] = useState('');
+    const [customer_number, set_customer_number] = useState('');
+    const [textProduct, setTextProduct] = useState([]);
     const [opens, setOpens] = useState(false);
-    const [value, setValue] = useState('');
     const [values, setValues] = useState('');
     const [items, setItems] = useState([
-        { label: 'Today', value: 'today' },
-        { label: 'Yesterday', value: 'yesterday' },
-        { label: 'Last Week', value: 'last_week' },
-        { label: 'Last Month', value: 'last_month' },
-        { label: 'All', value: 'all' }
-    ]);
-    const [item, setItem] = useState([
-        { label: 'Today', value: 'today' },
-        { label: 'Yesterday', value: 'yesterday' },
-        { label: 'Last Week', value: 'last_week' },
-        { label: 'Last Month', value: 'last_month' },
-        { label: 'All', value: 'all' }
+        {
+            label: '',
+            value: ''
+        },
     ]);
     const [lead, setLead] = useState([
         {
@@ -51,6 +45,42 @@ const Home = () => {
     const gotoModalDetailLead = (params) => {
         setUserLeadModal(params)
         setmodalVisibles(!modalVisibles)
+    }
+    const gotoManualLead = () => {
+        getData('user').then(res => {
+            const manualLead = async () => {
+                const response = await Api.getCampaign(res.token);
+                setItems(response.data)
+            }
+            manualLead()
+        });
+        setmodalVisible(!modalVisible)
+    }
+    const getProduct = (values) => {
+        getData('user').then(res => {
+            set_campaign_id(values)
+            const manualLead = async () => {
+                const response = await Api.getProduct(res.token, values);
+                setTextProduct(response.data)
+            }
+            manualLead()
+        });
+    }
+    const addManualLead = () => {
+        getData('user').then(res => {
+            const manualLead = async () => {
+                const data = {
+                    campaign_id: campaign_id,
+                    product_id: textProduct.id,
+                    customer_name: customer_name,
+                    customer_number: customer_number,
+                    date: textDate
+                }
+                const response = await Api.addManualLead(res.token, data);
+                navigation.replace('MyTabs')
+            }
+            manualLead()
+        });
     }
     const getUser = async () => {
         getData('user').then(res => {
@@ -103,7 +133,7 @@ const Home = () => {
                 </View>
                 {
                     role === "5" &&
-                    <TouchableOpacity onPress={() => setmodalVisible(!modalVisible)}>
+                    <TouchableOpacity onPress={gotoManualLead}>
                         <Text style={{ color: colors._blue3, fontFamily: fonts.primary[600], }}>+ Manual Lead</Text>
                     </TouchableOpacity>
                 }
@@ -156,31 +186,18 @@ const Home = () => {
                                 style={styles.dropdownBtnStyle}
                                 containerStyle={styles.dropdownContainerStyle}
                                 textStyle={styles.dropdownText}
-                                showTickIcon={true}
                                 zIndex={2}
+                                onChangeValue={() => getProduct(values)}
                             />
                             <Gap height={10} />
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Product</Text>
-                            <DropDownPicker
-                                open={open}
-                                value={value}
-                                items={item}
-                                setOpen={setOpen}
-                                setValue={setValue}
-                                setItems={setItems}
-                                showArrowIcon={true}
-                                style={styles.dropdownBtnStyle}
-                                containerStyle={styles.dropdownContainerStyle}
-                                textStyle={styles.dropdownText}
-                                showTickIcon={true}
-                                zIndex={1}
-                            />
+                            <Input editable={false} noPad placeholder={textProduct.product} />
                             <Gap height={10} />
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Customer Name</Text>
-                            <Input noPad />
+                            <Input noPad value={customer_name} onChangeText={(value) => set_customer_name(value)} />
                             <Gap height={10} />
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Customer Phone</Text>
-                            <Input noPad />
+                            <Input noPad value={customer_number} onChangeText={(value) => set_customer_number(value)} />
                             <Gap height={10} />
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Date</Text>
                             <Button text={textDate} color={colors._white} colorText={colors._gray} height={50} fontSize={14} onPress={() => setOpenDate(!openDate)} type='date' />
@@ -196,11 +213,11 @@ const Home = () => {
                                     setTextDate(date.toISOString().slice(0, 10))
                                 }}
                                 onCancel={() => {
-                                    setOpen(false)
+                                    setOpenDate(false)
                                 }}
                             />
                             <Gap height={30} />
-                            <Button text="Add Lead" color={colors._blue3} colorText={colors._white} height={46} fontSize={14} onPress={() => alert('lah cobaaa')} />
+                            <Button text="Add Lead" color={colors._blue3} colorText={colors._white} height={46} fontSize={14} onPress={addManualLead} />
                             <Gap height={10} />
                             <Button text="Cancel" colorText={colors._white} height={46} fontSize={14} onPress={() => setmodalVisible(false)} />
                         </View>

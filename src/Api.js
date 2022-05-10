@@ -40,5 +40,33 @@ class Api {
             },
         })
     }
+    static getCampaign(token){
+        let path = 'get-campaign';
+        return request(`${this.urlAPI()}${path}`,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
+    static getProduct(token, id){
+        let path = `get-product/${id}`;
+        return request(`${this.urlAPI()}${path}`,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
+    static addManualLead(token, data){
+        let path = 'leads';
+        return request(`${this.urlAPI()}${path}`,{
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            data
+        })
+    }
 }
 export default Api;
