@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StatusBar, StyleSheet, Text, View, Modal } from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import Api from '../../Api'
-import { Button, HeaderPage, ListLead } from '../../components'
+import { Button, Gap, HeaderPage, ListLead } from '../../components'
 import { colors, fonts, getData } from '../../utils'
 
 const LeadTunneling = () => {
@@ -10,6 +10,8 @@ const LeadTunneling = () => {
     const [open, setOpen] = useState(false)
     const [textDate, setTextDate] = useState('Choose date');
     const [leadLength, setLeadLength] = useState()
+    const [userLeadModal, setUserLeadModal] = useState([])
+    const [modalVisible, setmodalVisible] = useState(false)
     const [lead, setLead] = useState([
         {
             id: 35327,
@@ -23,6 +25,10 @@ const LeadTunneling = () => {
             updated_at: ""
         },
     ])
+    const gotoModalDetailLead = (params) => {
+        setUserLeadModal(params)
+        setmodalVisible(!modalVisible)
+    }
     const getLead = async () => {
         getData('user').then(res => {
             const userID = async () => {
@@ -97,11 +103,74 @@ const LeadTunneling = () => {
                             created_at: data.created_at,
                         }
                         return (
-                            <ListLead key={data.id} advertiser={data.advertiser} operator={data.operator} customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} product={data.product} status={data.status} created_at={data.created_at} />
+                            <ListLead key={data.id} advertiser={data.advertiser} operator={data.operator} customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} product={data.product} status={data.status} created_at={data.created_at} onPress={() => gotoModalDetailLead(params)}/>
                         )
                     })}
                 </View>
             </ScrollView>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setmodalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.mainModal}>
+                    <View style={styles.subModal}>
+                        <Text style={{ fontSize: 16, fontFamily: fonts.primary[600], color: colors._blue, marginLeft: 24, marginTop: 24 }}>Detail Lead</Text>
+                        <Gap height={20} />
+                        <View style={styles.modalContent}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={styles.text}>{`ORD - ${userLeadModal.id}`}</Text>
+                                <Text style={styles.text}>{userLeadModal.created_at}</Text>
+                            </View>
+                            <Gap height={10} />
+                            <Text style={styles.text}>{userLeadModal.advertiser}</Text>
+                            <Gap height={10} />
+                            <Text style={styles.text}>{userLeadModal.operator}</Text>
+                            <Gap height={20} />
+                            <View style={{ borderBottomColor: colors._white, borderBottomWidth: 1 }}></View>
+                            <Gap height={20} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Product</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>{userLeadModal.product}</Text>
+                            </View>
+                            <Gap height={5} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Customer</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>{userLeadModal.customer_name}</Text>
+                            </View>
+                            <Gap height={5} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Whatsapp</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>{userLeadModal.customer_whatsapp}</Text>
+                            </View>
+                            <Gap height={5} />
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.keyItem}>
+                                    <Text style={styles.text}>Status</Text>
+                                    <Text style={styles.text}>: </Text>
+                                </View>
+                                <Text style={styles.text}>{userLeadModal.status}</Text>
+                            </View>
+                            <Gap height={40} />
+                            <Button text="Edit Lead" color={colors._white} height={46} fontSize={14} colorText={colors._blue3} icon={'EditBlue'} onPress={() => setmodalVisible(!modalVisible)} />
+                            <Gap height={10} />
+                            <Button text="Cancel" colorText={colors._white} height={46} fontSize={14} onPress={() => setmodalVisible(!modalVisible)} />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }
@@ -112,5 +181,24 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors._white
+    },
+    mainModal: {
+        justifyContent: "flex-end",
+        flex: 1,
+        backgroundColor: colors._blackOp,
+    },
+    subModal: {
+        backgroundColor: colors._white,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    modalContent: {
+        backgroundColor: colors._blue,
+        padding: 30,
+    },
+    keyItem: {
+        width: '30%',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
 })
