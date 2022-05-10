@@ -9,6 +9,7 @@ const Home = () => {
     const [userData, setUserData] = useState([])
     const [userLead, setUserLead] = useState([])
     const [userLeadModal, setUserLeadModal] = useState([])
+    const [role, setRole] = useState()
     const [modalVisible, setmodalVisible] = useState(false)
     const [modalVisibles, setmodalVisibles] = useState(false)
     const [open, setOpen] = useState(false);
@@ -49,6 +50,7 @@ const Home = () => {
     const getUser = async () => {
         getData('user').then(res => {
             const userID = async () => {
+                setRole(res.role_id)
                 const response = await Api.getUser(res.id, res.token);
                 setUserData(response.data)
                 const responses = await Api.getLeadDaily(res.token);
@@ -93,9 +95,12 @@ const Home = () => {
                     <Text style={{ fontSize: 18, fontFamily: fonts.primary[600], color: colors._textBlack }}>Daily Lead</Text>
                     <Text style={{ fontSize: 12, fontFamily: fonts.primary[600], color: colors._textGray }}>{`4 Leads`}</Text>
                 </View>
-                <TouchableOpacity onPress={() => setmodalVisible(!modalVisible)}>
-                    <Text style={{ color: colors._blue3, fontFamily: fonts.primary[600], }}>+ Manual Lead</Text>
-                </TouchableOpacity>
+                {
+                    role === "5" &&
+                    <TouchableOpacity onPress={() => setmodalVisible(!modalVisible)}>
+                        <Text style={{ color: colors._blue3, fontFamily: fonts.primary[600], }}>+ Manual Lead</Text>
+                    </TouchableOpacity>
+                }
             </View>
             <Gap height={10} />
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -112,7 +117,7 @@ const Home = () => {
                             created_at: data.created_at,
                         }
                         return (
-                            <ListLead key={data.id} advertiser={data.advertiser} operator={data.operator} customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} product={data.product} status={data.status} created_at={data.created_at} onPress={()=> gotoModalDetailLead(params)} />
+                            <ListLead key={data.id} advertiser={data.advertiser} operator={data.operator} customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} product={data.product} status={data.status} created_at={data.created_at} onPress={() => gotoModalDetailLead(params)} />
                         )
                     })}
                 </View>
@@ -236,7 +241,7 @@ const Home = () => {
                             <Gap height={40} />
                             <Button text="Edit Lead" color={colors._white} height={46} fontSize={14} colorText={colors._blue3} icon={'EditBlue'} onPress={() => setmodalVisible(!modalVisible)} />
                             <Gap height={10} />
-                            <Button text="Cancel" height={46} fontSize={14} onPress={() => setmodalVisibles(!modalVisibles)} />
+                            <Button text="Cancel" colorText={colors._white} height={46} fontSize={14} onPress={() => setmodalVisibles(!modalVisibles)} />
                         </View>
                     </View>
                 </View>

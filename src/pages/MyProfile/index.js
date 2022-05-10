@@ -1,28 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import Api from '../../Api'
 import { Intersect } from '../../assets'
 import { Button, Gap, HeaderPage, ListButtonMenu } from '../../components'
-import { colors, fonts, removeUserDetail } from '../../utils'
+import { colors, fonts, getData, removeUserDetail } from '../../utils'
 
 const MyProfile = ({ navigation }) => {
+    const [userData, setUserData] = useState([])
     const [modalVisible, setmodalVisible] = useState(false);
     const goLogout = () => {
         removeUserDetail('user');
         navigation.replace('Login');
     }
+    const getUser = async () => {
+        getData('user').then(res => {
+            const userID = async () => {
+                const response = await Api.getUser(res.id, res.token);
+                setUserData(response.data)
+            }
+            userID()
+        });
+    }
+    useEffect(() => {
+        getUser()
+    }, [])
     return (
         <>
             <View style={styles.container}>
                 <HeaderPage title="My Profile" icon="Profile" />
                 <View style={styles.cardProfile}>
-                    <Image source={Intersect} style={styles.image} />
+                    <Image source={{ uri: userData.image }} style={styles.image} />
                     <View>
-                        <Text style={{ fontFamily: fonts.primary[600], fontSize: 16, color: colors._textBlack }} >Khairul Anwar Fadloli</Text>
-                        <Text style={{ fontFamily: fonts.primary[500], fontSize: 12, color: colors._textBlack }} >khairula0110@gmail.com</Text>
-                        <Text style={{ fontFamily: fonts.primary[500], fontSize: 12, color: colors._textBlack }} >6281393445965</Text>
+                        <Text style={{ fontFamily: fonts.primary[600], fontSize: 16, color: colors._textBlack }} >{userData.name}</Text>
+                        <Text style={{ fontFamily: fonts.primary[500], fontSize: 12, color: colors._textBlack }} >{userData.email}</Text>
+                        <Text style={{ fontFamily: fonts.primary[500], fontSize: 12, color: colors._textBlack }} >{userData.phone}</Text>
                     </View>
                 </View>
-                <View style={{ marginHorizontal: 24, flexDirection: 'row', justifyContent: 'space-around' }}>
+                <View style={{ marginHorizontal: 24, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Button icon="Key" text="Change Pass" colorText='white' height={40} width={146} color={colors._blue} />
                     <Button icon="Edit" text="Edit Profile" colorText='white' height={40} width={146} color={colors._blue} />
                 </View>
@@ -35,7 +49,7 @@ const MyProfile = ({ navigation }) => {
                 </View>
                 <View style={{ flex: 1 }} />
                 <View style={{ marginHorizontal: 24, marginBottom: 30 }}>
-                    <Button text="Cancel" height={46} fontSize={14} color={colors._red} colorText='white' onPress={() => setmodalVisible(!modalVisible)} />
+                    <Button text="Logout" height={46} fontSize={14} color={colors._red} colorText='white' onPress={() => setmodalVisible(!modalVisible)} />
                 </View>
             </View>
             <Modal
@@ -76,20 +90,17 @@ const styles = StyleSheet.create({
     },
     cardProfile: {
         backgroundColor: 'white',
-        height: 115,
-        marginHorizontal: 24,
-        marginVertical: 20,
-        borderRadius: 15,
-        padding: 35 / 2,
+        borderRadius: 16,
+        padding: 24,
         flexDirection: 'row',
-
+        alignItems: 'center'
     },
     image: {
         backgroundColor: 'white',
         height: 80,
         width: 80,
         borderRadius: 10,
-        marginRight: 35 / 2
+        marginRight: 10
     },
     menuBtn: {
         padding: 20,
