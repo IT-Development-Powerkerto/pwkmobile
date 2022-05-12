@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { showMessage } from "react-native-flash-message";
 import { launchImageLibrary } from 'react-native-image-picker';
+import Api from '../../Api';
 import { Button, ButtonIcon, Gap, HeaderBack, Input } from '../../components';
-import { colors, fonts } from '../../utils';
+import { colors, fonts, getData } from '../../utils';
 
-const EditProfile = () => {
+const EditProfile = ({ navigation, route }) => {
+    const { token, id } = route.params;
     const [imgText, setimgText] = useState("")
+    const [name, setName] = useState("")
+    const [username, setUsername] = useState("")
+    const [nickname, setNickname] = useState("")
+    const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
+    const [role, setRole] = useState("")
+    const [image, setImage] = useState("")
     const getImageFromGalery = () => {
         launchImageLibrary({ quality: 0.5, maxWidth: 200, maxHeight: 200, includeBase64: true }, (response) => {
             if (response.didCancel || response.error) {
@@ -24,35 +34,114 @@ const EditProfile = () => {
             }
         });
     }
+    const getProfile = () => {
+        getData('user').then(res => {
+            const getUser = async () => {
+                const response = await Api.getUser(res.id, res.token);
+                setName(response.data.name)
+                setUsername(response.data.username)
+                setNickname(response.data.nickname)
+                setPhone(response.data.phone)
+                setEmail(response.data.email)
+                setRole(response.data.role)
+            }
+            getUser()
+        });
+    }
+    const editProfile = async() => {
+        const error = [];
+        if (name === '') {
+            error.push('Name must not empty')
+        }
+        if (username === '') {
+            error.push('Username must not empty')
+        }
+        if (phone === '') {
+            error.push('Phone must not empty')
+        }
+        if (email === '') {
+            error.push('Email must not empty')
+        } if (error.length > 0) {
+            showMessage({
+                icon: 'warning',
+                message: error[0],
+                type: "default",
+                backgroundColor: colors._red2,
+                color: colors._white,
+                animated: true,
+                duration: 1000,
+            });
+        } else {
+            try {
+                const data = {
+                    name: name,
+                    username: username,
+                    nickname: nickname,
+                    phone: phone,
+                    email: email
+                }
+                const response = await Api.changeProfile(token, data, id)
+                showMessage({
+                    icon: `${response.data.success === false ? 'warning' : 'success'}`,
+                    message: `Change profile ${response.data.success === false ? 'failed' : 'success'}`,
+                    type: "default",
+                    backgroundColor: response.data.success === true ? colors._green : colors._red2,
+                    color: colors._white,
+                    animated: true,
+                    duration: 3000,
+                });
+                navigation.replace('MyTabs');
+            } catch (error) {
+                showMessage({
+                    icon: 'warning',
+                    message: error.toString(),
+                    type: "default",
+                    backgroundColor: colors._red2,
+                    color: colors._white,
+                    animated: true,
+                    duration: 1000,
+                });
+            }
+        }
+    }
+    useEffect(() => {
+        getProfile();
+    }, [])
+
     return (
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
-            <HeaderBack teks="Edit Profile" />
-            <View style={{ paddingHorizontal: 24, flex: 1 }}>
-                <Gap height={20} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Fullname</Text>
-                <Input noPad />
+            <HeaderBack teks="Edit Profile" onPress={() => navigation.goBack()} />
+            <ScrollView showsHorizontalScrollIndicator={false}>
+                <View style={{ paddingHorizontal: 24, flex: 1 }}>
+                    <Gap height={20} />
+                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Fullname</Text>
+                    <Input noPad value={name} onChangeText={(value) => setName(value)} />
+                    <Gap height={10} />
+                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Username</Text>
+                    <Input noPad value={username} onChangeText={(value) => setUsername(value)} />
+                    <Gap height={10} />
+                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Nickname</Text>
+                    <Input noPad value={nickname} onChangeText={(value) => setNickname(value)} />
+                    <Gap height={10} />
+                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Phone</Text>
+                    <Input noPad value={phone} onChangeText={(value) => setPhone(value)} />
+                    <Gap height={10} />
+                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Email</Text>
+                    <Input noPad value={email} onChangeText={(value) => setEmail(value)} />
+                    <Gap height={10} />
+                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Role</Text>
+                    <Input noPad value={role} editable={false} />
+                    <Gap height={10} />
+                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Image</Text>
+                    <ButtonIcon onPress={getImageFromGalery} teks={imgText} type='image' />
+                    <Gap height={20} />
+                    <Button text="Edit Profile" color={colors._blue2} colorText={colors._white} height={46} fontSize={14} onPress={editProfile} />
+                    <Gap height={10} />
+                </View>
+                <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} />
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Username</Text>
-                <Input noPad />
-                <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Phone</Text>
-                <Input noPad />
-                <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Email</Text>
-                <Input noPad />
-                <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Role</Text>
-                <Input noPad />
-                <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Image</Text>
-                <ButtonIcon onPress={getImageFromGalery} teks={imgText} type='image'/>
-                <View style={{ flex: 1 }} />
-                <Button text="Add Lead" color={colors._blue2} colorText='white' height={46} fontSize={14} />
-                <Gap height={10} />
-                <Button text="Cancel" height={46} fontSize={14} />
-                <Gap height={10} />
-            </View>
+            </ScrollView>
         </View>
     )
 }

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { StatusBar, StyleSheet, Text, View } from 'react-native'
-import { Button, Gap, HeaderBack, Input } from '../../components'
-import { colors, fonts } from '../../utils'
+import React, { useState } from 'react';
+import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from "react-native-flash-message";
 import Api from '../../Api';
+import { Button, Gap, HeaderBack, Input } from '../../components';
+import { colors, fonts } from '../../utils';
 
 const ChangePassword = ({ navigation, route }) => {
     const { token } = route.params;
@@ -47,10 +47,10 @@ const ChangePassword = ({ navigation, route }) => {
                 }
                 const response = await Api.changePassword(token, data)
                 showMessage({
-                    icon: `${response.data.success === false? 'warning' : 'success'}`,
-                    message: `Change password ${response.data.success === false? 'failed' : 'success'}`,
+                    icon: `${response.data.success === false ? 'warning' : 'success'}`,
+                    message: `Change password ${response.data.success === false ? 'failed' : 'success'}`,
                     type: "default",
-                    backgroundColor: response.data.success === true? colors._green : colors._red2,
+                    backgroundColor: response.data.success === true ? colors._green : colors._red2,
                     color: colors._white,
                     animated: true,
                     duration: 3000,
@@ -72,7 +72,7 @@ const ChangePassword = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
-            <HeaderBack teks="Change Password" />
+            <HeaderBack teks="Change Password" onPress={() => navigation.goBack()} />
             <View style={{ paddingHorizontal: 24, flex: 1 }}>
                 <Gap height={20} />
                 <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Current Password</Text>

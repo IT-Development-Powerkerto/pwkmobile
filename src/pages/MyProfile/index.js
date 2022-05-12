@@ -20,6 +20,15 @@ const MyProfile = ({ navigation }) => {
             navigation.navigate('ChangePassword', params);
         })
     }
+    const gotoChangeProfile = () => {
+        getData('user').then(res=>{
+            const params = {
+                id: res.id,
+                token: res.token,
+            }
+            navigation.navigate('EditProfile', params);
+        })
+    }
     const getUser = async () => {
         getData('user').then(res => {
             const userID = async () => {
@@ -46,7 +55,7 @@ const MyProfile = ({ navigation }) => {
                 </View>
                 <View style={{ marginHorizontal: 24, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Button icon="Key" text="Change Pass" colorText='white' height={40} width={146} color={colors._blue} onPress={gotoChangePassword}/>
-                    <Button icon="Edit" text="Edit Profile" colorText='white' height={40} width={146} color={colors._blue} />
+                    <Button icon="Edit" text="Edit Profile" colorText='white' height={40} width={146} color={colors._blue} onPress={gotoChangeProfile}/>
                 </View>
                 <Gap height={30} />
                 <View style={styles.menuBtn}>
