@@ -48,7 +48,7 @@ const Login = ({ navigation }) => {
                     icon: 'warning',
                     message: error.toString(),
                     type: "default",
-                    backgroundColor: colors._red,
+                    backgroundColor: colors._red2,
                     color: colors._white,
                     animated: true,
                     duration: 1000,

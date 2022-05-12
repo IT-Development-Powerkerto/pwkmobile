@@ -12,6 +12,14 @@ const MyProfile = ({ navigation }) => {
         removeUserDetail('user');
         navigation.replace('Login');
     }
+    const gotoChangePassword = () => {
+        getData('user').then(res=>{
+            const params = {
+                token: res.token,
+            }
+            navigation.navigate('ChangePassword', params);
+        })
+    }
     const getUser = async () => {
         getData('user').then(res => {
             const userID = async () => {
@@ -37,7 +45,7 @@ const MyProfile = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={{ marginHorizontal: 24, flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Button icon="Key" text="Change Pass" colorText='white' height={40} width={146} color={colors._blue} />
+                    <Button icon="Key" text="Change Pass" colorText='white' height={40} width={146} color={colors._blue} onPress={gotoChangePassword}/>
                     <Button icon="Edit" text="Edit Profile" colorText='white' height={40} width={146} color={colors._blue} />
                 </View>
                 <Gap height={30} />
