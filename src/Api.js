@@ -20,47 +20,67 @@ class Api {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
-        }) 
+        })
     }
-    static getLeadDaily(token){
+    static getLeadDaily(token) {
         let path = 'leads';
-        return request(`${this.urlAPI()}${path}`,{
+        return request(`${this.urlAPI()}${path}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
         })
     }
-    static getLeadFiltered(token, params){
+    static getLeadFiltered(token, params) {
         let path = `leads?date_filter=${params}`;
-        return request(`${this.urlAPI()}${path}`,{
+        return request(`${this.urlAPI()}${path}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
         })
     }
-    static getCampaign(token){
+    static getCampaign(token) {
         let path = 'get-campaign';
-        return request(`${this.urlAPI()}${path}`,{
+        return request(`${this.urlAPI()}${path}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
         })
     }
-    static getProduct(token, id){
+    static getProduct(token, id) {
         let path = `get-product/${id}`;
-        return request(`${this.urlAPI()}${path}`,{
+        return request(`${this.urlAPI()}${path}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
         })
     }
-    static addManualLead(token, data){
+    static addManualLead(token, data) {
         let path = 'leads';
-        return request(`${this.urlAPI()}${path}`,{
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            data
+        })
+    }
+    static changePassword(token, data) {
+        let path = 'change-password';
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            data
+        })
+    }
+    static changeProfile(token, data, id) {
+        let path = `users/${id}`;
+        return request(`${this.urlAPI()}${path}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

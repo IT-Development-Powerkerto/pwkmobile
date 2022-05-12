@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { showMessage } from "react-native-flash-message";
 import { launchImageLibrary } from 'react-native-image-picker';
 import Api from '../../Api';
-import { Button, ButtonIcon, Gap, HeaderBack, Input } from '../../components';
+import { Profile } from '../../assets';
+import { Button, Gap, HeaderBack, Input } from '../../components';
 import { colors, fonts, getData } from '../../utils';
 
 const EditProfile = ({ navigation, route }) => {
     const { token, id } = route.params;
-    const [imgText, setimgText] = useState("")
     const [name, setName] = useState("")
     const [username, setUsername] = useState("")
     const [nickname, setNickname] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
     const [role, setRole] = useState("")
-    const [image, setImage] = useState("")
+    const [photo, setPhoto] = useState("");
+    const [photoDB, setPhotoDB] = useState("");
     const getImageFromGalery = () => {
         launchImageLibrary({ quality: 0.5, maxWidth: 200, maxHeight: 200, includeBase64: true }, (response) => {
             if (response.didCancel || response.error) {
@@ -27,10 +28,8 @@ const EditProfile = ({ navigation, route }) => {
                     icon: 'warning',
                 });
             } else {
-                const image = response.assets[0].uri;
-                const mystring = response.assets[0].fileName
-                let mystrings = mystring.split('/file:///data/user/0/com.pwkmobile/cache/').join('/')
-                setimgText(mystrings)
+                setPhoto(response.assets[0].uri);
+                setPhotoDB(`data:${response.assets[0].type};base64,${response.assets[0].base64}`);
             }
         });
     }
@@ -48,7 +47,7 @@ const EditProfile = ({ navigation, route }) => {
             getUser()
         });
     }
-    const editProfile = async() => {
+    const editProfile = async () => {
         const error = [];
         if (name === '') {
             error.push('Name must not empty')
@@ -78,7 +77,8 @@ const EditProfile = ({ navigation, route }) => {
                     username: username,
                     nickname: nickname,
                     phone: phone,
-                    email: email
+                    email: email,
+                    image: photoDB
                 }
                 const response = await Api.changeProfile(token, data, id)
                 showMessage({
@@ -112,35 +112,32 @@ const EditProfile = ({ navigation, route }) => {
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
             <HeaderBack teks="Edit Profile" onPress={() => navigation.goBack()} />
-            <ScrollView showsHorizontalScrollIndicator={false}>
-                <View style={{ paddingHorizontal: 24, flex: 1 }}>
-                    <Gap height={20} />
-                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Fullname</Text>
-                    <Input noPad value={name} onChangeText={(value) => setName(value)} />
-                    <Gap height={10} />
-                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Username</Text>
-                    <Input noPad value={username} onChangeText={(value) => setUsername(value)} />
-                    <Gap height={10} />
-                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Nickname</Text>
-                    <Input noPad value={nickname} onChangeText={(value) => setNickname(value)} />
-                    <Gap height={10} />
-                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Phone</Text>
-                    <Input noPad value={phone} onChangeText={(value) => setPhone(value)} />
-                    <Gap height={10} />
-                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Email</Text>
-                    <Input noPad value={email} onChangeText={(value) => setEmail(value)} />
-                    <Gap height={10} />
-                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Role</Text>
-                    <Input noPad value={role} editable={false} />
-                    <Gap height={10} />
-                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Image</Text>
-                    <ButtonIcon onPress={getImageFromGalery} teks={imgText} type='image' />
-                    <Gap height={20} />
-                    <Button text="Edit Profile" color={colors._blue2} colorText={colors._white} height={46} fontSize={14} onPress={editProfile} />
-                    <Gap height={10} />
-                </View>
-                <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} />
+            <ScrollView showsHorizontalScrollIndicator={false} style={{ padding: 24 }}>
+                <TouchableOpacity onPress={getImageFromGalery}>
+                    <Image source={photo === "" ? Profile : { uri: photo }} style={{ width: 100, height: 100, borderRadius: 50, alignSelf: 'center' }} />
+                </TouchableOpacity>
                 <Gap height={10} />
+                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Fullname</Text>
+                <Input noPad value={name} onChangeText={(value) => setName(value)} />
+                <Gap height={10} />
+                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Username</Text>
+                <Input noPad value={username} onChangeText={(value) => setUsername(value)} />
+                <Gap height={10} />
+                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Nickname</Text>
+                <Input noPad value={nickname} onChangeText={(value) => setNickname(value)} />
+                <Gap height={10} />
+                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Phone</Text>
+                <Input noPad value={phone} onChangeText={(value) => setPhone(value)} />
+                <Gap height={10} />
+                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Email</Text>
+                <Input noPad value={email} onChangeText={(value) => setEmail(value)} />
+                <Gap height={10} />
+                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Role</Text>
+                <Input noPad value={role} editable={false} />
+                <Gap height={20} />
+                <Button text="Edit Profile" color={colors._blue2} colorText={colors._white} height={46} fontSize={14} onPress={editProfile} />
+                <Gap height={10} />
+                <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} onPress={() => navigation.goBack()} />
             </ScrollView>
         </View>
     )

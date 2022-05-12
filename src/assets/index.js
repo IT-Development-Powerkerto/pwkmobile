@@ -1,3 +1,4 @@
+import Back from './Icon/Back.svg';
 import Badge from "./Icon/Badge.svg";
 import Bell from "./Icon/Bell.svg";
 import Calender from "./Icon/Calender.svg";
@@ -14,6 +15,17 @@ import Gender from "./Icon/Gender.svg";
 import Geo from "./Icon/Geo.svg";
 import Home from "./Icon/Home.svg";
 import HomeColor from "./Icon/HomeColor.svg";
+import IconBudgeting from './Icon/IconBudgeting.svg';
+import IconChooseImage from './Icon/IconChooseImage.svg';
+import IconClock from './Icon/IconClock.svg';
+import IconDate from './Icon/IconDate.svg';
+import IconDelete from './Icon/IconDelete.svg';
+import IconEdit from './Icon/IconEdit.svg';
+import IconEvaluation from './Icon/IconEvaluation.svg';
+import IconGo from './Icon/IconGo.svg';
+import IconPromotion from './Icon/IconPromotion.svg';
+import IconReimbursement from './Icon/IconReimbusement.svg';
+import ImageAttach from './Icon/ImageAttach.png';
 import Key from "./Icon/Key.svg";
 import Lead from "./Icon/Lead.svg";
 import LeadColor from "./Icon/LeadColor.svg";
@@ -35,25 +47,12 @@ import Cover from "./img/Cover.png";
 import Intersect from "./img/Intersect.png";
 import Powerkerto from "./img/Powerkerto.png";
 import Profile from "./img/Profile.png";
-import Back from './Icon/Back.svg';
-import IconEdit from './Icon/IconEdit.svg';
-import IconDelete from './Icon/IconDelete.svg';
-import IconGo from './Icon/IconGo.svg';
-import IconChooseImage from './Icon/IconChooseImage.svg';
-import IconClock from './Icon/IconClock.svg';
-import IconDate from './Icon/IconDate.svg';
-import IconPromotion from './Icon/IconPromotion.svg';
-import IconReimbursement from './Icon/IconReimbusement.svg';
-import IconBudgeting from './Icon/IconBudgeting.svg';
-import IconEvaluation from './Icon/IconEvaluation.svg';
-import ImageAttach from './Icon/ImageAttach.png';
 
 export {
     Cover,
     Powerkerto,
     Profile,
     Intersect,
-
     Edit,
     EditBlue,
     Email,
@@ -99,4 +98,5 @@ export {
     IconPromotion,
     IconReimbursement,
     ImageAttach,
-}
+};
+
