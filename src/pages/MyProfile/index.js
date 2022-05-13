@@ -5,6 +5,7 @@ import { Button, Gap, HeaderPage, ListButtonMenu } from '../../components'
 import { colors, fonts, getData, removeUserDetail } from '../../utils'
 
 const MyProfile = ({ navigation }) => {
+    const [role, setRole] = useState("")
     const [userData, setUserData] = useState([])
     const [modalVisible, setmodalVisible] = useState(false);
     const goLogout = () => {
@@ -38,6 +39,7 @@ const MyProfile = ({ navigation }) => {
     }
     const getUser = async () => {
         getData('user').then(res => {
+            setRole(res.role_id);
             const userID = async () => {
                 const response = await Api.getUser(res.id, res.token);
                 setUserData(response.data)
@@ -66,7 +68,7 @@ const MyProfile = ({ navigation }) => {
                 </View>
                 <Gap height={30} />
                 <View style={styles.menuBtn}>
-                    <ListButtonMenu type='promotion' teks='Promotion' onPress={gotoPromotion} />
+                    {role === '5' && <ListButtonMenu type='promotion' teks='Promotion' onPress={gotoPromotion} />}
                     <ListButtonMenu type='reimbursement' teks='Reimbursement' />
                     <ListButtonMenu type='budgeting' teks='Budgeting Realization' />
                     <ListButtonMenu type='evaluation' teks='Routine Evaluation' />
