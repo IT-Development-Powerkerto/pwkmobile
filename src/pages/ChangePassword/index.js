@@ -72,7 +72,7 @@ const ChangePassword = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
-            <HeaderBack teks="Change Password" onPress={() => navigation.goBack()} />
+            <HeaderBack teks="Change Password" onPress={()=> navigation.goBack()}/>
             <View style={{ paddingHorizontal: 24, flex: 1 }}>
                 <Gap height={20} />
                 <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Current Password</Text>

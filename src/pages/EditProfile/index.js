@@ -43,6 +43,7 @@ const EditProfile = ({ navigation, route }) => {
                 setPhone(response.data.phone)
                 setEmail(response.data.email)
                 setRole(response.data.role)
+                setPhoto(response.data.image)
             }
             getUser()
         });
@@ -111,7 +112,7 @@ const EditProfile = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
-            <HeaderBack teks="Edit Profile" onPress={() => navigation.goBack()} />
+            <HeaderBack teks="Edit Profile" onPress={()=> navigation.goBack()}/>
             <ScrollView showsHorizontalScrollIndicator={false} style={{ padding: 24 }}>
                 <TouchableOpacity onPress={getImageFromGalery}>
                     <Image source={photo === "" ? Profile : { uri: photo }} style={{ width: 100, height: 100, borderRadius: 50, alignSelf: 'center' }} />
@@ -138,6 +139,7 @@ const EditProfile = ({ navigation, route }) => {
                 <Button text="Edit Profile" color={colors._blue2} colorText={colors._white} height={46} fontSize={14} onPress={editProfile} />
                 <Gap height={10} />
                 <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} onPress={() => navigation.goBack()} />
+                <Gap height={24} />
             </ScrollView>
         </View>
     )

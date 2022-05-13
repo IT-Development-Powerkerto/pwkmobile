@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Api from '../../Api'
-import { Intersect } from '../../assets'
 import { Button, Gap, HeaderPage, ListButtonMenu } from '../../components'
 import { colors, fonts, getData, removeUserDetail } from '../../utils'
 
@@ -13,7 +12,7 @@ const MyProfile = ({ navigation }) => {
         navigation.replace('Login');
     }
     const gotoChangePassword = () => {
-        getData('user').then(res=>{
+        getData('user').then(res => {
             const params = {
                 token: res.token,
             }
@@ -21,12 +20,20 @@ const MyProfile = ({ navigation }) => {
         })
     }
     const gotoChangeProfile = () => {
-        getData('user').then(res=>{
+        getData('user').then(res => {
             const params = {
                 id: res.id,
                 token: res.token,
             }
             navigation.navigate('EditProfile', params);
+        })
+    }
+    const gotoPromotion = () => {
+        getData('user').then(res => {
+            const params = {
+                token: res.token,
+            }
+            navigation.navigate('Promotion', params)
         })
     }
     const getUser = async () => {
@@ -54,12 +61,12 @@ const MyProfile = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={{ marginHorizontal: 24, flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Button icon="Key" text="Change Pass" colorText='white' height={40} width={146} color={colors._blue} onPress={gotoChangePassword}/>
-                    <Button icon="Edit" text="Edit Profile" colorText='white' height={40} width={146} color={colors._blue} onPress={gotoChangeProfile}/>
+                    <Button icon="Key" text="Change Pass" colorText='white' height={40} width={146} color={colors._blue} onPress={gotoChangePassword} />
+                    <Button icon="Edit" text="Edit Profile" colorText='white' height={40} width={146} color={colors._blue} onPress={gotoChangeProfile} />
                 </View>
                 <Gap height={30} />
                 <View style={styles.menuBtn}>
-                    <ListButtonMenu type='promotion' teks='Promotion' />
+                    <ListButtonMenu type='promotion' teks='Promotion' onPress={gotoPromotion} />
                     <ListButtonMenu type='reimbursement' teks='Reimbursement' />
                     <ListButtonMenu type='budgeting' teks='Budgeting Realization' />
                     <ListButtonMenu type='evaluation' teks='Routine Evaluation' />

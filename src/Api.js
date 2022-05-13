@@ -58,6 +58,34 @@ class Api {
             },
         })
     }
+    static getPromotion(token) {
+        let path = 'promotions';
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
+    static createPromotion(token, data) {
+        let path = 'promotions';
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            data
+        })
+    }
+    static getProductType(token) {
+        let path = 'product-list';
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
     static addManualLead(token, data) {
         let path = 'leads';
         return request(`${this.urlAPI()}${path}`, {

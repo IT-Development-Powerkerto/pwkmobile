@@ -2,19 +2,20 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { IconDelete, IconEdit } from '../../../assets'
 import { colors, fonts } from '../../../utils'
+import helpers from '../../../utils/helpers'
 import Gap from '../Gap'
 
-const ListPromotion = () => {
+const ListPromotion = ({ promotion_type, product_name, promotion_name, total_promotion }) => {
     return (
         <View style={styles.container}>
             <View>
-                <Text style={styles.teks}>Freshmag</Text>
+                <Text style={styles.teks}>{product_name}</Text>
                 <Gap height={5} />
-                <Text style={styles.teks2}>Erul Freshmag buy 2</Text>
+                <Text style={styles.teks2}>{promotion_name}</Text>
                 <Gap height={5} />
-                <Text style={styles.teks}>Product Price & Shipping Cost</Text>
+                <Text style={styles.teks}>{promotion_type}</Text>
                 <Gap height={5} />
-                <Text style={styles.teks3}>Rp 31.000</Text>
+                <Text style={styles.teks3}>{helpers.convertToRupiah(total_promotion)}</Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity>
@@ -32,7 +33,7 @@ const ListPromotion = () => {
 const styles = StyleSheet.create({
     container: {
         padding: 16,
-        shadowColor: "#000",
+        shadowColor: colors._black,
         shadowOffset: {
             width: 0,
             height: 3,

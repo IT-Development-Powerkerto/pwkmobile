@@ -4,9 +4,9 @@ import { IconBudgeting, IconEvaluation, IconGo, IconPromotion, IconReimbursement
 import { colors, fonts } from '../../../utils'
 import Gap from '../Gap'
 
-const ListButtonMenu = ({ type, teks }) => {
+const ListButtonMenu = ({ type, teks, onPress }) => {
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             {type === 'promotion' && <IconPromotion />}
             {type === 'reimbursement' && <IconReimbursement />}
             {type === 'budgeting' && <IconBudgeting />}

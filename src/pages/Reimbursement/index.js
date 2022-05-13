@@ -10,7 +10,7 @@ const Reimbursement = () => {
     return (
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
-            <HeaderBack teks="Reimbursement" />
+            <HeaderBack teks="Reimbursement" onPress={()=> navigation.goBack()}/>
             <Gap height={20} />
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: 24 }}>
                 <View>
