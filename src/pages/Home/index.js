@@ -99,14 +99,6 @@ const Home = ({ navigation }) => {
     useEffect(() => {
         getUser()
     }, [])
-    const gotoPromotion = () => {
-        getData('user').then(res => {
-            const params = {
-                token: res.token,
-            }
-            navigation.navigate('Promotion', params)
-        })
-    }
     return (
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
@@ -141,7 +133,7 @@ const Home = ({ navigation }) => {
                 </View>
                 {
                     role === "5" &&
-                    <TouchableOpacity onPress={gotoPromotion}>
+                    <TouchableOpacity onPress={gotoManualLead}>
                         <Text style={{ color: colors._blue3, fontFamily: fonts.primary[600], }}>+ Manual Lead</Text>
                     </TouchableOpacity>
                 }
