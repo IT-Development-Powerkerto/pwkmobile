@@ -168,6 +168,9 @@ const CreatePromotion = ({ navigation, route }) => {
                     zIndex={1}
                     placeholder="Select product type"
                     onChangeValue={() => setProductName(values)}
+                    // searchable={true}
+                    // searchablePlaceholder="Search"
+                    // searchableStyle={{ fontSize: 18 }}
                 />
                 <Gap height={10} />
                 <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Promotion Name</Text>

@@ -79,10 +79,12 @@ const Login = ({ navigation }) => {
                         <TouchableOpacity onPress={() => navigation.navigate('Forget')}>
                             <Text style={styles.linkForget}>Forget Password?</Text>
                         </TouchableOpacity>
+                        <Gap height={20} />
                     </View>
                 </ScrollView>
             </View>
-            <Text style={styles.TextDarkWarning}>Powered By Powerkerto</Text>
+            <Text style={styles.powered}>Powered By</Text>
+            <Text style={styles.ptname}>Powerkerto</Text>
         </ImageBackground>
     );
 };
@@ -115,10 +117,17 @@ const styles = StyleSheet.create({
         fontFamily: fonts.primary[400],
         textAlign: "center"
     },
-    TextDarkWarning: {
+    powered: {
         color: colors._white,
-        fontFamily: fonts.primary[400],
+        fontFamily: fonts.primary[500],
         fontSize: 12,
+        textAlign: "center",
+        justifyContent: "flex-end"
+    },
+    ptname: {
+        color: colors._white,
+        fontFamily: fonts.primary[600],
+        fontSize: 16,
         textAlign: "center",
         justifyContent: "flex-end"
     }

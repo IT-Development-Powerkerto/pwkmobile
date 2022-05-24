@@ -57,8 +57,14 @@ const Home = ({ navigation }) => {
         setmodalVisible(!modalVisible)
     }
     const gotoDetailLead = () => {
-        setmodalVisibles(!modalVisibles)
-        navigation.navigate('DetailLead');
+        getData('user').then(res => {
+            const params = {
+                token: res.token,
+                id: userLeadModal.id
+            }
+            setmodalVisibles(!modalVisibles)
+            navigation.navigate('DetailLead', params);
+        })
     }
     const getProduct = (values) => {
         getData('user').then(res => {

@@ -106,6 +106,15 @@ class Api {
             },
         })
     }
+    static getDetailLead(id, token) {
+        let path = `leads/${id}`;
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
     static addManualLead(token, data) {
         let path = 'leads';
         return request(`${this.urlAPI()}${path}`, {
