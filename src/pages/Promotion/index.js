@@ -32,6 +32,20 @@ const Promotion = ({ route, navigation }) => {
 
         }
     }
+    const deletePromotion = async (params) => {
+        try {
+            const data = {
+                _method: "DELETE",
+            }
+            const param = {
+                token: token
+            }
+            const response = await Api.deletePromotion(params.id, params.token, data);
+            navigation.replace('Promotion', param)
+        } catch (error) {
+
+        }
+    }
     const gotoCreatePromotion = () => {
         const params = {
             token: token
@@ -77,7 +91,8 @@ const Promotion = ({ route, navigation }) => {
                             promotion_admin_cost={data.promotion_admin_cost}
                             promotion_admin_percent={data.promotion_admin_percent}
                             total_promotion={data.total_promotion}
-                            onPress={() => navigation.navigate('EditPromotion', params)}
+                            onEdit={() => navigation.navigate('EditPromotion', params)}
+                            onDelete={() => deletePromotion(params)}
                         />
                     })}
                 </View>

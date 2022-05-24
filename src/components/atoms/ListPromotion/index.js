@@ -5,7 +5,7 @@ import { colors, fonts } from '../../../utils'
 import helpers from '../../../utils/helpers'
 import Gap from '../Gap'
 
-const ListPromotion = ({ promotion_type, product_name, promotion_name, total_promotion, onPress }) => {
+const ListPromotion = ({ promotion_type, product_name, promotion_name, total_promotion, onEdit, onDelete }) => {
     return (
         <View style={styles.container}>
             <View>
@@ -18,11 +18,11 @@ const ListPromotion = ({ promotion_type, product_name, promotion_name, total_pro
                 <Text style={styles.teks3}>{helpers.convertToRupiah(total_promotion)}</Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity onPress={onPress}>
+                <TouchableOpacity onPress={onEdit}>
                     <IconEdit />
                 </TouchableOpacity>
                 <Gap width={10} />
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onDelete}>
                     <IconDelete />
                 </TouchableOpacity>
             </View>
