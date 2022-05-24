@@ -6,7 +6,7 @@ import { colors, fonts } from '../../utils'
 
 const Promotion = ({ route, navigation }) => {
     const { token } = route.params;
-    const [ countData, setCountData ] = useState('');
+    const [countData, setCountData] = useState('');
     const [promotion, setPromotion] = useState([
         {
             id: 33,
@@ -60,6 +60,11 @@ const Promotion = ({ route, navigation }) => {
             <ScrollView>
                 <View style={styles.listContent}>
                     {promotion.map(data => {
+                        const params = {
+                            id: data.id,
+                            promotion_name: data.promotion_name,
+                            token: token
+                        }
                         return <ListPromotion
                             key={data.id}
                             promotion_type={data.promotion_type}
@@ -71,7 +76,9 @@ const Promotion = ({ route, navigation }) => {
                             promotion_shippment_percent={data.promotion_shippment_percent}
                             promotion_admin_cost={data.promotion_admin_cost}
                             promotion_admin_percent={data.promotion_admin_percent}
-                            total_promotion={data.total_promotion} />
+                            total_promotion={data.total_promotion}
+                            onPress={() => navigation.navigate('EditPromotion', params)}
+                        />
                     })}
                 </View>
             </ScrollView>

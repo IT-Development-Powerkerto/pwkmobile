@@ -77,6 +77,16 @@ class Api {
             data
         })
     }
+    static editPromotion(id, token, data) {
+        let path = `promotions/${id}`;
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            data
+        })
+    }
     static getProductType(token) {
         let path = 'product-list';
         return request(`${this.urlAPI()}${path}`, {

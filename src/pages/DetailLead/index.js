@@ -56,7 +56,7 @@ const DetailLead = () => {
                     <Input noPad placeholder="628111204149" />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Address</Text>
-                    <Input multiline noPad placeholder="Jln. Cempaka blok B4/8 Perumahan Gria Pamulang 2 RT001/RW020 Kel. Pondok Benda, Kec : Pamulang, Kab/Kota : Tanggerang Selatan, Prov : BANTEN" />
+                    <Input multiline noPad placeholder="Address" />
                 </View>
                 <Gap height={20} />
                 <View style={styles.card}>

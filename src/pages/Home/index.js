@@ -56,6 +56,10 @@ const Home = ({ navigation }) => {
         });
         setmodalVisible(!modalVisible)
     }
+    const gotoDetailLead = () => {
+        setmodalVisibles(!modalVisibles)
+        navigation.navigate('DetailLead');
+    }
     const getProduct = (values) => {
         getData('user').then(res => {
             set_campaign_id(values)
@@ -77,6 +81,7 @@ const Home = ({ navigation }) => {
                     date: textDate
                 }
                 const response = await Api.addManualLead(res.token, data);
+                setmodalVisible(!modalVisible)
                 navigation.replace('MyTabs')
             }
             manualLead()
@@ -280,7 +285,7 @@ const Home = ({ navigation }) => {
                                 <Text style={styles.text}>{userLeadModal.status}</Text>
                             </View>
                             <Gap height={40} />
-                            <Button text="Edit Lead" color={colors._white} height={46} fontSize={14} colorText={colors._blue3} icon={'EditBlue'} onPress={() => setmodalVisible(!modalVisible)} />
+                            <Button text="Edit Lead" color={colors._white} height={46} fontSize={14} colorText={colors._blue3} icon={'EditBlue'} onPress={gotoDetailLead} />
                             <Gap height={10} />
                             <Button text="Cancel" colorText={colors._white} height={46} fontSize={14} onPress={() => setmodalVisibles(!modalVisibles)} />
                         </View>
