@@ -192,7 +192,7 @@ const CreatePromotion = ({ navigation, route }) => {
                     <Input noPad placeholder="%" value={acPercent} onChangeText={(value) => setAcPercent(value)} />
                 </>}
                 <Gap height={30} />
-                <Button text="Submit" color={colors._blue2} colorText={colors._white} height={46} fontSize={14} onPress={submitPromotion} />
+                <Button text="Submit" color={colors._blue} colorText={colors._white} height={46} fontSize={14} onPress={submitPromotion} />
                 <Gap height={10} />
                 <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} />
                 <Gap height={10} />

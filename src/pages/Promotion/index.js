@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native'
 import Api from '../../Api'
 import { Gap, HeaderBack, ListPromotion } from '../../components'
 import { colors, fonts } from '../../utils'
@@ -34,14 +34,25 @@ const Promotion = ({ route, navigation }) => {
     }
     const deletePromotion = async (params) => {
         try {
-            const data = {
-                _method: "DELETE",
-            }
-            const param = {
-                token: token
-            }
-            const response = await Api.deletePromotion(params.id, params.token, data);
-            navigation.replace('Promotion', param)
+            Alert.alert(
+                'Are you sure you want to delete this promotion?',
+                '',
+                [
+                    { text: 'No, dont delete', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                    {
+                        text: 'Yes, delete', onPress: async() => {
+                            const data = {
+                                _method: "DELETE",
+                            }
+                            const param = {
+                                token: token
+                            }
+                            const response = await Api.deletePromotion(params.id, params.token, data);
+                            navigation.replace('Promotion', param)
+                        }
+                    },
+                ],
+            )
         } catch (error) {
 
         }
