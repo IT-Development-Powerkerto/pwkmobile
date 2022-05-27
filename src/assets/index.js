@@ -47,6 +47,7 @@ import Cover from "./img/Cover.png";
 import Intersect from "./img/Intersect.png";
 import Powerkerto from "./img/Powerkerto.png";
 import Profile from "./img/Profile.png";
+import IconQuestion from "./Icon/IconQuestion.svg";
 
 export {
     Cover,
@@ -98,5 +99,6 @@ export {
     IconPromotion,
     IconReimbursement,
     ImageAttach,
+    IconQuestion
 };
 

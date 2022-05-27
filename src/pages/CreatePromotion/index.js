@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { showMessage } from "react-native-flash-message";
 import Api from '../../Api';
+import { IconQuestion } from '../../assets';
 import { Button, Gap, HeaderBack, Input } from '../../components';
 import { colors, fonts } from '../../utils';
-import { showMessage } from "react-native-flash-message";
 
 const CreatePromotion = ({ navigation, route }) => {
     const { token } = route.params;
@@ -134,7 +135,7 @@ const CreatePromotion = ({ navigation, route }) => {
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
             <HeaderBack teks="Create Promotion" onPress={() => navigation.goBack()} />
             <ScrollView style={styles.content}>
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Promotion Type</Text>
+                <Text style={styles.label}>Promotion Type</Text>
                 <DropDownPicker
                     open={open}
                     value={value}
@@ -152,7 +153,7 @@ const CreatePromotion = ({ navigation, route }) => {
                     onChangeValue={() => setTypeName(value)}
                 />
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Product Type</Text>
+                <Text style={styles.label}>Product Type</Text>
                 <DropDownPicker
                     open={opens}
                     value={values}
@@ -168,28 +169,40 @@ const CreatePromotion = ({ navigation, route }) => {
                     zIndex={1}
                     placeholder="Select product type"
                     onChangeValue={() => setProductName(values)}
-                    // searchable={true}
-                    // searchablePlaceholder="Search"
-                    // searchableStyle={{ fontSize: 18 }}
+                // searchable={true}
+                // searchablePlaceholder="Search"
+                // searchableStyle={{ fontSize: 18 }}
                 />
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Promotion Name</Text>
+                <Text style={styles.label}>Promotion Name</Text>
                 <Input noPad value={promotionName} onChangeText={(value) => setPromotionName(value)} />
                 <Gap height={10} />
                 {typeName === "Shipping Cost" && <>
-                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>{`Promotion ${typeName}`}</Text>
+                    <View style={styles.labelPromotion}>
+                        <Text style={styles.label}>{`Promotion ${typeName}`}</Text>
+                        <Gap width={8} />
+                        <IconQuestion />
+                    </View>
                     <Input noPad placeholder="Rp" value={scPrice} onChangeText={(value) => setScPrice(value)} />
                     <Gap height={5} />
                     <Input noPad placeholder="%" value={scPercent} onChangeText={(value) => setScPercent(value)} />
                 </>}
                 {typeName === "Product Price" && <>
-                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>{`Promotion ${typeName}`}</Text>
+                    <View style={styles.labelPromotion}>
+                        <Text style={styles.label}>{`Promotion ${typeName}`}</Text>
+                        <Gap width={8} />
+                        <IconQuestion />
+                    </View>
                     <Input noPad placeholder="Rp" value={ppPrice} onChangeText={(value) => setPpPrice(value)} />
                     <Gap height={5} />
                     <Input noPad placeholder="%" value={ppPercent} onChangeText={(value) => setPpPercent(value)} />
                 </>}
                 {typeName === "Admin Cost" && <>
-                    <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>{`Promotion ${typeName}`}</Text>
+                    <View style={styles.labelPromotion}>
+                        <Text style={styles.label}>{`Promotion ${typeName}`}</Text>
+                        <Gap width={8} />
+                        <IconQuestion />
+                    </View>
                     <Input noPad placeholder="Rp" value={acPrice} onChangeText={(value) => setAcPrice(value)} />
                     <Gap height={5} />
                     <Input noPad placeholder="%" value={acPercent} onChangeText={(value) => setAcPercent(value)} />
@@ -197,7 +210,7 @@ const CreatePromotion = ({ navigation, route }) => {
                 <Gap height={30} />
                 <Button text="Submit" color={colors._blue} colorText={colors._white} height={46} fontSize={14} onPress={submitPromotion} />
                 <Gap height={10} />
-                <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} onPress={()=> navigation.goBack()}/>
+                <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} onPress={() => navigation.goBack()} />
                 <Gap height={10} />
             </ScrollView>
         </View>
@@ -237,5 +250,14 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         borderColor: colors._gray,
     },
+    labelPromotion: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    label:{
+        fontSize: 14, 
+        fontFamily: fonts.primary[500], 
+        color: colors._textBlack
+    }
 })
 export default CreatePromotion;

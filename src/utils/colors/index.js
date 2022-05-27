@@ -1,5 +1,5 @@
 const mainColor = {
-    _red: '#F70000',
+    _red: '#870202',
     _redOp: 'rgba(247, 0, 0, 0.2)',
     _red2: '#FF0C38',
     _green: '#028E00',

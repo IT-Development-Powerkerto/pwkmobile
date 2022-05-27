@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     menuBtn: {
         padding: 20,
         backgroundColor: colors._white,
-        shadowColor: "#000",
+        shadowColor: colors._black,
         shadowOffset: {
             width: 0,
             height: 3,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     modalText: {
         fontSize: 18,
         color: colors._red,
-        fontFamily: fonts.primary[500],
+        fontFamily: fonts.primary[600],
         textAlign: 'center',
     },
     textStyle2: {
@@ -169,13 +169,13 @@ const styles = StyleSheet.create({
         backgroundColor: colors._grey2,
         padding: 12,
         width: "48%",
-        borderRadius: 20,
+        borderRadius: 10,
     },
     btnCancel: {
         backgroundColor: colors._red,
         padding: 12,
         width: "48%",
-        borderRadius: 20,
+        borderRadius: 10,
     },
     btnBottom: {
         flexDirection: 'row',

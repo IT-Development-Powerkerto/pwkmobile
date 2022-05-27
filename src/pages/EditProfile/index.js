@@ -118,25 +118,25 @@ const EditProfile = ({ navigation, route }) => {
                     <Image source={photo === "" ? Profile : { uri: photo }} style={{ width: 100, height: 100, borderRadius: 50, alignSelf: 'center' }} />
                 </TouchableOpacity>
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Fullname</Text>
+                <Text style={styles.label}>Fullname</Text>
                 <Input noPad value={name} onChangeText={(value) => setName(value)} />
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Username</Text>
+                <Text style={styles.label}>Username</Text>
                 <Input noPad value={username} onChangeText={(value) => setUsername(value)} />
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Nickname</Text>
+                <Text style={styles.label}>Nickname</Text>
                 <Input noPad value={nickname} onChangeText={(value) => setNickname(value)} />
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Phone</Text>
+                <Text style={styles.label}>Phone</Text>
                 <Input noPad value={phone} onChangeText={(value) => setPhone(value)} />
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Email</Text>
+                <Text style={styles.label}>Email</Text>
                 <Input noPad value={email} onChangeText={(value) => setEmail(value)} />
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Role</Text>
+                <Text style={styles.label}>Role</Text>
                 <Input noPad value={role} editable={false} />
                 <Gap height={20} />
-                <Button text="Edit Profile" color={colors._blue2} colorText={colors._white} height={46} fontSize={14} onPress={editProfile} />
+                <Button text="Edit Profile" color={colors._blue} colorText={colors._white} height={46} fontSize={14} onPress={editProfile} />
                 <Gap height={10} />
                 <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} onPress={() => navigation.goBack()} />
                 <Gap height={24} />
@@ -167,6 +167,11 @@ const styles = StyleSheet.create({
     },
     listContent: {
         paddingHorizontal: 24,
+    },
+    label:{
+        fontSize: 14, 
+        fontFamily: fonts.primary[500], 
+        color: colors._textBlack
     }
 })
 export default EditProfile;

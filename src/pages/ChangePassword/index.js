@@ -72,19 +72,19 @@ const ChangePassword = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
-            <HeaderBack teks="Change Password" onPress={()=> navigation.goBack()}/>
+            <HeaderBack teks="Change Password" onPress={() => navigation.goBack()} />
             <View style={{ paddingHorizontal: 24, flex: 1 }}>
                 <Gap height={20} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Current Password</Text>
+                <Text style={styles.label}>Current Password</Text>
                 <Input noPad value={currentPassword} onChangeText={(value) => setCurrentPassword(value)} />
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>New Password</Text>
+                <Text style={styles.label}>New Password</Text>
                 <Input noPad value={newPassword} onChangeText={(value) => setNewPassword(value)} />
                 <Gap height={10} />
-                <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._textBlack }}>Confirm New Password</Text>
+                <Text style={styles.label}>Confirm New Password</Text>
                 <Input noPad value={confirmNewPassword} onChangeText={(value) => setconfirmNewPassword(value)} />
                 <View style={{ flex: 1 }} />
-                <Button text="Save Change" color={colors._blue2} colorText='white' height={46} fontSize={14} onPress={onSaveChange} />
+                <Button text="Save Change" color={colors._blue} colorText='white' height={46} fontSize={14} onPress={onSaveChange} />
                 <Gap height={10} />
                 <Button text="Cancel" colorText={colors._textBlack} height={46} fontSize={14} onPress={() => navigation.goBack()} />
                 <Gap height={10} />
@@ -115,6 +115,11 @@ const styles = StyleSheet.create({
     },
     listContent: {
         paddingHorizontal: 24,
+    },
+    label: {
+        fontSize: 14,
+        fontFamily: fonts.primary[500],
+        color: colors._textBlack
     }
 })
 export default ChangePassword;
