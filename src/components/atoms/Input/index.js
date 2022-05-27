@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         paddingLeft: noPad ? 10 : 40,
         position: "relative",
         backgroundColor: colors._white,
-        color: colors._gray,
+        color: colors._black,
     }),
     icon: {
         position: "absolute",

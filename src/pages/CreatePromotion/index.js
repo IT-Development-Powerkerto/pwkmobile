@@ -197,7 +197,7 @@ const CreatePromotion = ({ navigation, route }) => {
                 <Gap height={30} />
                 <Button text="Submit" color={colors._blue} colorText={colors._white} height={46} fontSize={14} onPress={submitPromotion} />
                 <Gap height={10} />
-                <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} />
+                <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} onPress={()=> navigation.goBack()}/>
                 <Gap height={10} />
             </ScrollView>
         </View>
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     },
     dropdownText: {
         fontSize: 14,
-        color: colors._gray,
+        color: colors._black,
         fontFamily: fonts.primary[400],
     },
     dropdownBtnStyle: {

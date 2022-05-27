@@ -183,7 +183,7 @@ const Home = ({ navigation }) => {
                         <Gap height={20} />
                         <View style={styles.modalContent}>
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Operator</Text>
-                            <Input editable={false} noPad placeholder={userData.name} />
+                            <Input editable={false} noPad value={userData.name} />
                             <Gap height={10} />
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Campaign</Text>
                             <DropDownPicker
@@ -202,7 +202,7 @@ const Home = ({ navigation }) => {
                             />
                             <Gap height={10} />
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Product</Text>
-                            <Input editable={false} noPad placeholder={textProduct.product} />
+                            <Input editable={false} noPad value={textProduct.product} />
                             <Gap height={10} />
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Customer Name</Text>
                             <Input noPad value={customer_name} onChangeText={(value) => set_customer_name(value)} />
@@ -211,7 +211,7 @@ const Home = ({ navigation }) => {
                             <Input noPad value={customer_number} onChangeText={(value) => set_customer_number(value)} />
                             <Gap height={10} />
                             <Text style={{ fontSize: 13, fontFamily: fonts.primary[500], color: colors._white }}>Date</Text>
-                            <Button text={textDate} color={colors._white} colorText={colors._gray} height={50} fontSize={14} onPress={() => setOpenDate(!openDate)} type='date' />
+                            <Button text={textDate} color={colors._white} colorText={colors._black} height={50} fontSize={14} onPress={() => setOpenDate(!openDate)} type='date' />
                             <DatePicker
                                 modal
                                 open={openDate}
@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
     },
     dropdownText: {
         fontSize: 14,
-        color: colors._gray,
+        color: colors._black,
         fontFamily: fonts.primary[400],
     },
     dropdownBtnStyle: {

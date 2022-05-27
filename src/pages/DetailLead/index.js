@@ -531,7 +531,7 @@ const styles = StyleSheet.create({
     },
     dropdownText: {
         fontSize: 14,
-        color: colors._gray,
+        color: colors._black,
         fontFamily: fonts.primary[400],
     },
     dropdownBtnStyle: {
