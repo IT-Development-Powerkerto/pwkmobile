@@ -5,7 +5,7 @@ const mainColor = {
     _green: '#028E00',
     _greenOp: 'rgba(35, 247, 0, 0.2)',
     _blue: '#023887',
-    _blue2: '#34B6FF',
+    _blue2: '#01B9FF',
     _blue3: '#166ED8',
     _blueOp: 'rgba(0, 158, 247, 0.2)',
     _gray: '#A3A3A3',

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { Powerkerto } from '../../assets'
 import { colors, fonts, getData } from '../../utils'
 
@@ -19,7 +19,8 @@ const Splash = ({ navigation }) => {
         }, 3000);
     }, [])
     return (
-        <View style={{ flex: 1, backgroundColor: colors._white, padding: 24 }}>
+        <View style={styles.container}>
+            <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Image source={Powerkerto} style={{ alignSelf: "center", marginTop: '20%' }} />
             </View>
@@ -30,6 +31,11 @@ const Splash = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colors._white,
+        padding: 24
+    },
     powered: {
         color: colors._blue,
         fontFamily: fonts.primary[500],

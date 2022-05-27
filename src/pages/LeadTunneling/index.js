@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StatusBar, StyleSheet, Text, View, Modal } from 'react-native'
+import { Modal, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import Api from '../../Api'
 import { Button, Gap, HeaderPage, ListLead } from '../../components'
 import { colors, fonts, getData } from '../../utils'
 
-const LeadTunneling = ({navigation}) => {
+const LeadTunneling = ({ navigation }) => {
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false)
     const [textDate, setTextDate] = useState('Choose date');
@@ -71,7 +71,10 @@ const LeadTunneling = ({navigation}) => {
                     <Text style={{ fontFamily: fonts.primary[600], fontSize: 14, color: colors._textBlack }}>Lead Tunneling</Text>
                     <Text style={{ fontFamily: fonts.primary[600], fontSize: 10, color: colors._textGray }} >{`${leadLength} Leads`}</Text>
                 </View>
-                <Button colorText={colors._white} color={colors._blue3} fontSize={12} width={100} text={textDate} onPress={() => setOpen(!open)} type='date' />
+                <TouchableOpacity onPress={() => setOpen(!open)} style={{ backgroundColor: colors._blue, paddingHorizontal: 10, padding: 4, borderRadius: 10 }}>
+                    <Text style={{ fontFamily: fonts.primary[600], fontSize: 12, color: colors._white }}>{textDate}</Text>
+                </TouchableOpacity>
+                {/* <Button colorText={colors._white} color={colors._blue} fontSize={12} width={100} text={textDate} onPress={() => setOpen(!open)} type='date' /> */}
                 <DatePicker
                     modal
                     open={open}
@@ -112,7 +115,7 @@ const LeadTunneling = ({navigation}) => {
                             created_at: data.created_at,
                         }
                         return (
-                            <ListLead key={data.id} advertiser={data.advertiser} operator={data.operator} customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} product={data.product} status={data.status} created_at={data.created_at} onPress={() => gotoModalDetailLead(params)}/>
+                            <ListLead key={data.id} advertiser={data.advertiser} operator={data.operator} customer_name={data.customer_name} customer_whatsapp={data.customer_whatsapp} product={data.product} status={data.status} created_at={data.created_at} onPress={() => gotoModalDetailLead(params)} />
                         )
                     })}
                 </View>

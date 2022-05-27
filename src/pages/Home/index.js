@@ -198,6 +198,7 @@ const Home = ({ navigation }) => {
                                 containerStyle={styles.dropdownContainerStyle}
                                 textStyle={styles.dropdownText}
                                 zIndex={2}
+                                placeholder="Select Campaign"
                                 onChangeValue={() => getProduct(values)}
                             />
                             <Gap height={10} />
@@ -317,7 +318,7 @@ const styles = StyleSheet.create({
         width: '48%',
         height: 100,
         borderRadius: 8,
-        backgroundColor: colors._blue,
+        backgroundColor: colors._blue2,
         justifyContent: 'center',
         padding: 10,
     },
@@ -325,7 +326,7 @@ const styles = StyleSheet.create({
         width: '48%',
         height: 100,
         borderRadius: 8,
-        backgroundColor: colors._youngOrange,
+        backgroundColor: colors._blue,
         justifyContent: 'center',
         padding: 10,
     },
@@ -333,7 +334,7 @@ const styles = StyleSheet.create({
         width: '48%',
         height: 100,
         borderRadius: 8,
-        backgroundColor: colors._blue3,
+        backgroundColor: colors._blue2,
         justifyContent: 'center',
         padding: 10,
     },
@@ -341,7 +342,7 @@ const styles = StyleSheet.create({
         width: '48%',
         height: 100,
         borderRadius: 8,
-        backgroundColor: colors._oldOrange,
+        backgroundColor: colors._blue,
         justifyContent: 'center',
         padding: 10,
     },

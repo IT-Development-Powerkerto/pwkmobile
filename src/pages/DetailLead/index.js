@@ -1,12 +1,15 @@
+import Clipboard from '@react-native-clipboard/clipboard';
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { showMessage } from "react-native-flash-message";
+import { launchImageLibrary } from 'react-native-image-picker';
 import Api from '../../Api';
 import { Profile } from '../../assets';
-import { Button, Gap, Input } from '../../components';
+import { Button, Gap, HeaderBack, Input } from '../../components';
 import { colors, fonts } from '../../utils';
 
-const DetailLead = ({ route }) => {
+const DetailLead = ({ route, navigation }) => {
     const { id, token } = route.params;
     //usestate inputan
     const [advertiser, setAdvertiser] = useState("");
@@ -27,7 +30,25 @@ const DetailLead = ({ route }) => {
     const [promotionadmin, setPromotionadmin] = useState("");
     const [totaladmin, setTotaladmin] = useState("");
     const [grandprice, setGrandprice] = useState("");
-    const [image, setImage] = useState("")
+    //image
+    const [photo, setPhoto] = useState("");
+    const [photoDB, setPhotoDB] = useState("");
+    const getImageFromGalery = () => {
+        launchImageLibrary({ quality: 0.5, maxWidth: 200, maxHeight: 200, includeBase64: true }, (response) => {
+            if (response.didCancel || response.error) {
+                showMessage({
+                    message: "Not uploading photos?",
+                    type: "default",
+                    backgroundColor: colors._red,
+                    color: colors._white,
+                    icon: 'warning',
+                });
+            } else {
+                setPhoto(response.assets[0].uri);
+                setPhotoDB(`data:${response.assets[0].type};base64,${response.assets[0].base64}`);
+            }
+        });
+    }
     //modal
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('');
@@ -118,6 +139,54 @@ const DetailLead = ({ route }) => {
             value: 'Tandes.Sby'
         }
     ]);
+    const [openProProd, setOpenProProd] = useState(false);
+    const [valueProProd, setValueProProd] = useState('');
+    const [itemProProd, setItemProProd] = useState([
+        {
+            label: '',
+            value: ''
+        }
+    ]);
+    const [openProShip, setOpenProShip] = useState(false);
+    const [valueProShip, setValueProShip] = useState('');
+    const [itemProShip, setItemProShip] = useState([
+        {
+            label: '',
+            value: ''
+        }
+    ]);
+    const [openProAdmin, setOpenProAdmin] = useState(false);
+    const [valueProAdmin, setValueProAdmin] = useState('');
+    const [itemProAdmin, setItemProAdmin] = useState([
+        {
+            label: '',
+            value: ''
+        }
+    ]);
+    const [openAddProProd, setOpenAddProProd] = useState(false);
+    const [valueAddProProd, setValueAddProProd] = useState('');
+    const [itemAddProProd, setItemAddProProd] = useState([
+        {
+            label: '',
+            value: ''
+        }
+    ]);
+    const [openAddProShip, setOpenAddProShip] = useState(false);
+    const [valueAddProShip, setValueAddProShip] = useState('');
+    const [itemAddProShip, setItemAddProShip] = useState([
+        {
+            label: '',
+            value: ''
+        }
+    ]);
+    const [openAddProAdmin, setOpenAddProAdmin] = useState(false);
+    const [valueAddProAdmin, setValueAddProAdmin] = useState('');
+    const [itemAddProAdmin, setItemAddProAdmin] = useState([
+        {
+            label: '',
+            value: ''
+        }
+    ]);
     const getData = async () => {
         try {
             const response = await Api.getDetailLead(id, token);
@@ -140,6 +209,7 @@ const DetailLead = ({ route }) => {
             setTotaladmin(response.data.total_admin);
             setGrandprice(response.data.total_payment)
             getProvince();
+            getPromotionDetail(response.data.product_id)
         } catch (error) {
 
         }
@@ -168,14 +238,36 @@ const DetailLead = ({ route }) => {
 
         }
     }
+    const getPromotionDetail = async (value) => {
+        try {
+            const response = await Api.getPromotionDetail(value, token);
+            setItemProProd(response.data.product_promotion);
+            setItemAddProProd(response.data.product_promotion);
+            setItemProShip(response.data.shipping_promotion);
+            setItemAddProShip(response.data.shipping_promotion);
+            setItemProAdmin(response.data.admin_promotion);
+            setItemAddProAdmin(response.data.admin_promotion);
+        } catch (error) {
+
+        }
+    }
+    const copyToClipboard = () => {
+        Clipboard.setString(`Nama Pemesan: ${customername}\nAlamat: ${address}\nProvinsi: \nKota / Kabupaten: \nKecamatan: \nNo. Telp: ${contact}\nProduk yang dipesan: ${product}\nJumlah Pesanan: ${quantity}\nKurir: \nMetode: \nPromo Produk: \nPromo Ongkir: \nPromo Admin: \nTotal Pembayaran: ${grandprice}`);
+        showMessage({
+            message: "Copy to clipboard success",
+            type: "default",
+            backgroundColor: colors._green,
+            color: colors._white,
+            icon: 'success',
+        });
+    }
     useEffect(() => {
         getData();
     }, [])
 
     return (
         <View style={styles.container}>
-            <Text style={styles.namePage}>Edit Lead</Text>
-            <Gap height={12} />
+            <HeaderBack teks="Edit Lead" onPress={() => navigation.goBack()} />
             <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false} style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={styles.card}>
                     <Text style={styles.cardName}>Data CS</Text>
@@ -184,7 +276,7 @@ const DetailLead = ({ route }) => {
                     <Input noPad placeholder="Advertiser" value={advertiser} editable={false} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Operator</Text>
-                    <Input noPad placeholder="Operator Name" value={operator} />
+                    <Input noPad placeholder="Operator Name" value={operator} onChangeText={(value) => setOperator(value)} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Status</Text>
                     <DropDownPicker
@@ -204,72 +296,37 @@ const DetailLead = ({ route }) => {
                         placeholder=""
                     />
                 </View>
-                <Gap height={20} />
                 <View style={styles.card}>
                     <Text style={styles.cardName}>Data Order</Text>
                     <Gap height={12} />
                     <Text style={styles.inputLabel}>Full Name</Text>
-                    <Input noPad placeholder="Customer Name" value={customername} />
+                    <Input noPad placeholder="Customer Name" value={customername} onChangeText={(value) => setCustomername(value)} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Contact</Text>
-                    <Input noPad placeholder="Customer Number Phone" value={contact} />
+                    <Input noPad placeholder="Customer Number Phone" value={contact} onChangeText={(value) => setContact(value)} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Address</Text>
-                    <Input multiline noPad placeholder="Customer Address" value={address} />
+                    <Input multiline noPad placeholder="Customer Address" value={address} onChangeText={(value) => setAddress(value)} />
                 </View>
-                <Gap height={20} />
                 <View style={styles.card}>
                     <Text style={styles.inputLabel}>Product</Text>
                     <Input noPad placeholder="Product Name" editable={false} value={product} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Quantity</Text>
-                    <Input noPad placeholder="Product Quantity" value={quantity} />
+                    <Input noPad placeholder="Product Quantity" value={quantity} onChangeText={(value) => setQuantity(value)} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Price</Text>
                     <Input multiline noPad placeholder="Price" editable={false} value={price} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Promotion Product</Text>
                     <DropDownPicker
-                        open={open}
-                        value={value}
-                        items={item}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItem}
-                        showArrowIcon={true}
-                        style={styles.dropdownBtnStyle}
-                        containerStyle={styles.dropdownContainerStyle}
-                        textStyle={styles.dropdownText}
-                        showTickIcon={true}
-                        zIndex={2}
-                        placeholder=""
-                    />
-                    <Gap height={10} />
-                    <Text style={styles.inputLabel}>Promotion Shipping</Text>
-                    <DropDownPicker
-                        open={open}
-                        value={value}
-                        items={item}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItem}
-                        showArrowIcon={true}
-                        style={styles.dropdownBtnStyle}
-                        containerStyle={styles.dropdownContainerStyle}
-                        textStyle={styles.dropdownText}
-                        showTickIcon={true}
-                        zIndex={2}
-                        placeholder=""
-                    />
-                    <Gap height={10} />
-                    <Text style={styles.inputLabel}>Promotion Admin</Text>
-                    <DropDownPicker
-                        open={open}
-                        value={value}
-                        items={item}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItem}
+                        listMode='MODAL'
+                        open={openProProd}
+                        value={valueProProd}
+                        items={itemProProd}
+                        setOpen={setOpenProProd}
+                        setValue={setValueProProd}
+                        setItems={setItemProProd}
                         showArrowIcon={true}
                         style={styles.dropdownBtnStyle}
                         containerStyle={styles.dropdownContainerStyle}
@@ -281,46 +338,13 @@ const DetailLead = ({ route }) => {
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Additional Promotion Product</Text>
                     <DropDownPicker
-                        open={open}
-                        value={value}
-                        items={item}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItem}
-                        showArrowIcon={true}
-                        style={styles.dropdownBtnStyle}
-                        containerStyle={styles.dropdownContainerStyle}
-                        textStyle={styles.dropdownText}
-                        showTickIcon={true}
-                        zIndex={2}
-                        placeholder=""
-                    />
-                    <Gap height={10} />
-                    <Text style={styles.inputLabel}>Additional Promotion Shipping</Text>
-                    <DropDownPicker
-                        open={open}
-                        value={value}
-                        items={item}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItem}
-                        showArrowIcon={true}
-                        style={styles.dropdownBtnStyle}
-                        containerStyle={styles.dropdownContainerStyle}
-                        textStyle={styles.dropdownText}
-                        showTickIcon={true}
-                        zIndex={2}
-                        placeholder=""
-                    />
-                    <Gap height={10} />
-                    <Text style={styles.inputLabel}>Additional Promotion Admin</Text>
-                    <DropDownPicker
-                        open={open}
-                        value={value}
-                        items={item}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItem}
+                        listMode='MODAL'
+                        open={openAddProProd}
+                        value={valueAddProProd}
+                        items={itemAddProProd}
+                        setOpen={setOpenAddProProd}
+                        setValue={setValueAddProProd}
+                        setItems={setItemAddProProd}
                         showArrowIcon={true}
                         style={styles.dropdownBtnStyle}
                         containerStyle={styles.dropdownContainerStyle}
@@ -331,15 +355,14 @@ const DetailLead = ({ route }) => {
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Product Promotion</Text>
-                    <Input noPad placeholder="Product Promotion" value={productpromotion} />
+                    <Input noPad placeholder="Product Promotion" value={productpromotion} editable={false} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Total Price</Text>
-                    <Input noPad placeholder="Total Price" value={totalprice} />
+                    <Input noPad placeholder="Total Price" value={totalprice} editable={false} />
                 </View>
-                <Gap height={20} />
                 <View style={styles.card}>
                     <Text style={styles.inputLabel}>Weight (gram)</Text>
-                    <Input noPad placeholder="1000" value={weight} />
+                    <Input noPad placeholder="1000" value={weight} onChangeText={(value) => setWeight(value)} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Warehouse</Text>
                     <DropDownPicker
@@ -357,7 +380,6 @@ const DetailLead = ({ route }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
-                    // onChangeValue={() => setTypeName(value)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Destination Province</Text>
@@ -396,7 +418,6 @@ const DetailLead = ({ route }) => {
                         zIndex={2}
                         placeholder=""
                         onChangeValue={() => getSubdistrict(valueCity)}
-                    // onChangeValue={() => setTypeName(value)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Destination Subdistrict</Text>
@@ -415,7 +436,6 @@ const DetailLead = ({ route }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
-                    // onChangeValue={() => setTypeName(value)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Courier</Text>
@@ -436,11 +456,41 @@ const DetailLead = ({ route }) => {
                         placeholder=""
                     />
                     <Gap height={10} />
-                    <Text style={styles.inputLabel}>Shipping Promotion</Text>
-                    <Input noPad placeholder="Shipping Promotion" value={shippingpromotion} />
+                    <Text style={styles.inputLabel}>Promotion Shipping</Text>
+                    <DropDownPicker
+                        listMode='MODAL'
+                        open={openProShip}
+                        value={valueProShip}
+                        items={itemProShip}
+                        setOpen={setOpenProShip}
+                        setValue={setValueProShip}
+                        setItems={setItemProShip}
+                        showArrowIcon={true}
+                        style={styles.dropdownBtnStyle}
+                        containerStyle={styles.dropdownContainerStyle}
+                        textStyle={styles.dropdownText}
+                        showTickIcon={true}
+                        zIndex={2}
+                        placeholder=""
+                    />
                     <Gap height={10} />
-                    <Text style={styles.inputLabel}>Shipping Price</Text>
-                    <Input noPad placeholder="Shipping Price" value={shippingprice} />
+                    <Text style={styles.inputLabel}>Additional Promotion Shipping</Text>
+                    <DropDownPicker
+                        listMode='MODAL'
+                        open={openAddProShip}
+                        value={valueAddProShip}
+                        items={itemAddProShip}
+                        setOpen={setOpenAddProShip}
+                        setValue={setValueAddProShip}
+                        setItems={setItemAddProShip}
+                        showArrowIcon={true}
+                        style={styles.dropdownBtnStyle}
+                        containerStyle={styles.dropdownContainerStyle}
+                        textStyle={styles.dropdownText}
+                        showTickIcon={true}
+                        zIndex={2}
+                        placeholder=""
+                    />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Payment</Text>
                     <DropDownPicker
@@ -460,21 +510,61 @@ const DetailLead = ({ route }) => {
                         placeholder=""
                     />
                     <Gap height={10} />
+                    <Text style={styles.inputLabel}>Shipping Price</Text>
+                    <Input noPad placeholder="Shipping Price" value={shippingprice} editable={false} />
+                    <Gap height={10} />
+                    <Text style={styles.inputLabel}>Shipping Promotion</Text>
+                    <Input noPad placeholder="Shipping Promotion" value={shippingpromotion} editable={false} />
+                    <Gap height={10} />
                     <Text style={styles.inputLabel}>Total Shipping</Text>
-                    <Input noPad placeholder="Total Shipping" value={totalshipping} />
+                    <Input noPad placeholder="Total Shipping" value={totalshipping} editable={false} />
                 </View>
-                <Gap height={20} />
                 <View style={styles.card}>
+                    <Text style={styles.inputLabel}>Promotion Admin</Text>
+                    <DropDownPicker
+                        listMode='MODAL'
+                        open={openProAdmin}
+                        value={valueProAdmin}
+                        items={itemProAdmin}
+                        setOpen={setOpenProAdmin}
+                        setValue={setValueProAdmin}
+                        setItems={setItemProAdmin}
+                        showArrowIcon={true}
+                        style={styles.dropdownBtnStyle}
+                        containerStyle={styles.dropdownContainerStyle}
+                        textStyle={styles.dropdownText}
+                        showTickIcon={true}
+                        zIndex={2}
+                        placeholder=""
+                    />
+                    <Gap height={10} />
+                    <Text style={styles.inputLabel}>Additional Promotion Admin</Text>
+                    <DropDownPicker
+                        listMode='MODAL'
+                        open={openAddProAdmin}
+                        value={valueAddProAdmin}
+                        items={itemAddProAdmin}
+                        setOpen={setOpenAddProAdmin}
+                        setValue={setValueAddProAdmin}
+                        setItems={setItemAddProAdmin}
+                        showArrowIcon={true}
+                        style={styles.dropdownBtnStyle}
+                        containerStyle={styles.dropdownContainerStyle}
+                        textStyle={styles.dropdownText}
+                        showTickIcon={true}
+                        zIndex={2}
+                        placeholder=""
+                    />
+                    <Gap height={10} />
                     <Text style={styles.inputLabel}>Shipping Admin Cost</Text>
-                    <Input noPad placeholder="Shipping Admin Cost" value={shippingadmin} />
+                    <Input noPad placeholder="Shipping Admin Cost" value={shippingadmin} editable={false} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Promotion Admin Cost</Text>
-                    <Input noPad placeholder="Promotion Admin Cost" value={promotionadmin} />
+                    <Input noPad placeholder="Promotion Admin Cost" value={promotionadmin} editable={false} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Total Admin Cost</Text>
-                    <Input multiline noPad placeholder="Total Admin Cost" value={totaladmin} />
+                    <Input multiline noPad placeholder="Total Admin Cost" value={totaladmin} editable={false} />
                 </View>
-                <Gap height={20} />
                 <View style={styles.card}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.cardName}>Grand Total</Text>
@@ -482,22 +572,23 @@ const DetailLead = ({ route }) => {
                     </View>
                     <Gap height={12} />
                     <Text style={styles.inputLabel}>Upload The Proof</Text>
-                    <TouchableOpacity>
-                        <Image source={Profile} style={{ width: 100, height: 100 }} />
+                    <Gap height={4} />
+                    <TouchableOpacity onPress={getImageFromGalery}>
+                        <Image source={photo === "" ? Profile : { uri: photo }} style={{ width: 100, height: 100, borderRadius: 20 }} />
                     </TouchableOpacity>
                 </View>
-                <Gap height={20} />
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <View style={{ flex: 1 }}>
-                        <Button text="cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} />
+                <View style={{ padding: 24 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ flex: 1 }}>
+                            <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} onPress={() => navigation.goBack()} />
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            <Button text="Save" color={colors._blue} colorText={colors._white} height={46} fontSize={14} />
+                        </View>
                     </View>
-                    <View style={{ flex: 1 }}>
-                        <Button text="Save" color={colors._blue} colorText={colors._white} height={46} fontSize={14} />
-                    </View>
+                    <Gap height={20} />
+                    <Button text="Copy to clipboard" color={colors._blue} colorText={colors._white} height={46} fontSize={14} onPress={copyToClipboard} />
                 </View>
-                <Gap height={20} />
-                <Button text="Copy to clipboard" color={colors._blue} colorText={colors._white} height={46} fontSize={14} />
-                <Gap height={24} />
             </ScrollView>
         </View>
     )
@@ -506,8 +597,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors._white,
-        paddingHorizontal: 24,
-        paddingTop: 24,
     },
     namePage: {
         fontSize: 18,
@@ -523,6 +612,8 @@ const styles = StyleSheet.create({
         backgroundColor: colors._blue,
         padding: 20,
         borderRadius: 16,
+        marginHorizontal: 24,
+        marginTop: 20
     },
     cardName: {
         fontSize: 14,

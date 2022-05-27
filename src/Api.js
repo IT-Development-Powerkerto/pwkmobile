@@ -133,6 +133,15 @@ class Api {
             method: 'GET',
         })
     }
+    static getPromotionDetail(id, token) {
+        let path = `get-promo-list/${id}`;
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
     static addManualLead(token, data) {
         let path = 'leads';
         return request(`${this.urlAPI()}${path}`, {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StatusBar, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { showMessage } from "react-native-flash-message";
 import Api from '../../Api';
@@ -181,7 +181,9 @@ const CreatePromotion = ({ navigation, route }) => {
                     <View style={styles.labelPromotion}>
                         <Text style={styles.label}>{`Promotion ${typeName}`}</Text>
                         <Gap width={8} />
-                        <IconQuestion />
+                        <TouchableOpacity style={{ width: 24, height: 24 }}>
+                            <IconQuestion />
+                        </TouchableOpacity>
                     </View>
                     <Input noPad placeholder="Rp" value={scPrice} onChangeText={(value) => setScPrice(value)} />
                     <Gap height={5} />
@@ -191,7 +193,9 @@ const CreatePromotion = ({ navigation, route }) => {
                     <View style={styles.labelPromotion}>
                         <Text style={styles.label}>{`Promotion ${typeName}`}</Text>
                         <Gap width={8} />
-                        <IconQuestion />
+                        <TouchableOpacity style={{ width: 24, height: 24 }}>
+                            <IconQuestion />
+                        </TouchableOpacity>
                     </View>
                     <Input noPad placeholder="Rp" value={ppPrice} onChangeText={(value) => setPpPrice(value)} />
                     <Gap height={5} />
@@ -201,7 +205,9 @@ const CreatePromotion = ({ navigation, route }) => {
                     <View style={styles.labelPromotion}>
                         <Text style={styles.label}>{`Promotion ${typeName}`}</Text>
                         <Gap width={8} />
-                        <IconQuestion />
+                        <TouchableOpacity style={{ width: 24, height: 24 }}>
+                            <IconQuestion />
+                        </TouchableOpacity>
                     </View>
                     <Input noPad placeholder="Rp" value={acPrice} onChangeText={(value) => setAcPrice(value)} />
                     <Gap height={5} />
@@ -254,9 +260,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center'
     },
-    label:{
-        fontSize: 14, 
-        fontFamily: fonts.primary[500], 
+    label: {
+        fontSize: 14,
+        fontFamily: fonts.primary[500],
         color: colors._textBlack
     }
 })

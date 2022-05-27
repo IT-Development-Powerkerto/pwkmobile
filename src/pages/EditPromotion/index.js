@@ -52,17 +52,17 @@ const EditPromotion = ({ navigation, route }) => {
             error.push('Promotion name required')
         }
         if (typeName === 'Shipping Cost') {
-            if (scPrice === '' && scPercent === '') {
+            if (scPrice === 0 && scPercent === 0) {
                 error.push('Promotion shipping cost required')
             }
         }
         if (typeName === 'Product Price') {
-            if (ppPrice === '' && ppPercent === '') {
+            if (ppPrice === 0 && ppPercent === 0) {
                 error.push('Promotion product price required')
             }
         }
         if (typeName === 'Admin Cost') {
-            if (acPrice === '' && acPercent === '') {
+            if (acPrice === 0 && acPercent === 0) {
                 error.push('Promotion admin cost required')
             }
         }
@@ -195,7 +195,7 @@ const EditPromotion = ({ navigation, route }) => {
                 <Gap height={30} />
                 <Button text="Submit" color={colors._blue} colorText={colors._white} height={46} fontSize={14} onPress={submitPromotion} />
                 <Gap height={10} />
-                <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} />
+                <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} onPress={()=> navigation.goBack()}/>
                 <Gap height={10} />
             </ScrollView>
         </View>
