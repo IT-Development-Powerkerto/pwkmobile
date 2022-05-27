@@ -115,6 +115,24 @@ class Api {
             },
         })
     }
+    static getProvinces() {
+        let path = 'provinces';
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+        })
+    }
+    static getCity(id) {
+        let path = `provinces/${id}/city`;
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+        })
+    }
+    static getSubdistrict(id) {
+        let path = `city/${id}/subdistrict`;
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+        })
+    }
     static addManualLead(token, data) {
         let path = 'leads';
         return request(`${this.urlAPI()}${path}`, {

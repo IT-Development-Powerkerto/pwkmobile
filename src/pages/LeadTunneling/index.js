@@ -5,7 +5,7 @@ import Api from '../../Api'
 import { Button, Gap, HeaderPage, ListLead } from '../../components'
 import { colors, fonts, getData } from '../../utils'
 
-const LeadTunneling = () => {
+const LeadTunneling = ({navigation}) => {
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false)
     const [textDate, setTextDate] = useState('Choose date');
@@ -38,6 +38,16 @@ const LeadTunneling = () => {
             }
             userID()
         });
+    }
+    const gotoDetailLead = () => {
+        getData('user').then(res => {
+            const params = {
+                token: res.token,
+                id: userLeadModal.id
+            }
+            setmodalVisible(!modalVisible)
+            navigation.navigate('DetailLead', params);
+        })
     }
     const getLeadFiltered = async (params) => {
         getData('user').then(res => {
@@ -163,7 +173,7 @@ const LeadTunneling = () => {
                                 <Text style={styles.text}>{userLeadModal.status}</Text>
                             </View>
                             <Gap height={40} />
-                            <Button text="Edit Lead" color={colors._white} height={46} fontSize={14} colorText={colors._blue3} icon={'EditBlue'} onPress={() => setmodalVisible(!modalVisible)} />
+                            <Button text="Edit Lead" color={colors._white} height={46} fontSize={14} colorText={colors._blue3} icon={'EditBlue'} onPress={gotoDetailLead} />
                             <Gap height={10} />
                             <Button text="Cancel" colorText={colors._white} height={46} fontSize={14} onPress={() => setmodalVisible(!modalVisible)} />
                         </View>
