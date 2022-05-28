@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native'
+import { ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Alert, RefreshControl } from 'react-native'
 import Api from '../../Api'
 import { Gap, HeaderBack, ListPromotion } from '../../components'
 import { colors, fonts } from '../../utils'
@@ -7,6 +7,7 @@ import { colors, fonts } from '../../utils'
 const Promotion = ({ route, navigation }) => {
     const { token } = route.params;
     const [countData, setCountData] = useState('');
+    const [refreshing, setRefreshing] = useState(false);
     const [promotion, setPromotion] = useState([
         {
             id: 33,
@@ -40,15 +41,12 @@ const Promotion = ({ route, navigation }) => {
                 [
                     { text: 'No, dont delete', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
                     {
-                        text: 'Yes, delete', onPress: async() => {
+                        text: 'Yes, delete', onPress: async () => {
                             const data = {
                                 _method: "DELETE",
                             }
-                            const param = {
-                                token: token
-                            }
                             const response = await Api.deletePromotion(params.id, params.token, data);
-                            navigation.replace('Promotion', param)
+                            getPromotion();
                         }
                     },
                 ],
@@ -62,6 +60,11 @@ const Promotion = ({ route, navigation }) => {
             token: token
         }
         navigation.navigate('CreatePromotion', params)
+    }
+    const onRefresh = () => {
+        setRefreshing(true);
+        getPromotion();
+        setRefreshing(false);
     }
     useEffect(() => {
         getPromotion();
@@ -82,7 +85,14 @@ const Promotion = ({ route, navigation }) => {
                 </TouchableOpacity>
             </View>
             <Gap height={20} />
-            <ScrollView>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
+            >
                 <View style={styles.listContent}>
                     {promotion.map(data => {
                         const params = {
