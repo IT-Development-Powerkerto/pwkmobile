@@ -46,7 +46,7 @@ const Promotion = ({ route, navigation }) => {
                                 _method: "DELETE",
                             }
                             const response = await Api.deletePromotion(params.id, params.token, data);
-                            getPromotion();
+                            onRefresh();
                         }
                     },
                 ],
