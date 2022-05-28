@@ -142,6 +142,33 @@ class Api {
             },
         })
     }
+    static getPromotionProduct(id, token) {
+        let path = `get-promo-product/${id}`;
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
+    static getPromotionShipping(id, token) {
+        let path = `get-promo-shipping/${id}`;
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
+    static getPromotionAdmin(id, token) {
+        let path = `get-promo-admin/${id}`;
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
     static addManualLead(token, data) {
         let path = 'leads';
         return request(`${this.urlAPI()}${path}`, {

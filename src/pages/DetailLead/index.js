@@ -251,6 +251,42 @@ const DetailLead = ({ route, navigation }) => {
 
         }
     }
+    const countQuantity = (value) => {
+        setQuantity(value);
+        const totalPrice = value * price;
+        setTotalprice(totalPrice.toString())
+    }
+    const countproductpromotionDrop = async (value) => {
+        const response = await Api.getPromotionProduct(value, token);
+        setProductpromotion(response.data.product_promotion);
+        const totalPrice = totalprice - response.data.product_promotion;
+        setTotalprice(totalPrice.toString());
+    }
+    const countaddproductpromotionDrop = async (value) => {
+        const response = await Api.getPromotionProduct(value, token);
+        const productpromotionPlus = parseInt(productpromotion) + parseInt(response.data.product_promotion);
+        setProductpromotion(productpromotionPlus.toString())
+        const totalPrice = totalprice - response.data.product_promotion;
+        setTotalprice(totalPrice.toString());
+    }
+    const countshippingpromotionDrop = async (value) => {
+        const response = await Api.getPromotionShipping(value, token);
+        setShippingpromotion(response.data.shipping_promotion);
+    }
+    const countaddshippingpromotionDrop = async (value) => {
+        const response = await Api.getPromotionShipping(value, token);
+        const shippingpromotionPlus = parseInt(shippingpromotion) + parseInt(response.data.shipping_promotion);
+        setShippingpromotion(shippingpromotionPlus.toString());
+    }
+    const countadminpromotionDrop = async (value) => {
+        const response = await Api.getPromotionAdmin(value, token);
+        setPromotionadmin(response.data.admin_promotion);
+    }
+    const countaddadminpromotionDrop = async (value) => {
+        const response = await Api.getPromotionAdmin(value, token);
+        const adminpromotionPlus = parseInt(promotionadmin) + parseInt(response.data.admin_promotion);
+        setPromotionadmin(adminpromotionPlus.toString());
+    }
     const copyToClipboard = () => {
         Clipboard.setString(`Nama Pemesan: ${customername}\nAlamat: ${address}\nProvinsi: \nKota / Kabupaten: \nKecamatan: \nNo. Telp: ${contact}\nProduk yang dipesan: ${product}\nJumlah Pesanan: ${quantity}\nKurir: \nMetode: \nPromo Produk: \nPromo Ongkir: \nPromo Admin: \nTotal Pembayaran: ${grandprice}`);
         showMessage({
@@ -313,7 +349,7 @@ const DetailLead = ({ route, navigation }) => {
                     <Input noPad placeholder="Product Name" editable={false} value={product} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Quantity</Text>
-                    <Input noPad placeholder="Product Quantity" value={quantity} onChangeText={(value) => setQuantity(value)} />
+                    <Input noPad placeholder="Product Quantity" value={quantity} onChangeText={(value) => countQuantity(value)} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Price</Text>
                     <Input multiline noPad placeholder="Price" editable={false} value={price} />
@@ -334,6 +370,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
+                        onChangeValue={() => countproductpromotionDrop(valueProProd)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Additional Promotion Product</Text>
@@ -352,6 +389,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
+                        onChangeValue={() => countaddproductpromotionDrop(valueAddProProd)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Product Promotion</Text>
@@ -472,6 +510,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
+                        onChangeValue={() => countshippingpromotionDrop(valueProShip)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Additional Promotion Shipping</Text>
@@ -490,6 +529,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
+                        onChangeValue={() => countaddshippingpromotionDrop(valueAddProShip)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Payment</Text>
@@ -536,6 +576,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
+                        onChangeValue={() => countadminpromotionDrop(valueProAdmin)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Additional Promotion Admin</Text>
@@ -554,6 +595,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
+                        onChangeValue={() => countaddadminpromotionDrop(valueAddProAdmin)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Shipping Admin Cost</Text>
