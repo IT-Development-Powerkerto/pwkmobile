@@ -112,7 +112,7 @@ const EditPromotion = ({ navigation, route }) => {
                 const params = {
                     token: token
                 }
-                navigation.replace('Promotion', params)
+                navigation.navigate('Promotion', params)
             } catch (error) {
                 showMessage({
                     icon: 'warning',
