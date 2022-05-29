@@ -18,7 +18,8 @@ import MyProfile from "./MyProfile";
 import Promotion from "./Promotion";
 import Reimbursement from "./Reimbursement";
 import Splash from "./Splash";
+import LeadCampaign from "./LeadCampaign";
 
 export {
-    Login, Forget, Home, LeadTunneling, MyProfile, Promotion, Reimbursement, BudgetingRealization, Evaluation, ChangePassword, EditProfile, AddReimbursement, AddBudgetingRealization, AddRoutineEvaliation, CreatePromotion, EditPromotion, Splash, DetailLead, Campaign, Budgeting
+    Login, Forget, Home, LeadTunneling, MyProfile, Promotion, Reimbursement, BudgetingRealization, Evaluation, ChangePassword, EditProfile, AddReimbursement, AddBudgetingRealization, AddRoutineEvaliation, CreatePromotion, EditPromotion, Splash, DetailLead, Campaign, Budgeting, LeadCampaign
 };
