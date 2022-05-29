@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { LeadWhite, ProfileWhite } from '../../../assets';
+import { CampaignWhite, LeadWhite, ProfileWhite } from '../../../assets';
 import { colors, fonts } from '../../../utils';
+import Gap from '../Gap';
 
 const HeaderPage = ({ title, icon }) => {
   const Icon = () => {
@@ -9,6 +10,8 @@ const HeaderPage = ({ title, icon }) => {
       return <LeadWhite />
     } else if (icon == "Profile") {
       return <ProfileWhite />
+    } else if (icon == "Campaign") {
+      return <CampaignWhite />
     }
   }
   return (
@@ -16,8 +19,8 @@ const HeaderPage = ({ title, icon }) => {
       <View style={{ width: 24, height: 24, justifyContent: 'center' }}>
         <Icon />
       </View>
+      <Gap width={8} />
       <Text style={{ color: colors._white, fontFamily: fonts.primary[600], fontSize: 18 }}>{title}</Text>
-      <View style={{ width: 24, height: 24 }} />
     </View>
   );
 }
@@ -29,9 +32,9 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 20,
     borderBottomEndRadius: 20,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     paddingHorizontal: 24,
-    flexDirection: 'row',
+    flexDirection: 'row'
   }
 });
 

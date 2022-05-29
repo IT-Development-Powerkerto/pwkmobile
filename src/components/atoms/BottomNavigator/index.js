@@ -49,7 +49,7 @@ const styles = {
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingVertical: 5,
-        paddingHorizontal: 56,
+        paddingHorizontal: 42,
         backgroundColor: colors._white,
     },
 };

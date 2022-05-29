@@ -1,7 +1,8 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
-import { Home, HomeColor, LeadColor, Lead, ProfileUserColor, ProfileUser, Campaign, CampaignColor } from '../../../assets';
+import { Text, TouchableOpacity } from 'react-native';
+import { Budgeting, BudgetingColor, Campaign, CampaignColor, Home, HomeColor, Lead, LeadColor, ProfileUser, ProfileUserColor } from '../../../assets';
 import { colors, fonts } from '../../../utils';
+import Gap from '../Gap';
 
 const IconMenu = ({ title, active, onPress, onLongPress }) => {
     const Icon = () => {
@@ -17,11 +18,15 @@ const IconMenu = ({ title, active, onPress, onLongPress }) => {
         if (title === 'Campaign') {
             return active ? <CampaignColor /> : <Campaign />
         }
+        if (title === 'Budgeting') {
+            return active ? <BudgetingColor /> : <Budgeting />
+        }
         return <HomeColor />
     }
     return (
         <TouchableOpacity style={styles.container} onPress={onPress} onLongPress={onLongPress}>
             <Icon />
+            <Gap height={2} />
             <Text style={styles.teks(active)}>{title}</Text>
         </TouchableOpacity>
     );
@@ -35,7 +40,7 @@ const styles = {
     },
     teks: active => ({
         fontSize: 10,
-        color: active? colors._blue3 : colors._textGray,
+        color: active ? colors._blue3 : colors._textGray,
         fontFamily: fonts.primary[600],
     })
 };
