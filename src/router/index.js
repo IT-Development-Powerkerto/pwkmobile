@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { BottomNavigator } from '../components';
-import { AddBudgetingRealization, AddReimbursement, AddRoutineEvaliation, Budgeting, BudgetingRealization, Campaign, ChangePassword, CreateCampaign, CreatePromotion, DetailLead, EditProfile, EditPromotion, Evaluation, Forget, Home, LeadCampaign, LeadTunneling, Login, MyProfile, Promotion, Reimbursement, Splash } from '../pages';
+import { AddBudgetingRealization, AddReimbursement, AddRoutineEvaliation, Budgeting, BudgetingRealization, Campaign, ChangePassword, CreateCampaign, CreatePromotion, DetailLead, EditCampaign, EditProfile, EditPromotion, Evaluation, Forget, Home, LeadCampaign, LeadTunneling, Login, MyProfile, OperatorCampaign, Promotion, Reimbursement, Splash } from '../pages';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,7 +30,7 @@ const MyADVTabs = () => {
 
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName='CreateCampaign'
+    <Stack.Navigator initialRouteName='Splash'
       screenOptions={{
         headerShown: false,
         animation: 'fade',
@@ -55,6 +55,8 @@ const Router = () => {
       <Stack.Screen name="DetailLead" component={DetailLead} />
       <Stack.Screen name="LeadCampaign" component={LeadCampaign} />
       <Stack.Screen name="CreateCampaign" component={CreateCampaign} />
+      <Stack.Screen name="EditCampaign" component={EditCampaign} />
+      <Stack.Screen name="OperatorCampaign" component={OperatorCampaign} />
     </Stack.Navigator>
   );
 }

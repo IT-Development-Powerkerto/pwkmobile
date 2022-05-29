@@ -20,7 +20,9 @@ import Reimbursement from "./Reimbursement";
 import Splash from "./Splash";
 import LeadCampaign from "./LeadCampaign";
 import CreateCampaign from "./CreateCampaign";
+import EditCampaign from "./EditCampaign";
+import OperatorCampaign from "./OperatorCampaign";
 
 export {
-    Login, Forget, Home, LeadTunneling, MyProfile, Promotion, Reimbursement, BudgetingRealization, Evaluation, ChangePassword, EditProfile, AddReimbursement, AddBudgetingRealization, AddRoutineEvaliation, CreatePromotion, EditPromotion, Splash, DetailLead, Campaign, Budgeting, LeadCampaign, CreateCampaign
+    Login, Forget, Home, LeadTunneling, MyProfile, Promotion, Reimbursement, BudgetingRealization, Evaluation, ChangePassword, EditProfile, AddReimbursement, AddBudgetingRealization, AddRoutineEvaliation, CreatePromotion, EditPromotion, Splash, DetailLead, Campaign, Budgeting, LeadCampaign, CreateCampaign, EditCampaign, OperatorCampaign
 };

@@ -14,5 +14,6 @@ import ListEvaluation from "./ListEvaluation";
 import ButtonIcon from "./ButtonIcon";
 import ListButtonMenu from "./ListButtonMenu";
 import CardCampaign from "./CardCampaign";
+import CardOperator from "./CardOperator";
 
-export { HeaderHome, Input, Gap, BottomNavigator, IconMenu, ListLead, HeaderPage, Button, HeaderBack, ListPromotion, ListReimbursement, ListBudgeting, ListEvaluation, ButtonIcon, ListButtonMenu, CardCampaign };
+export { HeaderHome, Input, Gap, BottomNavigator, IconMenu, ListLead, HeaderPage, Button, HeaderBack, ListPromotion, ListReimbursement, ListBudgeting, ListEvaluation, ButtonIcon, ListButtonMenu, CardCampaign, CardOperator };
