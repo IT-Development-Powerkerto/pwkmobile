@@ -4,7 +4,7 @@ import { ImageAttach } from '../../assets'
 import { Gap, HeaderBack, ListBudgeting } from '../../components'
 import { colors, fonts } from '../../utils'
 
-const Budgeting = () => {
+const BudgetingRealization = () => {
     const [modalVisible, setmodalVisible] = useState(false)
 
     return (
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
         padding: 30,
     },
 })
-export default Budgeting;
+export default BudgetingRealization;

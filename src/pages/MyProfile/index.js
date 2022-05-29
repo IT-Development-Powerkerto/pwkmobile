@@ -71,7 +71,7 @@ const MyProfile = ({ navigation }) => {
                 <View style={styles.menuBtn}>
                     {role === '5' && <ListButtonMenu type='promotion' teks='Promotion' onPress={gotoPromotion} />}
                     <ListButtonMenu type='reimbursement' teks='Reimbursement' />
-                    <ListButtonMenu type='budgeting' teks='Budgeting Realization' />
+                    <ListButtonMenu type='budgeting' teks='Budgeting Realization' onPress={()=> navigation.navigate('BudgetingRealization')}/>
                     <ListButtonMenu type='evaluation' teks='Routine Evaluation' />
                 </View>
                 <View style={{ flex: 1 }} />

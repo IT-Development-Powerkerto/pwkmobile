@@ -5,7 +5,7 @@ import LeadTunneling from "./LeadTunneling";
 import MyProfile from "./MyProfile";
 import Promotion from "./Promotion";
 import Reimbursement from "./Reimbursement";
-import Budgeting from "./Budgeting";
+import BudgetingRealization from "./BudgetingRealization";
 import Evaluation from "./Evaluation";
 import ChangePassword from "./ChangePassword";
 import EditProfile from "./EditProfile";
@@ -16,7 +16,8 @@ import CreatePromotion from "./CreatePromotion";
 import EditPromotion from "./EditPromotion";
 import Splash from "./Splash";
 import DetailLead from "./DetailLead";
+import Campaign from "./Campaign";
 
 export {
-    Login, Forget, Home, LeadTunneling, MyProfile, Promotion, Reimbursement, Budgeting, Evaluation, ChangePassword, EditProfile, AddReimbursement, AddBudgetingRealization, AddRoutineEvaliation, CreatePromotion, EditPromotion, Splash, DetailLead
+    Login, Forget, Home, LeadTunneling, MyProfile, Promotion, Reimbursement, BudgetingRealization, Evaluation, ChangePassword, EditProfile, AddReimbursement, AddBudgetingRealization, AddRoutineEvaliation, CreatePromotion, EditPromotion, Splash, DetailLead, Campaign
 }

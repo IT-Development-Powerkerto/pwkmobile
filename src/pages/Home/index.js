@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Modal, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Modal, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DatePicker from 'react-native-date-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Api from "../../Api";
 import { Button, Gap, HeaderHome, Input, ListLead } from "../../components";
 import { colors, fonts, getData } from "../../utils";
+
+const windowWidth = Dimensions.get('window').width;
 
 const Home = ({ navigation }) => {
     const [userData, setUserData] = useState([])
@@ -115,27 +117,93 @@ const Home = ({ navigation }) => {
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
             <HeaderHome name={userData.name} role={userData.role} image={userData.image} />
             <Gap height={20} />
-            <View style={styles.mainCard}>
-                <View style={styles.FirstCard}>
-                    <Text style={{ fontSize: 28, fontFamily: fonts.primary[700], color: colors._white }}>{userLead.total_lead}</Text>
-                    <Text style={{ fontSize: 16, fontFamily: fonts.primary[500], color: colors._white }}>Total Lead</Text>
-                </View>
-                <View style={styles.SecondCard}>
-                    <Text style={{ fontSize: 28, fontFamily: fonts.primary[700], color: colors._white }}>{userLead.total_closing}</Text>
-                    <Text style={{ fontSize: 16, fontFamily: fonts.primary[500], color: colors._white }}>Total Closing</Text>
-                </View>
-            </View>
-            <Gap height={10} />
-            <View style={styles.mainCard}>
-                <View style={styles.ThirdCard}>
-                    <Text style={{ fontSize: 28, fontFamily: fonts.primary[700], color: colors._white }}>{userLead.daily_lead}</Text>
-                    <Text style={{ fontSize: 16, fontFamily: fonts.primary[500], color: colors._white }}>Daily Lead</Text>
-                </View>
-                <View style={styles.FourtCard}>
-                    <Text style={{ fontSize: 28, fontFamily: fonts.primary[700], color: colors._white }}>{userLead.daily_closing}</Text>
-                    <Text style={{ fontSize: 16, fontFamily: fonts.primary[500], color: colors._white }}>Daily Closing</Text>
-                </View>
-            </View>
+            {
+                role === "4" &&
+                <>
+                    <View style={styles.mainCard}>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks2}>Adv. Cost</Text>
+                        </View>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>{userLead.total_lead}</Text>
+                            <Text style={styles.teks2}>Total Leads</Text>
+                        </View>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>{userLead.total_closing}</Text>
+                            <Text style={styles.teks2}>Total Closing</Text>
+                        </View>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks2}>Total Box</Text>
+                        </View>
+                    </View>
+                    <Gap height={10} />
+                    <View style={styles.mainCard}>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks2}>Upselling</Text>
+                        </View>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks2}>Closing Rate</Text>
+                        </View>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks2}>CPR</Text>
+                        </View>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks2}>Cross Selling</Text>
+                        </View>
+                    </View>
+                    <Gap height={10} />
+                    <View style={styles.mainCard}>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks2}>CAQ Lead</Text>
+                        </View>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks2}>CAQ Customer</Text>
+                        </View>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks2}>CAQ Bottle</Text>
+                        </View>
+                        <View style={styles.cardMenu}>
+                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks2}>CAQ Total</Text>
+                        </View>
+                    </View>
+                </>
+            }
+            {
+                role === "5" &&
+                <>
+                    <View style={styles.mainCard}>
+                        <View style={styles.firstCard}>
+                            <Text style={styles.teks3}>{userLead.total_lead}</Text>
+                            <Text style={styles.teks4}>Total Lead</Text>
+                        </View>
+                        <View style={styles.secondCard}>
+                            <Text style={styles.teks3}>{userLead.total_closing}</Text>
+                            <Text style={styles.teks4}>Total Closing</Text>
+                        </View>
+                    </View>
+                    <Gap height={10} />
+                    <View style={styles.mainCard}>
+                        <View style={styles.thirdCard}>
+                            <Text style={styles.teks3}>{userLead.daily_lead}</Text>
+                            <Text style={styles.teks4}>Daily Lead</Text>
+                        </View>
+                        <View style={styles.fourtCard}>
+                            <Text style={styles.teks3}>{userLead.daily_closing}</Text>
+                            <Text style={styles.teks4}>Daily Closing</Text>
+                        </View>
+                    </View>
+                </>
+            }
             <Gap height={20} />
             <View style={{ paddingHorizontal: 24, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <View>
@@ -314,7 +382,16 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: 24
     },
-    FirstCard: {
+    cardMenu: {
+        width: windowWidth / 4 - 20,
+        height: windowWidth / 4 - 20,
+        borderRadius: 8,
+        backgroundColor: colors._blue,
+        justifyContent: 'center',
+        alignItems: "center",
+        padding: 10,
+    },
+    firstCard: {
         width: '48%',
         height: 100,
         borderRadius: 8,
@@ -322,7 +399,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 10,
     },
-    SecondCard: {
+    secondCard: {
         width: '48%',
         height: 100,
         borderRadius: 8,
@@ -330,7 +407,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 10,
     },
-    ThirdCard: {
+    thirdCard: {
         width: '48%',
         height: 100,
         borderRadius: 8,
@@ -338,7 +415,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 10,
     },
-    FourtCard: {
+    fourtCard: {
         width: '48%',
         height: 100,
         borderRadius: 8,
@@ -385,6 +462,27 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         borderColor: colors._white,
     },
+    teks: {
+        fontSize: 16,
+        fontFamily: fonts.primary[600],
+        color: colors._white
+    },
+    teks2: {
+        fontSize: 10,
+        fontFamily: fonts.primary[500],
+        color: colors._white,
+        textAlign: "center"
+    },
+    teks3: {
+        fontSize: 28,
+        fontFamily: fonts.primary[700],
+        color: colors._white
+    },
+    teks4: {
+        fontSize: 16,
+        fontFamily: fonts.primary[500],
+        color: colors._white
+    }
 });
 
 export default Home;

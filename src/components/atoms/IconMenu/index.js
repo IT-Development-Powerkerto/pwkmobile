@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
-import { Home, HomeColor, LeadColor, Lead, ProfileUserColor, ProfileUser } from '../../../assets';
+import { Home, HomeColor, LeadColor, Lead, ProfileUserColor, ProfileUser, Campaign, CampaignColor } from '../../../assets';
 import { colors, fonts } from '../../../utils';
 
 const IconMenu = ({ title, active, onPress, onLongPress }) => {
@@ -13,6 +13,9 @@ const IconMenu = ({ title, active, onPress, onLongPress }) => {
         }
         if (title === 'Profile') {
             return active ? <ProfileUserColor /> : <ProfileUser />
+        }
+        if (title === 'Campaign') {
+            return active ? <CampaignColor /> : <Campaign />
         }
         return <HomeColor />
     }

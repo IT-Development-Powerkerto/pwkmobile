@@ -48,6 +48,13 @@ import Intersect from "./img/Intersect.png";
 import Powerkerto from "./img/Powerkerto.png";
 import Profile from "./img/Profile.png";
 import IconQuestion from "./Icon/IconQuestion.svg";
+import Campaign from "./Icon/Campaign.svg";
+import CampaignColor from "./Icon/CampaignColor.svg";
+import Budgeting from "./Icon/Budgeting.svg";
+import BudgetingColor from "./Icon/BudgetingColor.svg";
+import CampaignWhite from "./Icon/CampaignWhite.svg";
+import BudgetingWhite from "./Icon/BudgetingWhite.svg";
+import IconOperator from "./Icon/IconOperator.svg";
 
 export {
     Cover,
@@ -99,6 +106,13 @@ export {
     IconPromotion,
     IconReimbursement,
     ImageAttach,
-    IconQuestion
+    IconQuestion,
+    Campaign,
+    CampaignColor,
+    Budgeting,
+    BudgetingColor,
+    CampaignWhite,
+    BudgetingWhite,
+    IconOperator
 };
 
