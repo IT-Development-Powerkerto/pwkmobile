@@ -15,6 +15,7 @@ const MyProfile = ({ navigation }) => {
     const gotoChangePassword = () => {
         getData('user').then(res => {
             const params = {
+                role: res.role_id,
                 token: res.token,
             }
             navigation.navigate('ChangePassword', params);

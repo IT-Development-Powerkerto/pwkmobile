@@ -6,7 +6,7 @@ import { Button, Gap, HeaderBack, Input } from '../../components';
 import { colors, fonts } from '../../utils';
 
 const ChangePassword = ({ navigation, route }) => {
-    const { token } = route.params;
+    const { token, role } = route.params;
     const [currentPassword, setCurrentPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
     const [confirmNewPassword, setconfirmNewPassword] = useState("")
@@ -55,7 +55,11 @@ const ChangePassword = ({ navigation, route }) => {
                     animated: true,
                     duration: 3000,
                 });
-                navigation.replace('MyTabs');
+                if (role === '5') {
+                    navigation.replace('MyCSTabs')
+                } else {
+                    navigation.replace('MyADVTabs')
+                }
             } catch (error) {
                 showMessage({
                     icon: 'warning',

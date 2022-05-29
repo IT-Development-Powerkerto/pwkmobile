@@ -88,7 +88,7 @@ const Home = ({ navigation }) => {
                 }
                 const response = await Api.addManualLead(res.token, data);
                 setmodalVisible(!modalVisible)
-                navigation.replace('MyTabs')
+                navigation.replace('MyCSTabs')
             }
             manualLead()
         });

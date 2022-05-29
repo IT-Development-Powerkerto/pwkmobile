@@ -7,7 +7,17 @@ import { AddBudgetingRealization, AddReimbursement, AddRoutineEvaliation, Budget
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const MyTabs = () => {
+const MyCSTabs = () => {
+  return (
+    <Tab.Navigator tabBar={props => <BottomNavigator {...props}  />}>
+      <Tab.Screen name="Home" component={Home} options = {{ headerShown: false }} />
+      <Tab.Screen name="Leads" component={LeadTunneling} options = {{ headerShown: false}} />
+      <Tab.Screen name="Profile" component={MyProfile} options = {{ headerShown: false}} />
+    </Tab.Navigator>
+  );
+}
+
+const MyADVTabs = () => {
   return (
     <Tab.Navigator tabBar={props => <BottomNavigator {...props}  />}>
       <Tab.Screen name="Home" component={Home} options = {{ headerShown: false }} />
@@ -20,9 +30,10 @@ const MyTabs = () => {
 const Router = () => {
     return(
         <Stack.Navigator initialRouteName='Splash' >
+            <Stack.Screen name="MyCSTabs" component={MyCSTabs} options = {{ headerShown: false }} />
+            <Stack.Screen name="MyADVTabs" component={MyADVTabs} options = {{ headerShown: false }} />
             <Stack.Screen name="Login" component={Login} options = {{ headerShown: false }} />
             <Stack.Screen name="Forget" component={Forget} options = {{ headerShown: false }} />
-            <Stack.Screen name="MyTabs" component={MyTabs} options = {{ headerShown: false }} />
             <Stack.Screen name="Promotion" component={Promotion} options = {{ headerShown: false }} />
             <Stack.Screen name="Reimbursement" component={Reimbursement} options = {{ headerShown: false }} />
             <Stack.Screen name="Budgeting" component={Budgeting} options = {{ headerShown: false }} />

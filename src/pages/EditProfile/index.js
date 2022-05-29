@@ -91,7 +91,11 @@ const EditProfile = ({ navigation, route }) => {
                     animated: true,
                     duration: 3000,
                 });
-                navigation.replace('MyTabs');
+                if (role === '5') {
+                    navigation.replace('MyCSTabs')
+                } else {
+                    navigation.replace('MyADVTabs')
+                }
             } catch (error) {
                 showMessage({
                     icon: 'warning',

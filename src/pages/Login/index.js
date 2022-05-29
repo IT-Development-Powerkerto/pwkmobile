@@ -42,7 +42,11 @@ const Login = ({ navigation }) => {
                 storeData('user', data)
                 setUsername("");
                 setPassword("");
-                navigation.replace('MyTabs');
+                if (data.role_id === '5') {
+                    navigation.replace('MyCSTabs');
+                } else {
+                    navigation.replace('MyADVTabs');
+                }
             } catch (error) {
                 showMessage({
                     icon: 'warning',

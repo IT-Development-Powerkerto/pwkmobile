@@ -7,7 +7,11 @@ const Splash = ({ navigation }) => {
     const checkLogin = () => {
         getData('user').then(res => {
             if (res) {
-                navigation.replace('MyTabs')
+                if (res.role_id === '5') {
+                    navigation.replace('MyCSTabs')
+                } else {
+                    navigation.replace('MyADVTabs')
+                }
             } else {
                 navigation.replace('Login')
             }
@@ -22,7 +26,7 @@ const Splash = ({ navigation }) => {
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Image source={Powerkerto} style={{ alignSelf: "center", marginTop: '20%' }} />
+                <Image source={Powerkerto} style={{ marginTop: '20%' }} />
             </View>
             <Text style={styles.powered}>Powered By</Text>
             <Text style={styles.ptname}>Powerkerto</Text>
