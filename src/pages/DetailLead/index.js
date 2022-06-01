@@ -30,6 +30,9 @@ const DetailLead = ({ route, navigation }) => {
     const [promotionadmin, setPromotionadmin] = useState("");
     const [totaladmin, setTotaladmin] = useState("");
     const [grandprice, setGrandprice] = useState("");
+    //kebutuhan cek ongkir
+    const [warehouse, setWarehouse] = useState("");
+    const [subdistrict, setSubdistrict] = useState("");
     //image
     const [photo, setPhoto] = useState("");
     const [photoDB, setPhotoDB] = useState("");
@@ -252,6 +255,20 @@ const DetailLead = ({ route, navigation }) => {
 
         }
     }
+    const getShippingPrice = async (value) => {
+        try {
+            const data = {
+                origin : warehouse,
+                destination : subdistrict,
+                weight : weight,
+                courier : value,
+            }
+            const response = await Api.checkOngkir(data);
+            setShippingprice(response.data.toString())
+        } catch (error) {
+
+        }
+    }
     const countQuantity = (value) => {
         setQuantity(value);
         const totalPrice = value * price;
@@ -419,6 +436,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
+                        onChangeValue={()=> setWarehouse(valueWarehouse)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Destination Province</Text>
@@ -475,6 +493,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
+                        onChangeValue={()=> setSubdistrict(valueSubdistrict)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Courier</Text>
@@ -493,6 +512,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
+                        onChangeValue={() => getShippingPrice(valueCourier)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Promotion Shipping</Text>

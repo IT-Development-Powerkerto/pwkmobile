@@ -178,6 +178,13 @@ class Api {
             },
         })
     }
+    static checkOngkir(data) {
+        let path = 'ongkir';
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'POST',
+            data
+        })
+    }
     static addManualLead(token, data) {
         let path = 'leads';
         return request(`${this.urlAPI()}${path}`, {
