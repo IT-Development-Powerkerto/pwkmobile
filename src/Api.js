@@ -169,6 +169,15 @@ class Api {
             },
         })
     }
+    static getWarehouse(token) {
+        let path = 'get-warehouse';
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
     static addManualLead(token, data) {
         let path = 'leads';
         return request(`${this.urlAPI()}${path}`, {

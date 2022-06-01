@@ -127,17 +127,9 @@ const DetailLead = ({ route, navigation }) => {
     const [valueWarehouse, setValueWarehouse] = useState('');
     const [itemWarehouse, setItemWarehouse] = useState([
         {
-            label: 'Cilacap',
-            value: 'Cilacap'
+            label: '',
+            value: ''
         },
-        {
-            label: 'Kosambi',
-            value: 'Kosambi'
-        },
-        {
-            label: 'Tandes.Sby',
-            value: 'Tandes.Sby'
-        }
     ]);
     const [openProProd, setOpenProProd] = useState(false);
     const [valueProProd, setValueProProd] = useState('');
@@ -209,7 +201,16 @@ const DetailLead = ({ route, navigation }) => {
             setTotaladmin(response.data.total_admin);
             setGrandprice(response.data.total_payment)
             getProvince();
-            getPromotionDetail(response.data.product_id)
+            getPromotionDetail(response.data.product_id);
+            getWarehouse();
+        } catch (error) {
+
+        }
+    }
+    const getWarehouse = async () => {
+        try {
+            const response = await Api.getWarehouse(token);
+            setItemWarehouse(response.data)
         } catch (error) {
 
         }
