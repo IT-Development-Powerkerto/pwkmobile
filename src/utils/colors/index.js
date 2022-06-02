@@ -1,7 +1,7 @@
 const mainColor = {
     _red: '#870202',
     _redOp: 'rgba(247, 0, 0, 0.2)',
-    _red2: '#FF0C38',
+    _red2: '#cc3300',
     _green: '#028E00',
     _greenOp: 'rgba(35, 247, 0, 0.2)',
     _blue: '#023887',
