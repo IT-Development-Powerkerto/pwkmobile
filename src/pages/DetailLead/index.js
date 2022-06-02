@@ -8,6 +8,7 @@ import Api from '../../Api';
 import { Profile } from '../../assets';
 import { Button, Gap, HeaderBack, Input } from '../../components';
 import { colors, fonts } from '../../utils';
+import helpers from '../../utils/helpers';
 
 const DetailLead = ({ route, navigation }) => {
     const { id, token } = route.params;
@@ -22,17 +23,32 @@ const DetailLead = ({ route, navigation }) => {
     const [price, setPrice] = useState("");
     const [productpromotion, setProductpromotion] = useState("");
     const [totalprice, setTotalprice] = useState("");
+    const [totalprice2, setTotalprice2] = useState("");
     const [weight, setWeight] = useState("");
     const [shippingpromotion, setShippingpromotion] = useState("");
     const [shippingprice, setShippingprice] = useState("");
+    const [shippingprice2, setShippingprice2] = useState("");
     const [totalshipping, setTotalshipping] = useState("");
     const [shippingadmin, setShippingadmin] = useState("");
+    const [shippingadmin2, setShippingadmin2] = useState("");
     const [promotionadmin, setPromotionadmin] = useState("");
     const [totaladmin, setTotaladmin] = useState("");
     const [grandprice, setGrandprice] = useState("");
     //kebutuhan cek ongkir
     const [warehouse, setWarehouse] = useState("");
     const [subdistrict, setSubdistrict] = useState("");
+    //kebutuhan edit lead
+    const [productpromotionid, setProductpromotionid] = useState("");
+    const [addproductpromotionid, setAddProductpromotionid] = useState("");
+    const [status, setStatus] = useState("");
+    const [province, setProvince] = useState("");
+    const [city, setCity] = useState("");
+    const [courier, setCourier] = useState("");
+    const [shippingpromotionid, setShippingpromotionid] = useState("");
+    const [addshippingpromotionid, setAddShippingpromotionid] = useState("");
+    const [paymentmethod, setPaymentMethod] = useState("");
+    const [promotionadminid, setPromotionadminid] = useState("");
+    const [addpromotionadminid, setAddPromotionadminid] = useState("");
     //image
     const [photo, setPhoto] = useState("");
     const [photoDB, setPhotoDB] = useState("");
@@ -193,14 +209,20 @@ const DetailLead = ({ route, navigation }) => {
             setProduct(response.data.product);
             setQuantity(response.data.quantity);
             setPrice(response.data.product_price);
-            setProductpromotion(response.data.product_promotion);
+            const product_promotion = parseInt(response.data.product_promotion);
+            const add_product_promotion = parseInt(response.data.add_product_promotion)
+            setProductpromotion((product_promotion + add_product_promotion).toString());
             setTotalprice(response.data.total_price);
             setWeight(response.data.product_weight);
-            setShippingpromotion(response.data.shipping_promotion);
+            const shipping_promotion = parseInt(response.data.shipping_promotion);
+            const add_shipping_promotion = parseInt(response.data.add_shipping_promotion)
+            setShippingpromotion((shipping_promotion + add_shipping_promotion).toString());
             setShippingprice(response.data.shipping_price);
             setTotalshipping(response.data.total_shipping);
             setShippingadmin(response.data.shipping_admin);
-            setPromotionadmin(response.data.admin_promotion);
+            const admin_promotion = parseInt(response.data.admin_promotion);
+            const add_admin_promotion = parseInt(response.data.add_admin_promotion)
+            setPromotionadmin((admin_promotion+ add_admin_promotion).toString());
             setTotaladmin(response.data.total_admin);
             setGrandprice(response.data.total_payment)
             getProvince();
@@ -230,6 +252,7 @@ const DetailLead = ({ route, navigation }) => {
         try {
             const response = await Api.getCity(value);
             setItemCity(response.data)
+            setProvince(value);
         } catch (error) {
 
         }
@@ -238,6 +261,7 @@ const DetailLead = ({ route, navigation }) => {
         try {
             const response = await Api.getSubdistrict(value);
             setItemSubdistrict(response.data)
+            setCity(value)
         } catch (error) {
 
         }
@@ -258,13 +282,15 @@ const DetailLead = ({ route, navigation }) => {
     const getShippingPrice = async (value) => {
         try {
             const data = {
-                origin : warehouse,
-                destination : subdistrict,
-                weight : weight,
-                courier : value,
+                origin: warehouse,
+                destination: subdistrict,
+                weight: weight,
+                courier: value,
             }
             const response = await Api.checkOngkir(data);
-            setShippingprice(response.data.toString())
+            setShippingprice(response.data.toString());
+            setShippingprice2(response.data.toString());
+            setCourier(value);
         } catch (error) {
 
         }
@@ -272,38 +298,173 @@ const DetailLead = ({ route, navigation }) => {
     const countQuantity = (value) => {
         setQuantity(value);
         const totalPrice = value * price;
-        setTotalprice(totalPrice.toString())
+        setTotalprice(totalPrice.toString());
+        setTotalprice2(totalPrice.toString())
     }
     const countproductpromotionDrop = async (value) => {
         const response = await Api.getPromotionProduct(value, token);
-        setProductpromotion(response.data.product_promotion);
-        const totalPrice = totalprice - response.data.product_promotion;
-        setTotalprice(totalPrice.toString());
+        const ppfixed = response.data.product_promotion;
+        const pppercent = response.data.product_promotion_percent;
+        const valuepppercent = totalprice * pppercent / 100;
+        if (ppfixed <= valuepppercent) {
+            const totalPrice = totalprice - ppfixed;
+            setProductpromotion(ppfixed.toString());
+            setTotalprice(totalPrice.toString());
+        } else {
+            const totalPrice = totalprice - valuepppercent;
+            setProductpromotion(valuepppercent.toString());
+            setTotalprice(totalPrice.toString());
+        }
+        setProductpromotionid(value);
     }
     const countaddproductpromotionDrop = async (value) => {
         const response = await Api.getPromotionProduct(value, token);
-        const productpromotionPlus = parseInt(productpromotion) + parseInt(response.data.product_promotion);
-        setProductpromotion(productpromotionPlus.toString())
-        const totalPrice = totalprice - response.data.product_promotion;
-        setTotalprice(totalPrice.toString());
+        const ppfixed = response.data.product_promotion;
+        const pppercent = response.data.product_promotion_percent;
+        const valuepppercent = totalprice2 * pppercent / 100;
+        if (ppfixed <= valuepppercent) {
+            const productpromotionPlus = parseInt(productpromotion) + parseInt(ppfixed);
+            setProductpromotion(productpromotionPlus.toString());
+            const totalPrice = totalprice - ppfixed;
+            setTotalprice(totalPrice.toString());
+        } else {
+            const productpromotionPlus = parseInt(productpromotion) + parseInt(valuepppercent);
+            setProductpromotion(productpromotionPlus.toString());
+            const totalPrice = totalprice - valuepppercent;
+            setTotalprice(totalPrice.toString());
+        }
+        setAddProductpromotionid(value);
     }
     const countshippingpromotionDrop = async (value) => {
         const response = await Api.getPromotionShipping(value, token);
-        setShippingpromotion(response.data.shipping_promotion);
+        const shipfixed = response.data.shipping_promotion;
+        const shippercent = response.data.shipping_promotion_percent;
+        const valueshippercent = shippingprice * shippercent / 100;
+        if (shipfixed <= valueshippercent) {
+            const totalShipping = shippingprice - shipfixed;
+            setShippingpromotion(shipfixed.toString());
+            setTotalshipping(totalShipping.toString());
+        } else {
+            const totalShipping = totalshipping - valueshippercent;
+            setShippingpromotion(valueshippercent.toString());
+            setTotalshipping(totalShipping.toString());
+        }
+        // setShippingpromotion(response.data.shipping_promotion);
+        setShippingpromotionid(value);
     }
     const countaddshippingpromotionDrop = async (value) => {
         const response = await Api.getPromotionShipping(value, token);
-        const shippingpromotionPlus = parseInt(shippingpromotion) + parseInt(response.data.shipping_promotion);
-        setShippingpromotion(shippingpromotionPlus.toString());
+        //
+        const shipfixed = response.data.shipping_promotion;
+        const shippercent = response.data.shipping_promotion_percent;
+        const valueshippercent = shippingprice2 * shippercent / 100;
+        if (shipfixed <= valueshippercent) {
+            const shippingpromotionPlus = parseInt(shippingpromotion) + parseInt(shipfixed);
+            setShippingpromotion(shippingpromotionPlus.toString());
+            const totalShipping = totalshipping - shipfixed;
+            setTotalshipping(totalShipping.toString());
+        } else {
+            const shippingpromotionPlus = parseInt(shippingpromotion) + parseInt(valueshippercent);
+            setShippingpromotion(shippingpromotionPlus.toString());
+            const totalShipping = totalshipping - valueshippercent;
+            setTotalshipping(totalShipping.toString());
+        }
+        setAddShippingpromotionid(value);
+    }
+    const choosePayment = (value) => {
+        setPaymentMethod(value);
+        if (value === 'COD') {
+            if (courier === 'JNE REG') {
+                showMessage({
+                    message: "Courier not available for COD",
+                    type: "default",
+                    backgroundColor: colors._red,
+                    color: colors._white,
+                    icon: 'warning',
+                    duration: 3000,
+                });
+            }
+            if (courier === 'JNE OKE') {
+                showMessage({
+                    message: "Courier not available for COD",
+                    type: "default",
+                    backgroundColor: colors._red,
+                    color: colors._white,
+                    icon: 'warning',
+                    duration: 3000,
+                });
+            }
+            if (courier === 'Ninja') {
+                const admin = (parseInt(totalprice) + parseInt(totalshipping)) * 0.025;
+                const adminCost = Math.ceil(admin / 1000) * 1000;
+                setShippingadmin(adminCost.toString())
+                setShippingadmin2(adminCost.toString())
+            }
+            if (courier === 'Sicepat') {
+                const admin = (parseInt(totalprice) + parseInt(totalshipping)) * 0.030;
+                if (admin < 2000) {
+                   const adminCost = 2000;
+                   setShippingadmin(adminCost.toString())
+                   setShippingadmin2(adminCost.toString())
+                }
+                const adminCost = Math.ceil(admin / 1000) * 1000;
+                setShippingadmin(adminCost.toString())
+                setShippingadmin2(adminCost.toString())
+            }
+            if (courier === 'JNT') {
+                const admin = (parseInt(totalprice) + parseInt(totalshipping)) * 0.030;
+                if (admin < 5000) {
+                   const adminCost = 5000;
+                   setShippingadmin(adminCost.toString())
+                   setShippingadmin2(adminCost.toString())
+                }
+                const adminCost = Math.ceil(admin / 1000) * 1000;
+                setShippingadmin(adminCost.toString())
+                setShippingadmin2(adminCost.toString())
+            }
+        } else {
+            const shipadmin = 0;
+            setShippingadmin(shipadmin.toString())
+            setShippingadmin2(shipadmin.toString())
+        }
     }
     const countadminpromotionDrop = async (value) => {
         const response = await Api.getPromotionAdmin(value, token);
-        setPromotionadmin(response.data.admin_promotion);
+        //
+        const adminfixed = response.data.admin_promotion;
+        const adminpercent = response.data.admin_promotion_percent;
+        const valueadminpercent = shippingadmin * adminpercent / 100;
+        if (adminfixed <= valueadminpercent) {
+            const totalAdmin = shippingadmin - adminfixed;
+            setPromotionadmin(adminfixed.toString());
+            setTotaladmin(totalAdmin.toString());
+        } else {
+            const totalAdmin = shippingadmin - valueadminpercent;
+            setPromotionadmin(valueadminpercent.toString());
+            setTotaladmin(totalAdmin.toString());
+        }
+        //
+        setPromotionadminid(value);
     }
     const countaddadminpromotionDrop = async (value) => {
         const response = await Api.getPromotionAdmin(value, token);
-        const adminpromotionPlus = parseInt(promotionadmin) + parseInt(response.data.admin_promotion);
-        setPromotionadmin(adminpromotionPlus.toString());
+        const adminfixed = response.data.admin_promotion;
+        const adminpercent = response.data.admin_promotion_percent;
+        const valueadminpercent = shippingadmin2 * adminpercent / 100;
+        if (adminfixed <= valueadminpercent) {
+            const adminpromotionPlus = parseInt(promotionadmin) + parseInt(adminfixed);
+            setPromotionadmin(adminpromotionPlus.toString());
+            const totalAdmin = totaladmin - adminfixed;
+            setTotaladmin(totalAdmin.toString());
+            setGrandprice((parseInt(totalprice) + parseInt( totalshipping) + parseInt(totalAdmin)).toString())
+        } else {
+            const adminpromotionPlus = parseInt(promotionadmin) + parseInt(valueadminpercent);
+            setPromotionadmin(adminpromotionPlus.toString());
+            const totalAdmin = totaladmin - valueadminpercent;
+            setTotaladmin(totalAdmin.toString());
+            setGrandprice((parseInt(totalprice) + parseInt(totalshipping) + parseInt(totalAdmin)).toString())
+        }
+        setAddPromotionadminid(value);
     }
     const copyToClipboard = () => {
         Clipboard.setString(`Nama Pemesan: ${customername}\nAlamat: ${address}\nProvinsi: \nKota / Kabupaten: \nKecamatan: \nNo. Telp: ${contact}\nProduk yang dipesan: ${product}\nJumlah Pesanan: ${quantity}\nKurir: \nMetode: \nPromo Produk: \nPromo Ongkir: \nPromo Admin: \nTotal Pembayaran: ${grandprice}`);
@@ -314,6 +475,43 @@ const DetailLead = ({ route, navigation }) => {
             color: colors._white,
             icon: 'success',
         });
+    }
+    const onSaveEditLead = async () => {
+        try {
+            const data = {
+                _method: "PUT",
+                name: customername,
+                phone: contact,
+                address: address,
+                price: price,
+                weight: weight,
+                quantity: quantity,
+                product_promotion_id: productpromotionid,
+                add_product_promotion_id: addproductpromotionid,
+                total_price: totalprice,
+                warehouse: warehouse,
+                province_id: province,
+                city_id: city,
+                subdistrict_id: subdistrict,
+                courier: courier,
+                shipping_price: shippingprice,
+                shipping_promotion_id: shippingpromotionid,
+                add_shipping_promotion_id: addshippingpromotionid,
+                total_shipping: totalshipping,
+                shipping_admin: shippingadmin,
+                admin_promotion_id: promotionadminid,
+                add_admin_promotion_id: addpromotionadminid,
+                total_admin: totaladmin,
+                payment_method: paymentmethod,
+                total_payment: grandprice,
+                status_id: status,
+                image: photoDB,
+            }
+            const response = await Api.editLead(id, token, data);
+            navigation.replace('MyCSTabs')
+        } catch (error) {
+
+        }
     }
     useEffect(() => {
         getData();
@@ -348,6 +546,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={1}
                         placeholder=""
+                        onChangeValue={() => setStatus(value)}
                     />
                 </View>
                 <View style={styles.card}>
@@ -418,7 +617,7 @@ const DetailLead = ({ route, navigation }) => {
                 </View>
                 <View style={styles.card}>
                     <Text style={styles.inputLabel}>Weight (gram)</Text>
-                    <Input noPad placeholder="1000" value={weight} onChangeText={(value) => setWeight(value)} />
+                    <Input noPad placeholder="" value={weight} onChangeText={(value) => setWeight(value)} />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Warehouse</Text>
                     <DropDownPicker
@@ -436,7 +635,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
-                        onChangeValue={()=> setWarehouse(valueWarehouse)}
+                        onChangeValue={() => setWarehouse(valueWarehouse)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Destination Province</Text>
@@ -493,7 +692,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
-                        onChangeValue={()=> setSubdistrict(valueSubdistrict)}
+                        onChangeValue={() => setSubdistrict(valueSubdistrict)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Courier</Text>
@@ -569,6 +768,7 @@ const DetailLead = ({ route, navigation }) => {
                         showTickIcon={true}
                         zIndex={2}
                         placeholder=""
+                        onChangeValue={() => choosePayment(valuePayment)}
                     />
                     <Gap height={10} />
                     <Text style={styles.inputLabel}>Shipping Price</Text>
@@ -646,7 +846,7 @@ const DetailLead = ({ route, navigation }) => {
                             <Button text="Cancel" color={colors._white} colorText={colors._black} height={46} fontSize={14} onPress={() => navigation.goBack()} />
                         </View>
                         <View style={{ flex: 1 }}>
-                            <Button text="Save" color={colors._blue} colorText={colors._white} height={46} fontSize={14} />
+                            <Button text="Save" color={colors._blue} colorText={colors._white} height={46} fontSize={14} onPress={onSaveEditLead} />
                         </View>
                     </View>
                     <Gap height={20} />
