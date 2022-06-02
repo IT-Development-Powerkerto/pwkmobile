@@ -3,6 +3,7 @@ import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-na
 import Api from '../../Api'
 import { Button, Gap, HeaderPage, ListButtonMenu } from '../../components'
 import { colors, fonts, getData, removeUserDetail } from '../../utils'
+import { showMessage } from "react-native-flash-message";
 
 const MyProfile = ({ navigation }) => {
     const [role, setRole] = useState("")
@@ -38,6 +39,17 @@ const MyProfile = ({ navigation }) => {
             navigation.navigate('Promotion', params)
         })
     }
+    const gotoUnderCons = () => {
+        showMessage({
+            icon: 'warning',
+            message: "Features in construction",
+            type: "default",
+            backgroundColor: colors._red2,
+            color: colors._white,
+            animated: true,
+            duration: 3000,
+        });
+    }
     const getUser = async () => {
         getData('user').then(res => {
             setRole(res.role_id);
@@ -70,9 +82,9 @@ const MyProfile = ({ navigation }) => {
                 <Gap height={30} />
                 <View style={styles.menuBtn}>
                     {role === '5' && <ListButtonMenu type='promotion' teks='Promotion' onPress={gotoPromotion} />}
-                    <ListButtonMenu type='reimbursement' teks='Reimbursement' />
-                    <ListButtonMenu type='budgeting' teks='Budgeting Realization' onPress={()=> navigation.navigate('BudgetingRealization')}/>
-                    <ListButtonMenu type='evaluation' teks='Routine Evaluation' />
+                    {role === '5' && <ListButtonMenu type='reimbursement' teks='Reimbursement' onPress={gotoUnderCons}/>}
+                    <ListButtonMenu type='budgeting' teks='Budgeting Realization' onPress={gotoUnderCons}/>
+                    <ListButtonMenu type='evaluation' teks='Routine Evaluation' onPress={gotoUnderCons}/>
                 </View>
                 <View style={{ flex: 1 }} />
                 <View style={{ marginHorizontal: 24, marginBottom: 30 }}>

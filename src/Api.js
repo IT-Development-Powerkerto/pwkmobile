@@ -195,6 +195,16 @@ class Api {
             data
         })
     }
+    static editLead(id, token, data) {
+        let path = `leads/${id}`;
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            data
+        })
+    }
     static changePassword(token, data) {
         let path = 'change-password';
         return request(`${this.urlAPI()}${path}`, {

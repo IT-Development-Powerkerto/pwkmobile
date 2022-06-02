@@ -3,7 +3,7 @@ import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-nativ
 import { CardCampaign, Gap, HeaderPage } from '../../components'
 import { colors, fonts } from '../../utils'
 
-const Campaign = () => {
+const Campaign = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
@@ -14,7 +14,7 @@ const Campaign = () => {
                     <Text style={styles.teks}>Campaign</Text>
                     <Text style={styles.teks2}>10 Campaign</Text>
                 </View>
-                <TouchableOpacity >
+                <TouchableOpacity onPress={() => navigation.navigate('CreateCampaign')}>
                     <Text style={styles.teks3}>+ Create Campaign</Text>
                 </TouchableOpacity>
             </View>
