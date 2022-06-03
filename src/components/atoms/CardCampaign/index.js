@@ -4,15 +4,19 @@ import { IconDelete, IconEdit, IconOperator, LeadWhite } from '../../../assets'
 import { colors, fonts } from '../../../utils'
 import Gap from '../Gap'
 
-const CardCampaign = () => {
+const CardCampaign = ({ title, lead_count, operator_count, onEdit, onDelete }) => {
     return (
         <View style={styles.container}>
             <View style={styles.cardFlex}>
-                <Text style={styles.productName}>Rubeku</Text>
+                <Text style={styles.productName}>{title}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <IconEdit />
+                    <TouchableOpacity style={{width: 24, height: 24, justifyContent: 'center', alignItems: 'center'}} onPress={onEdit}>
+                        <IconEdit />
+                    </TouchableOpacity>
                     <Gap width={10} />
-                    <IconDelete />
+                    <TouchableOpacity style={{width: 24, height: 24, justifyContent: 'center', alignItems: 'center'}} onPress={onDelete}>
+                        <IconDelete />
+                    </TouchableOpacity>
                 </View>
             </View>
             <Gap height={20} />
@@ -24,7 +28,7 @@ const CardCampaign = () => {
                     <Gap width={12} />
                     <View>
                         <Text style={styles.label}>Leads</Text>
-                        <Text style={styles.value}>643</Text>
+                        <Text style={styles.value}>{lead_count}</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button}>
@@ -34,7 +38,7 @@ const CardCampaign = () => {
                     <Gap width={12} />
                     <View>
                         <Text style={styles.label}>Operators</Text>
-                        <Text style={styles.value}>643</Text>
+                        <Text style={styles.value}>{operator_count}</Text>
                     </View>
                 </TouchableOpacity>
             </View>

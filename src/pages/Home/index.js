@@ -126,26 +126,26 @@ const Home = ({ navigation }) => {
                             <Text style={styles.teks2}>Adv. Cost</Text>
                         </View>
                         <View style={styles.cardMenu}>
-                            <Text style={styles.teks}>{userLead.total_lead}</Text>
-                            <Text style={styles.teks2}>Total Leads</Text>
+                            <Text style={styles.teks}>{userLead.daily_lead}</Text>
+                            <Text style={styles.teks2}>Daily Leads</Text>
                         </View>
                         <View style={styles.cardMenu}>
-                            <Text style={styles.teks}>{userLead.total_closing}</Text>
-                            <Text style={styles.teks2}>Total Closing</Text>
+                            <Text style={styles.teks}>{userLead.daily_closing}</Text>
+                            <Text style={styles.teks2}>Daily Closing</Text>
                         </View>
                         <View style={styles.cardMenu}>
-                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks}>{userLead.total_box}</Text>
                             <Text style={styles.teks2}>Total Box</Text>
                         </View>
                     </View>
                     <Gap height={10} />
                     <View style={styles.mainCard}>
                         <View style={styles.cardMenu}>
-                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks}>{userLead.upselling}</Text>
                             <Text style={styles.teks2}>Upselling</Text>
                         </View>
                         <View style={styles.cardMenu}>
-                            <Text style={styles.teks}>00</Text>
+                            <Text style={styles.teks}>{userLead.closing_rate}</Text>
                             <Text style={styles.teks2}>Closing Rate</Text>
                         </View>
                         <View style={styles.cardMenu}>

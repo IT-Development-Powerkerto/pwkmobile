@@ -97,6 +97,16 @@ class Api {
             data
         })
     }
+    static editCampaign(id, token, data) {
+        let path = `campaigns/${id}`;
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            data
+        })
+    }
     static getProductType(token) {
         let path = 'product-list';
         return request(`${this.urlAPI()}${path}`, {
@@ -178,6 +188,24 @@ class Api {
             },
         })
     }
+    static getMyCampaign(token) {
+        let path = 'campaigns';
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
+    static deleteCampaign(id, token) {
+        let path = `campaigns/${id}`;
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    }
     static checkOngkir(data) {
         let path = 'ongkir';
         return request(`${this.urlAPI()}${path}`, {
@@ -207,6 +235,16 @@ class Api {
     }
     static changePassword(token, data) {
         let path = 'change-password';
+        return request(`${this.urlAPI()}${path}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            data
+        })
+    }
+    static createCampaign(token, data) {
+        let path = 'campaigns';
         return request(`${this.urlAPI()}${path}`, {
             method: 'POST',
             headers: {
