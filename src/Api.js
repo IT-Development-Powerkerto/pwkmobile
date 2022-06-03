@@ -1,7 +1,7 @@
 import request from './utils/request';
 class Api {
     static urlAPI() {
-        return "http://mobile.pwkbackoffice.com/api/"
+        return "https://mobile.pwkbackoffice.com/api/"
     }
     static login(username, password) {
         let path = 'login';
