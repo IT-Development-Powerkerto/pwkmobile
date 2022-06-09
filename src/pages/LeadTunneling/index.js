@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Modal, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Appearance } from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import Api from '../../Api'
 import { Button, Gap, HeaderPage, ListLead } from '../../components'
 import { colors, fonts, getData } from '../../utils'
 
 const LeadTunneling = ({ navigation }) => {
+    const [theme, setTheme] = useState(Appearance.getColorScheme());
+    Appearance.addChangeListener((scheme) => {
+        setTheme(scheme.colorScheme);
+    })
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false)
     const [textDate, setTextDate] = useState('Choose date');
@@ -79,7 +83,7 @@ const LeadTunneling = ({ navigation }) => {
                     modal
                     open={open}
                     date={date}
-                    textColor={colors._white}
+                    textColor={theme === 'dark'? colors._white : colors._black}
                     mode="date"
                     onConfirm={(date) => {
                         setOpen(false)

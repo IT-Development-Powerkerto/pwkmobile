@@ -46,8 +46,6 @@ import Union from "./Icon/Union.svg";
 import Cover from "./img/Cover.png";
 import Intersect from "./img/Intersect.png";
 import Powerkerto from "./img/Powerkerto.png";
-import Banyumax from "./img/Banyumax.png";
-import BanyumaxWhite from "./img/BanyumaxWhite.png";
 import Profile from "./img/Profile.png";
 import IconQuestion from "./Icon/IconQuestion.svg";
 import Campaign from "./Icon/Campaign.svg";
@@ -116,7 +114,5 @@ export {
     CampaignWhite,
     BudgetingWhite,
     IconOperator,
-    Banyumax,
-    BanyumaxWhite
 };
 

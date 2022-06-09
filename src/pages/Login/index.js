@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Image, ImageBackground, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { showMessage } from "react-native-flash-message";
 import Api from "../../Api";
-import { BanyumaxWhite, Cover } from "../../assets";
+import { Powerkerto, Cover } from "../../assets";
 import { Gap, Input } from "../../components";
 import { colors, fonts, storeData } from "../../utils";
 
@@ -67,8 +67,7 @@ const Login = ({ navigation }) => {
             <View style={{ flex: 1 }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{ flex: 2 }}>
-                        {/* <Image source={Powerkerto} style={{ alignSelf: "center", marginTop: '20%' }} /> */}
-                        <Image source={BanyumaxWhite} style={{ alignSelf: "center", marginTop: '20%' }} />
+                        <Image source={Powerkerto} style={{ alignSelf: "center", marginTop: '20%' }} />
                         <Gap height={40} />
                         <Text style={{ color: colors._white, fontFamily: fonts.primary[700], fontSize: 24 }}>Sign In</Text>
                         <Text style={{ color: colors._white, fontFamily: fonts.primary[400], fontSize: 12 }}>Enter your username and password</Text>

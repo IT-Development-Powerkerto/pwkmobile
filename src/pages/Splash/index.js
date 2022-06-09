@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Image, StatusBar, StyleSheet, Text, View } from 'react-native'
-import { Banyumax } from '../../assets'
+import { Powerkerto } from '../../assets'
 import { colors, fonts, getData } from '../../utils'
 
 const Splash = ({ navigation }) => {
@@ -26,8 +26,7 @@ const Splash = ({ navigation }) => {
         <View style={styles.container}>
             <StatusBar barStyle="default" hidden={false} backgroundColor={colors._blue} translucent={false} />
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                {/* <Image source={Powerkerto} style={{ marginTop: '20%' }} /> */}
-                <Image source={Banyumax} style={{ marginTop: '20%' }} />
+                <Image source={Powerkerto} style={{ marginTop: '20%' }} />
             </View>
             <Text style={styles.powered}>Powered By</Text>
             <Text style={styles.ptname}>Powerkerto</Text>
